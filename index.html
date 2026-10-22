@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSAT SEHENTI MAKLUMAT BENGKEL PEMBANGUNAN KAPASITI STAF IAB @ CoE TAHUN 2026</title>
+    <title>JADUAL BENGKEL PEMBANGUNAN KAPASITI STAF IAB @ CoE TAHUN 2026</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -490,12 +490,25 @@
                             <!-- Dijana melalui Javascript -->
                         </div>
 
-                        <!-- Ruangan Komen Terbuka -->
-                        <div class="bg-white p-5 rounded-2xl border border-sky-100 shadow-sm space-y-2">
-                            <label for="peserta-komen" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                                Cadangan Penambahbaikan dan Ulasan Umum
-                            </label>
-                            <textarea id="peserta-komen" rows="3" placeholder="Sila nyatakan pandangan atau cadangan anda untuk penambahbaikan..." class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white"></textarea>
+                        <!-- Ruangan Komen Terbuka: 2 Bahagian Berasingan -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Bahagian 1: Maklum Balas Positif -->
+                            <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm space-y-2">
+                                <label for="peserta-positif" class="block text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-thumbs-up text-emerald-600"></i> Maklum Balas Positif
+                                </label>
+                                <p class="text-xs text-slate-500">Nyatakan perkara baik, kekuatan slot atau impak positif yang anda rasai.</p>
+                                <textarea id="peserta-positif" rows="3" placeholder="Contoh: Pengisian ceramah sangat memberi inspirasi dan berimpak tinggi..." class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"></textarea>
+                            </div>
+
+                            <!-- Bahagian 2: Cadangan Penambahbaikan -->
+                            <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm space-y-2">
+                                <label for="peserta-cadangan" class="block text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-lightbulb text-amber-600"></i> Cadangan Penambahbaikan
+                                </label>
+                                <p class="text-xs text-slate-500">Nyatakan sebarang cadangan untuk penambahbaikan modul atau penganjuran masa hadapan.</p>
+                                <textarea id="peserta-cadangan" rows="3" placeholder="Contoh: Boleh tambahkan tempoh masa bagi sesi perbincangan interaktif..." class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white"></textarea>
+                            </div>
                         </div>
 
                         <!-- Mesej Amaran Soalan Tertinggal -->
@@ -558,7 +571,7 @@
                             <i class="fa-solid fa-users text-sky-600"></i> Bilangan Penilai Mengikut Slot
                         </h4>
                         <span id="stat-total-peserta-unik" class="text-xs font-bold text-sky-700 bg-sky-100 px-3 py-1 rounded-full">
-                            Jumlah Penilai Unik: 0 orang
+                            Bilangan Responden: 0 orang
                         </span>
                     </div>
 
@@ -598,17 +611,32 @@
                     </div>
                 </div>
 
-                <!-- Paparan Ulasan dan Maklum Balas Kualitatif Terkini -->
-                <div class="bg-sky-50/30 p-6 rounded-2xl border border-sky-100 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h4 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                            <i class="fa-solid fa-comments text-sky-600"></i> Ulasan Kualitatif dan Cadangan Terkini
-                        </h4>
-                        <span class="text-xs text-slate-400">Masa nyata</span>
+                <!-- Paparan Kualitatif: 2 Paparan Berasingan Tanpa Nama/Emel -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Paparan 1: Maklum Balas Positif -->
+                    <div class="bg-emerald-50/40 p-6 rounded-2xl border border-emerald-100 space-y-4">
+                        <div class="flex items-center justify-between border-b border-emerald-100 pb-3">
+                            <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-600"></i> Maklum Balas Positif
+                            </h4>
+                            <span id="count-maklumbalas-positif" class="text-[11px] font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">0 ulasan</span>
+                        </div>
+                        <div id="live-positif-container" class="space-y-3 max-h-72 overflow-y-auto pr-1">
+                            <!-- Komen Positif Dinamik (Tanpa Emel/Nama) -->
+                        </div>
                     </div>
 
-                    <div id="live-comments-container" class="space-y-3 max-h-72 overflow-y-auto pr-1">
-                        <!-- Ulasan dinamik -->
+                    <!-- Paparan 2: Cadangan Penambahbaikan -->
+                    <div class="bg-amber-50/40 p-6 rounded-2xl border border-amber-100 space-y-4">
+                        <div class="flex items-center justify-between border-b border-amber-100 pb-3">
+                            <h4 class="font-bold text-amber-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-600"></i> Cadangan Penambahbaikan
+                            </h4>
+                            <span id="count-cadangan-penambahbaikan" class="text-[11px] font-semibold text-amber-700 bg-amber-100 px-2.5 py-0.5 rounded-full">0 cadangan</span>
+                        </div>
+                        <div id="live-cadangan-container" class="space-y-3 max-h-72 overflow-y-auto pr-1">
+                            <!-- Cadangan Dinamik (Tanpa Emel/Nama) -->
+                        </div>
                     </div>
                 </div>
 
@@ -1113,7 +1141,12 @@
                         "q_f2_k3_1": 5, "q_f2_k3_2": 4 + (idx % 2),
                         "q_f2_p3_1": 5
                     },
-                    komen: idx === 0 ? "Sesi ceramah kendiri sangat menyentuh hati dan membuka minda." : (idx === 1 ? "Aktiviti suai kenal berjaya merapatkan kami antara cawangan." : "")
+                    maklumbalasPositif: idx === 0 
+                        ? "Sesi ceramah kendiri sangat menyentuh hati, membakar semangat dan membuka minda kami." 
+                        : (idx === 1 ? "Aktiviti suai kenal amat berjaya merapatkan hubungan dan ukhuwah antara staf cawangan dan induk." : (idx === 2 ? "Pengisian Hadith 40 pada sesi subuh memberi ketenangan sebelum memulakan sesi harian." : "")),
+                    cadanganPenambahbaikan: idx === 0 
+                        ? "Masa bagi sesi perkongsian kendiri boleh dipanjangkan sedikit pada siri akan datang." 
+                        : (idx === 2 ? "Boleh sediakan salinan ringkas hadith secara digital untuk rujukan berterusan." : "")
                 });
 
                 if (idx < 5) {
@@ -1127,7 +1160,8 @@
                             "q_f3_k3_1": 5, "q_f3_k3_2": 5,
                             "q_f3_p3_1": 4
                         },
-                        komen: "Malam budaya sangat meriah dan menyatukan staf berbilang kaum."
+                        maklumbalasPositif: "Malam Budaya sangat meriah, menyatukan staf berbilang kaum dan menyerlahkan bakat terpendam warga IAB.",
+                        cadanganPenambahbaikan: "Aktiviti padang boleh dimulakan sedikit awal pagi sebelum cuaca panas."
                     });
                 }
             });
@@ -1458,18 +1492,20 @@
             const formData = new FormData(e.target);
             const ratings = {};
             for (let [key, value] of formData.entries()) {
-                if (key !== 'peserta-komen') {
+                if (key !== 'peserta-positif' && key !== 'peserta-cadangan' && key !== 'peserta-komen') {
                     ratings[key] = parseInt(value, 10);
                 }
             }
 
-            const komen = document.getElementById('peserta-komen').value.trim();
+            const maklumbalasPositif = document.getElementById('peserta-positif').value.trim();
+            const cadanganPenambahbaikan = document.getElementById('peserta-cadangan').value.trim();
 
             const newRecord = {
                 email: email,
                 fasa: fasaSemasa,
                 ratings: ratings,
-                komen: komen,
+                maklumbalasPositif: maklumbalasPositif,
+                cadanganPenambahbaikan: cadanganPenambahbaikan,
                 timestamp: new Date().toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' })
             };
 
@@ -1496,9 +1532,9 @@
         }
 
         function kemaskiniPaparanAnalisis() {
-            // Kira peserta unik
+            // Kira bilangan responden (peserta unik)
             const uniqueEmails = new Set(submissionsDB.map(s => s.email.toLowerCase()));
-            document.getElementById('stat-total-peserta-unik').textContent = `Jumlah Penilai Unik: ${uniqueEmails.size} orang`;
+            document.getElementById('stat-total-peserta-unik').textContent = `Bilangan Responden: ${uniqueEmails.size} orang`;
 
             // Senarai slot penilaian dan kod soalan pengecam
             const slotList = [
@@ -1574,24 +1610,50 @@
                 </div>
             `;
 
-            const commentsContainer = document.getElementById('live-comments-container');
-            commentsContainer.innerHTML = '';
+            // Paparan 1: Maklum Balas Positif (Tanpa Emel/Nama)
+            const positifContainer = document.getElementById('live-positif-container');
+            positifContainer.innerHTML = '';
+            const senaraiPositif = submissionsDB.filter(s => (s.maklumbalasPositif && s.maklumbalasPositif.trim().length > 0) || (s.komen && s.komen.trim().length > 0));
+            document.getElementById('count-maklumbalas-positif').textContent = `${senaraiPositif.length} ulasan`;
 
-            const validComments = submissionsDB.filter(s => s.komen && s.komen.length > 0);
-            if (validComments.length === 0) {
-                commentsContainer.innerHTML = '<p class="text-xs text-slate-400 italic text-center py-4">Belum ada ulasan bertulis yang dimasukkan.</p>';
+            if (senaraiPositif.length === 0) {
+                positifContainer.innerHTML = '<p class="text-xs text-slate-400 italic text-center py-4">Belum ada maklum balas positif yang direkodkan.</p>';
             } else {
-                validComments.slice().reverse().forEach(item => {
-                    const cCard = document.createElement('div');
-                    cCard.className = "bg-white p-3 rounded-xl border border-sky-100 text-xs text-slate-700 space-y-1 shadow-2xs";
-                    cCard.innerHTML = `
+                senaraiPositif.slice().reverse().forEach(item => {
+                    const teks = item.maklumbalasPositif || item.komen;
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-3.5 rounded-xl border border-emerald-100 text-xs text-slate-700 space-y-1.5 shadow-2xs";
+                    card.innerHTML = `
                         <div class="flex items-center justify-between text-[11px] text-slate-400">
-                            <span class="font-semibold text-sky-700">${item.email} (${item.fasa === 2 ? 'Hari 2' : (item.fasa === 3 ? 'Hari 3' : 'Hari 4')})</span>
+                            <span class="font-semibold text-emerald-700"><i class="fa-solid fa-calendar-day text-[10px] mr-1"></i>${item.fasa === 2 ? 'Hari 2 (Selasa)' : (item.fasa === 3 ? 'Hari 3 (Rabu)' : 'Hari 4 (Khamis)')}</span>
                             <span>${item.timestamp || 'Baru sahaja'}</span>
                         </div>
-                        <p class="text-slate-800">"${item.komen}"</p>
+                        <p class="text-slate-800 leading-relaxed font-normal">"${teks}"</p>
                     `;
-                    commentsContainer.appendChild(cCard);
+                    positifContainer.appendChild(card);
+                });
+            }
+
+            // Paparan 2: Cadangan Penambahbaikan (Tanpa Emel/Nama)
+            const cadanganContainer = document.getElementById('live-cadangan-container');
+            cadanganContainer.innerHTML = '';
+            const senaraiCadangan = submissionsDB.filter(s => s.cadanganPenambahbaikan && s.cadanganPenambahbaikan.trim().length > 0);
+            document.getElementById('count-cadangan-penambahbaikan').textContent = `${senaraiCadangan.length} cadangan`;
+
+            if (senaraiCadangan.length === 0) {
+                cadanganContainer.innerHTML = '<p class="text-xs text-slate-400 italic text-center py-4">Belum ada cadangan penambahbaikan yang direkodkan.</p>';
+            } else {
+                senaraiCadangan.slice().reverse().forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-3.5 rounded-xl border border-amber-100 text-xs text-slate-700 space-y-1.5 shadow-2xs";
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between text-[11px] text-slate-400">
+                            <span class="font-semibold text-amber-700"><i class="fa-solid fa-calendar-day text-[10px] mr-1"></i>${item.fasa === 2 ? 'Hari 2 (Selasa)' : (item.fasa === 3 ? 'Hari 3 (Rabu)' : 'Hari 4 (Khamis)')}</span>
+                            <span>${item.timestamp || 'Baru sahaja'}</span>
+                        </div>
+                        <p class="text-slate-800 leading-relaxed font-normal">"${item.cadanganPenambahbaikan}"</p>
+                    `;
+                    cadanganContainer.appendChild(card);
                 });
             }
         }
@@ -1601,11 +1663,12 @@
                 return;
             }
 
-            let csvContent = "data:text/csv;charset=utf-8,Emel,Fasa,Soalan,Skor,Ulasan\n";
+            let csvContent = "data:text/csv;charset=utf-8,Emel,Fasa,Soalan,Skor,Maklum Balas Positif,Cadangan Penambahbaikan\n";
             submissionsDB.forEach(row => {
                 for (let [qKey, score] of Object.entries(row.ratings)) {
-                    const cleanKomen = (row.komen || '').replace(/"/g, '""');
-                    csvContent += `"${row.email}","Fasa ${row.fasa}","${qKey}",${score},"${cleanKomen}"\n`;
+                    const cleanPositif = (row.maklumbalasPositif || row.komen || '').replace(/"/g, '""');
+                    const cleanCadangan = (row.cadanganPenambahbaikan || '').replace(/"/g, '""');
+                    csvContent += `"${row.email}","Fasa ${row.fasa}","${qKey}",${score},"${cleanPositif}","${cleanCadangan}"\n`;
                 }
             });
 
