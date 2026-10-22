@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> PUSAT SEHENTI MAKLUMAT BENGKEL PEMBANGUNAN KAPASITI STAF IAB @ CoE TAHUN 2026</title>
+    <title>PUSAT SEHENTI MAKLUMAT BENGKEL PEMBANGUNAN KAPASITI STAF IAB @ CoE TAHUN 2026</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -38,6 +38,25 @@
             color: white;
             border-color: #0284c7;
             box-shadow: 0 2px 4px rgba(2, 132, 199, 0.3);
+        }
+
+        /* Animasi Berkelip Merah untuk Soalan yang Belum Dijawab */
+        @keyframes pulseBlinkRed {
+            0%, 100% {
+                background-color: #fff1f2;
+                border-color: #f43f5e;
+                box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.25);
+            }
+            50% {
+                background-color: #ffffff;
+                border-color: #fb7185;
+                box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.1);
+            }
+        }
+        .question-unanswered-blink {
+            animation: pulseBlinkRed 1s infinite ease-in-out !important;
+            border-width: 2px !important;
+            border-style: solid !important;
         }
     </style>
 </head>
@@ -328,7 +347,7 @@
                             <li>Nyanyian Lagu IAB</li>
                             <li>Bacaan Doa</li>
                             <li>Ucapan Alu-aluan</li>
-                            <li>Ucapan Perasmian Pembukaan</li>
+                            <li>Majlis Perasmian Pembukaan</li>
                             <li>Sesi Bergambar</li>
                             <li>Bersurai</li>
                         </ul>
@@ -359,7 +378,7 @@
                             <li>Nyanyian Lagu IAB</li>
                             <li>Bacaan Doa</li>
                             <li>Ucapan Alu-aluan</li>
-                            <li>Ucapan Perasmian Penutupan</li>
+                            <li>Majlis Perasmian Penutupan</li>
                             <li>Sesi Bergambar</li>
                             <li>Bersurai</li>
                         </ul>
@@ -420,7 +439,7 @@
                             <div>
                                 <span class="text-[10px] font-bold text-sky-700 uppercase tracking-wider block mb-1">Fasa 1</span>
                                 <h4 class="font-bold text-slate-800 text-sm">Hari 2: Selasa</h4>
-                                <p class="text-xs text-slate-500 mt-1">Suai Kenal dan Ceramah "I Love Myself"</p>
+                                <p class="text-xs text-slate-500 mt-1">Kuliah Subuh, Suai Kenal, dan Ceramah Kendiri</p>
                             </div>
                             <span class="text-xs font-semibold text-sky-700 mt-3 flex items-center gap-1">
                                 <i class="fa-solid fa-pen-to-square"></i> Isi Penilaian
@@ -477,6 +496,12 @@
                                 Cadangan Penambahbaikan dan Ulasan Umum
                             </label>
                             <textarea id="peserta-komen" rows="3" placeholder="Sila nyatakan pandangan atau cadangan anda untuk penambahbaikan..." class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white"></textarea>
+                        </div>
+
+                        <!-- Mesej Amaran Soalan Tertinggal -->
+                        <div id="unanswered-warning-box" class="hidden bg-rose-50 border border-rose-300 text-rose-800 p-4 rounded-xl text-xs flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-rose-500 text-base shrink-0"></i>
+                            <span id="unanswered-warning-text">Terdapat soalan yang belum dijawab. Sila lengkapkan soalan yang bertanda kelipan merah sebelum menghantar.</span>
                         </div>
 
                         <!-- Butang Hantar -->
@@ -641,7 +666,6 @@
 
     <!-- SKRIP JAVASCRIPT LENGKAP -->
     <script>
-        // DATA JADUAL BERDASARKAN DOKUMEN RASMI
         const scheduleData = {
             1: {
                 title: "Hari 1: Isnin (2 November 2026)",
@@ -723,8 +747,8 @@
                             "• Nyanyian Lagu Negaraku",
                             "• Nyanyian Lagu IAB",
                             "• Bacaan Doa",
-                            "• Ucapan Alu-aluan KP PDI",
-                            "• Ucapan Perasmian Pembukaan (TPP)",
+                            "• Ucapan Alu-aluan",
+                            "• Majlis Perasmian Pembukaan",
                             "• Sesi Bergambar",
                             "• Bersurai"
                         ] 
@@ -906,7 +930,7 @@
                             "• Nyanyian Lagu IAB",
                             "• Bacaan Doa",
                             "• Ucapan Alu-aluan",
-                            "• Ucapan Perasmian Penutupan oleh Pengarah",
+                            "• Majlis Perasmian Penutupan",
                             "• Sesi Bergambar",
                             "• Bersurai"
                         ] 
@@ -926,7 +950,6 @@
             }
         };
 
-        // SOALAN MAKLUM BALAS MENGIKUT FASA
         const feedbackQuestions = {
             2: {
                 title: "Penilaian Fasa 1: Hari 2 (Selasa)",
@@ -1045,9 +1068,9 @@
             }
         };
 
-        // PANGKALAN DATA SETEMPAT (LOCAL STORAGE)
         let submissionsDB = [];
         let fasaSemasa = 2;
+        let slotAktifIdx = 0;
 
         function muatDataSimpanan() {
             try {
@@ -1115,8 +1138,10 @@
             document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
             document.querySelectorAll('.section-tab').forEach(tab => tab.classList.remove('active'));
             
-            document.getElementById(`section-${sectionName}`).classList.remove('hidden');
-            document.getElementById(`sec-tab-${sectionName}`).classList.add('active');
+            const targetSec = document.getElementById(`section-${sectionName}`);
+            const targetTab = document.getElementById(`sec-tab-${sectionName}`);
+            if (targetSec) targetSec.classList.remove('hidden');
+            if (targetTab) targetTab.classList.add('active');
 
             if (sectionName === 'analisis') {
                 kemaskiniPaparanAnalisis();
@@ -1126,6 +1151,7 @@
         function filterDay(dayNumber) {
             for (let i = 1; i <= 4; i++) {
                 const btn = document.getElementById(`day-btn-${i}`);
+                if (!btn) continue;
                 if (i === dayNumber) {
                     btn.className = "tab-btn active px-5 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 border border-sky-200";
                 } else {
@@ -1134,6 +1160,8 @@
             }
 
             const currentData = scheduleData[dayNumber];
+            if (!currentData) return;
+
             document.getElementById('day-title').textContent = currentData.title;
             document.getElementById('day-subtitle').textContent = currentData.subtitle;
 
@@ -1177,6 +1205,7 @@
             fasaSemasa = fasaNum;
             for (let i = 2; i <= 4; i++) {
                 const btn = document.getElementById(`fasa-btn-${i}`);
+                if (!btn) continue;
                 if (i === fasaNum) {
                     btn.className = "fasa-btn p-4 rounded-2xl border-2 border-sky-500 bg-sky-50/50 text-left transition flex flex-col justify-between shadow-sm";
                 } else {
@@ -1186,8 +1215,6 @@
             janaSoalanBorang(fasaNum);
             semakStatusEmelSemasa();
         }
-
-        let slotAktifIdx = 0;
 
         function tukarSubSlot(idx) {
             slotAktifIdx = idx;
@@ -1207,13 +1234,25 @@
             });
         }
 
+        function buangKelipanSoalan(qId) {
+            const card = document.getElementById(`card_${qId}`);
+            if (card) {
+                card.classList.remove('question-unanswered-blink');
+            }
+            const warningBox = document.getElementById('unanswered-warning-box');
+            if (warningBox && !document.querySelector('.question-unanswered-blink')) {
+                warningBox.classList.add('hidden');
+            }
+        }
+
         function janaSoalanBorang(fasaNum) {
             const dataFasa = feedbackQuestions[fasaNum];
             const container = document.getElementById('soalan-container');
+            if (!container || !dataFasa) return;
             container.innerHTML = '';
             slotAktifIdx = 0;
 
-            // Navigasi Pil Pilihan Slot
+            // Navigasi Pilihan Sub-Slot
             const slotNav = document.createElement('div');
             slotNav.className = "bg-white p-3 rounded-2xl border border-sky-100 shadow-sm space-y-2";
             slotNav.innerHTML = `
@@ -1250,18 +1289,18 @@
                     </div>
                 `;
 
-                // Isi Kandungan Slot
+                // Bahagian Isi Kandungan Slot
                 html += `<div class="space-y-3"><span class="text-xs font-bold text-sky-900 block flex items-center gap-1.5"><i class="fa-solid fa-book-open text-sky-600"></i> Isi Kandungan Slot (${sec.domainKandungan.length} Item)</span>`;
                 sec.domainKandungan.forEach((q, qIndex) => {
                     html += `
-                        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 space-y-2">
+                        <div id="card_${q.id}" class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 space-y-2 transition-all">
                             <p class="text-xs text-slate-700 leading-relaxed font-medium"><span class="font-bold text-sky-700 mr-1">${qIndex + 1}.</span>${q.text}</p>
                             <div class="flex items-center justify-between gap-1 max-w-sm pt-1">
                                 <span class="text-[10px] text-slate-400">Sangat Tidak Setuju</span>
                                 <div class="flex items-center gap-1.5">
                                     ${[1, 2, 3, 4, 5].map(val => `
                                         <div class="relative">
-                                            <input type="radio" id="${q.id}_${val}" name="${q.id}" value="${val}" required class="sr-only likert-radio">
+                                            <input type="radio" id="${q.id}_${val}" name="${q.id}" value="${val}" onchange="buangKelipanSoalan('${q.id}')" class="sr-only likert-radio">
                                             <label for="${q.id}_${val}" class="w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-sky-50 flex items-center justify-center text-xs font-bold text-slate-700 cursor-pointer transition">
                                                 ${val}
                                             </label>
@@ -1275,36 +1314,87 @@
                 });
                 html += `</div>`;
 
-                // Penceramah dan Fasilitator
+                // Bahagian Penceramah dan Fasilitator
                 html += `<div class="space-y-3 pt-3"><span class="text-xs font-bold text-amber-900 block flex items-center gap-1.5"><i class="fa-solid fa-chalkboard-user text-amber-600"></i> Penceramah dan Fasilitator (${sec.domainPenceramah.length} Item)</span>`;
                 sec.domainPenceramah.forEach((q, pIndex) => {
                     html += `
-                        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 space-y-2">
+                        <div id="card_${q.id}" class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 space-y-2 transition-all">
                             <p class="text-xs text-slate-700 leading-relaxed font-medium"><span class="font-bold text-amber-700 mr-1">${sec.domainKandungan.length + pIndex + 1}.</span>${q.text}</p>
                             <div class="flex items-center justify-between gap-1 max-w-sm pt-1">
                                 <span class="text-[10px] text-slate-400">Sangat Tidak Setuju</span>
                                 <div class="flex items-center gap-1.5">
                                     ${[1, 2, 3, 4, 5].map(val => `
                                         <div class="relative">
-                                            <input type="radio" id="${q.id}_${val}" name="${q.id}" value="${val}" required class="sr-only likert-radio">
+                                            <input type="radio" id="${q.id}_${val}" name="${q.id}" value="${val}" onchange="buangKelipanSoalan('${q.id}')" class="sr-only likert-radio">
                                             <label for="${q.id}_${val}" class="w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-sky-50 flex items-center justify-center text-xs font-bold text-slate-700 cursor-pointer transition">
                                                 ${val}
                                             </label>
                                         </div>
                                     `).join('')}
-        function buangKelipanSoalan(qId) {
-            const card = document.getElementById(`card_${qId}`);
-            if (card) {
-                card.classList.remove('question-unanswered-blink');
+                                </div>
+                                <span class="text-[10px] text-slate-400">Sangat Setuju</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+
+                // Butang Navigasi Slot Seterusnya / Sebelumnya
+                html += `
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        ${sIdx > 0 ? `
+                            <button type="button" onclick="tukarSubSlot(${sIdx - 1})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition flex items-center gap-1">
+                                <i class="fa-solid fa-chevron-left"></i> Slot Sebelumnya
+                            </button>
+                        ` : `<div></div>`}
+                        ${sIdx < dataFasa.sections.length - 1 ? `
+                            <button type="button" onclick="tukarSubSlot(${sIdx + 1})" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl text-xs transition flex items-center gap-1">
+                                Slot Seterusnya <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        ` : `
+                            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1">
+                                <i class="fa-solid fa-check-circle"></i> Slot Terakhir Fasa Ini
+                            </span>
+                        `}
+                    </div>
+                `;
+
+                block.innerHTML = html;
+                container.appendChild(block);
+            });
+        }
+
+        function semakStatusEmelSemasa() {
+            const emailInput = document.getElementById('peserta-email');
+            if (!emailInput) return;
+            const email = emailInput.value.trim().toLowerCase();
+            const msgBox = document.getElementById('email-status-message');
+            const submitBtn = document.getElementById('btn-submit-maklumbalas');
+
+            if (!email || !email.includes('@')) {
+                msgBox.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                return;
             }
-            const warningBox = document.getElementById('unanswered-warning-box');
-            if (warningBox && !document.querySelector('.question-unanswered-blink')) {
-                warningBox.classList.add('hidden');
+
+            const dahJawab = submissionsDB.some(sub => sub.email.toLowerCase() === email && sub.fasa === fasaSemasa);
+            if (dahJawab) {
+                msgBox.textContent = `Peringatan: Emel ${email} telah merekodkan penilaian bagi ${fasaSemasa === 2 ? 'Hari 2' : (fasaSemasa === 3 ? 'Hari 3' : 'Hari 4')}. Setiap peserta hanya boleh membuat penilaian sekali sahaja.`;
+                msgBox.className = "text-xs text-rose-600 font-semibold pt-1 block";
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                msgBox.textContent = `Emel sah. Anda belum menghantar penilaian bagi fasa ini.`;
+                msgBox.className = "text-xs text-emerald-600 font-semibold pt-1 block";
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         }
 
         function hantarMaklumBalas(e) {
             e.preventDefault();
+            const emailInput = document.getElementById('peserta-email');
             const email = emailInput.value.trim().toLowerCase();
 
             // 1. Semakan Emel
@@ -1399,6 +1489,7 @@
             document.getElementById('borang-maklumbalas').classList.remove('hidden');
             document.getElementById('form-success-box').classList.add('hidden');
             document.getElementById('email-status-message').classList.add('hidden');
+            document.getElementById('unanswered-warning-box').classList.add('hidden');
             document.getElementById('btn-submit-maklumbalas').disabled = false;
             document.getElementById('btn-submit-maklumbalas').classList.remove('opacity-50', 'cursor-not-allowed');
             pilihFasa(fasaSemasa);
@@ -1565,15 +1656,28 @@
             muatDataSimpanan();
             kemaskiniPaparanAnalisis();
 
+            // Pasang pendengar peristiwa untuk semakan emel interaktif
+            const emailInput = document.getElementById('peserta-email');
+            if (emailInput) {
+                emailInput.addEventListener('input', semakStatusEmelSemasa);
+            }
+
             // QR Code Pendaftaran Kehadiran Insyst
-            new QRCode(document.getElementById("insyst-qr-code"), {
-                text: "https://sistem.iab.edu.my/insyst/modul-qrcode/daftar_peserta.php?id=51281",
-                width: 180,
-                height: 180,
-                colorDark : "#0284c7",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
+            try {
+                const qrContainer = document.getElementById("insyst-qr-code");
+                if (qrContainer && typeof QRCode !== 'undefined') {
+                    new QRCode(qrContainer, {
+                        text: "https://sistem.iab.edu.my/insyst/modul-qrcode/daftar_peserta.php?id=51281",
+                        width: 180,
+                        height: 180,
+                        colorDark : "#0284c7",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                }
+            } catch (err) {
+                console.error("Gagal menjana QR kod Insyst:", err);
+            }
         });
     </script>
 </body>
