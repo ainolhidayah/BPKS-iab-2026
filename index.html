@@ -23,11 +23,17 @@
             color: #ffffff;
             box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.25), 0 2px 4px -1px rgba(2, 132, 199, 0.15);
         }
+        .section-tab {
+            border: 1.5px solid #475569 !important; /* Bingkai keliling gelap jelas */
+        }
+        .section-tab:hover {
+            border-color: #1e293b !important;
+        }
         .section-tab.active {
             background-color: #0284c7;
             color: #ffffff;
             font-weight: 700;
-            border-color: #0284c7;
+            border-color: #0369a1 !important;
             box-shadow: 0 4px 10px -2px rgba(2, 132, 199, 0.35);
         }
         .section-tab.active i {
@@ -116,27 +122,27 @@
     <!-- KANDUNGAN UTAMA -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-8">
 
-        <!-- NAVIGASI SEKSYEN KAD GRID (BARISAN PERTAMA) -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 mb-5 bg-sky-100/70 p-2.5 rounded-2xl border border-sky-200 shadow-sm">
-            <button onclick="switchSection('jadual')" id="sec-tab-jadual" class="section-tab active px-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-sky-50 border border-slate-200/80 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-2xs">
+        <!-- NAVIGASI SEKSYEN KAD GRID (BARISAN PERTAMA DENGAN FRAME GELAP) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2.5 mb-5 bg-sky-100/70 p-3 rounded-2xl border-2 border-slate-400 shadow-sm">
+            <button onclick="switchSection('jadual')" id="sec-tab-jadual" class="section-tab active px-3 py-2.5 font-semibold text-slate-800 bg-white hover:bg-sky-50 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-sm">
                 <i class="fa-solid fa-calendar-check text-sky-600 text-sm"></i> <span>Jadual Harian</span>
             </button>
-            <button onclick="switchSection('kehadiran')" id="sec-tab-kehadiran" class="section-tab px-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-sky-50 border border-slate-200/80 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-2xs">
+            <button onclick="switchSection('kehadiran')" id="sec-tab-kehadiran" class="section-tab px-3 py-2.5 font-semibold text-slate-800 bg-white hover:bg-sky-50 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-sm">
                 <i class="fa-solid fa-qrcode text-sky-600 text-sm"></i> <span>Kehadiran Insyst</span>
             </button>
-            <button onclick="switchSection('kuliah')" id="sec-tab-kuliah" class="section-tab px-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-sky-50 border border-slate-200/80 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-2xs">
+            <button onclick="switchSection('kuliah')" id="sec-tab-kuliah" class="section-tab px-3 py-2.5 font-semibold text-slate-800 bg-white hover:bg-sky-50 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-sm">
                 <i class="fa-solid fa-video text-sky-600 text-sm"></i> <span>Kuliah Subuh</span>
             </button>
-            <button onclick="switchSection('info')" id="sec-tab-info" class="section-tab px-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-sky-50 border border-slate-200/80 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-2xs">
+            <button onclick="switchSection('info')" id="sec-tab-info" class="section-tab px-3 py-2.5 font-semibold text-slate-800 bg-white hover:bg-sky-50 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-sm">
                 <i class="fa-solid fa-circle-info text-sky-600 text-sm"></i> <span>Pakaian dan Lokasi</span>
             </button>
-            <button onclick="switchSection('dokumentasi')" id="sec-tab-dokumentasi" class="section-tab px-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-sky-50 border border-slate-200/80 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-2xs">
+            <button onclick="switchSection('dokumentasi')" id="sec-tab-dokumentasi" class="section-tab px-3 py-2.5 font-semibold text-slate-800 bg-white hover:bg-sky-50 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-sm">
                 <i class="fa-solid fa-book-bookmark text-sky-600 text-sm"></i> <span>Dokumentasi</span>
             </button>
-            <button onclick="switchSection('maklumbalas')" id="sec-tab-maklumbalas" class="section-tab px-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-sky-50 border border-slate-200/80 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-2xs">
-                <i class="fa-solid fa-clipboard-check text-amber-500 text-sm"></i> <span>Penilaian Slot</span>
+            <button onclick="switchSection('maklumbalas')" id="sec-tab-maklumbalas" class="section-tab px-3 py-2.5 font-semibold text-slate-800 bg-white hover:bg-sky-50 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-sm">
+                <i class="fa-solid fa-clipboard-check text-amber-600 text-sm"></i> <span>Penilaian Slot</span>
             </button>
-            <button onclick="switchSection('analisis')" id="sec-tab-analisis" class="section-tab col-span-2 sm:col-span-1 lg:col-span-1 px-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-sky-50 border border-slate-200/80 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-2xs">
+            <button onclick="switchSection('analisis')" id="sec-tab-analisis" class="section-tab col-span-2 sm:col-span-1 lg:col-span-1 px-3 py-2.5 font-semibold text-slate-800 bg-white hover:bg-sky-50 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-sm">
                 <i class="fa-solid fa-chart-pie text-emerald-600 text-sm"></i> <span>Analisis</span>
             </button>
         </div>
@@ -466,40 +472,51 @@
 
                     <!-- Pemilihan Fasa Penilaian -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <button onclick="pilihFasa(2)" id="fasa-btn-2" class="fasa-btn p-4 rounded-2xl border-2 border-sky-500 bg-sky-50/50 text-left transition flex flex-col justify-between">
+                        <button onclick="pilihFasa(2)" id="fasa-btn-2" class="fasa-btn p-4 rounded-2xl border-2 border-slate-300 bg-white hover:bg-sky-50/50 text-left transition flex flex-col justify-between">
                             <div>
-                                <span class="text-[10px] font-bold text-sky-700 uppercase tracking-wider block mb-1">Fasa 1</span>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Fasa 1</span>
                                 <h4 class="font-bold text-slate-800 text-sm">Hari 2: Selasa</h4>
                                 <p class="text-xs text-slate-500 mt-1">Kuliah Subuh, Suai Kenal, dan Ceramah Kendiri</p>
                             </div>
                             <span class="text-xs font-semibold text-sky-700 mt-3 flex items-center gap-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Isi Penilaian
+                                <i class="fa-solid fa-pen-to-square"></i> Klik untuk Buka Penilaian
                             </span>
                         </button>
-                        <button onclick="pilihFasa(3)" id="fasa-btn-3" class="fasa-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:bg-slate-50 text-left transition flex flex-col justify-between">
+                        <button onclick="pilihFasa(3)" id="fasa-btn-3" class="fasa-btn p-4 rounded-2xl border-2 border-slate-300 bg-white hover:bg-sky-50/50 text-left transition flex flex-col justify-between">
                             <div>
                                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Fasa 2</span>
                                 <h4 class="font-bold text-slate-800 text-sm">Hari 3: Rabu</h4>
                                 <p class="text-xs text-slate-500 mt-1">Kerja Sepasukan dan Malam Budaya</p>
                             </div>
-                            <span class="text-xs font-semibold text-slate-500 mt-3 flex items-center gap-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Isi Penilaian
+                            <span class="text-xs font-semibold text-sky-700 mt-3 flex items-center gap-1">
+                                <i class="fa-solid fa-pen-to-square"></i> Klik untuk Buka Penilaian
                             </span>
                         </button>
-                        <button onclick="pilihFasa(4)" id="fasa-btn-4" class="fasa-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:bg-slate-50 text-left transition flex flex-col justify-between">
+                        <button onclick="pilihFasa(4)" id="fasa-btn-4" class="fasa-btn p-4 rounded-2xl border-2 border-slate-300 bg-white hover:bg-sky-50/50 text-left transition flex flex-col justify-between">
                             <div>
                                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Fasa 3</span>
                                 <h4 class="font-bold text-slate-800 text-sm">Hari 4: Khamis</h4>
                                 <p class="text-xs text-slate-500 mt-1">Tingkah Laku Organisasi dan Pengurusan</p>
                             </div>
-                            <span class="text-xs font-semibold text-slate-500 mt-3 flex items-center gap-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Isi Penilaian
+                            <span class="text-xs font-semibold text-sky-700 mt-3 flex items-center gap-1">
+                                <i class="fa-solid fa-pen-to-square"></i> Klik untuk Buka Penilaian
                             </span>
                         </button>
                     </div>
 
-                    <!-- Borang Interaktif -->
-                    <form id="borang-maklumbalas" onsubmit="hantarMaklumBalas(event)" class="bg-sky-50/40 p-6 rounded-2xl border border-sky-100 space-y-6">
+                    <!-- Mesej Panduan Sebelum Memilih Hari (Dipaparkan Default) -->
+                    <div id="pilih-fasa-placeholder" class="bg-sky-50/60 border-2 border-dashed border-sky-300 rounded-2xl p-8 text-center space-y-3">
+                        <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center mx-auto text-xl">
+                            <i class="fa-solid fa-hand-pointer animate-bounce"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">Sila Pilih Hari Penilaian di Atas</h4>
+                        <p class="text-xs text-slate-500 max-w-md mx-auto">
+                            Klik pada salah satu kad hari di atas (Hari 2, Hari 3, atau Hari 4) untuk memaparkan instrumen soalan bagi hari tersebut.
+                        </p>
+                    </div>
+
+                    <!-- Borang Interaktif (Disorokkan Secara Default) -->
+                    <form id="borang-maklumbalas" onsubmit="hantarMaklumBalas(event)" class="hidden bg-sky-50/40 p-6 rounded-2xl border border-sky-100 space-y-6">
                         
                         <!-- Bahagian Emel Peserta -->
                         <div class="bg-white p-5 rounded-2xl border border-sky-100 shadow-sm space-y-2">
@@ -1236,7 +1253,7 @@
         };
 
         let submissionsDB = [];
-        let fasaSemasa = 2;
+        let fasaSemasa = null;
         let slotAktifIdx = 0;
         let slotAnalisisPilihan = "all";
 
@@ -1387,11 +1404,26 @@
                 const btn = document.getElementById(`fasa-btn-${i}`);
                 if (!btn) continue;
                 if (i === fasaNum) {
-                    btn.className = "fasa-btn p-4 rounded-2xl border-2 border-sky-500 bg-sky-50/50 text-left transition flex flex-col justify-between shadow-sm";
+                    btn.className = "fasa-btn p-4 rounded-2xl border-2 border-sky-600 bg-sky-50 text-left transition flex flex-col justify-between shadow-md ring-2 ring-sky-300";
+                    const fasaLabel = btn.querySelector('span');
+                    if (fasaLabel) fasaLabel.className = "text-[10px] font-bold text-sky-700 uppercase tracking-wider block mb-1";
                 } else {
-                    btn.className = "fasa-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:bg-slate-50 text-left transition flex flex-col justify-between";
+                    btn.className = "fasa-btn p-4 rounded-2xl border-2 border-slate-300 bg-white hover:bg-slate-50 text-left transition flex flex-col justify-between opacity-80 hover:opacity-100";
+                    const fasaLabel = btn.querySelector('span');
+                    if (fasaLabel) fasaLabel.className = "text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1";
                 }
             }
+
+            // Sembunyikan placeholder dan paparkan borang
+            const placeholder = document.getElementById('pilih-fasa-placeholder');
+            const borang = document.getElementById('borang-maklumbalas');
+            if (placeholder) placeholder.classList.add('hidden');
+            if (borang) {
+                borang.classList.remove('hidden');
+                // Skrol lembut ke permulaan borang untuk keselesaan pengguna
+                borang.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
             janaSoalanBorang(fasaNum);
             semakStatusEmelSemasa();
         }
@@ -1661,13 +1693,22 @@
 
         function resetBorang() {
             document.getElementById('borang-maklumbalas').reset();
-            document.getElementById('borang-maklumbalas').classList.remove('hidden');
+            document.getElementById('borang-maklumbalas').classList.add('hidden');
+            document.getElementById('pilih-fasa-placeholder').classList.remove('hidden');
             document.getElementById('form-success-box').classList.add('hidden');
             document.getElementById('email-status-message').classList.add('hidden');
             document.getElementById('unanswered-warning-box').classList.add('hidden');
             document.getElementById('btn-submit-maklumbalas').disabled = false;
             document.getElementById('btn-submit-maklumbalas').classList.remove('opacity-50', 'cursor-not-allowed');
-            pilihFasa(fasaSemasa);
+            
+            // Nyahaktifkan pilihan kad fasa
+            for (let i = 2; i <= 4; i++) {
+                const btn = document.getElementById(`fasa-btn-${i}`);
+                if (btn) {
+                    btn.className = "fasa-btn p-4 rounded-2xl border-2 border-slate-300 bg-white hover:bg-sky-50/50 text-left transition flex flex-col justify-between";
+                }
+            }
+            fasaSemasa = null;
         }
 
         function tukarAnalisisSlot(slotKey) {
@@ -1957,7 +1998,7 @@
         // Inisialisasi Apabila Laman Dimuatkan
         window.addEventListener('DOMContentLoaded', () => {
             filterDay(1);
-            pilihFasa(2);
+            // Jangan pilih fasa secara automatik supaya borang kekal tersembunyi pada permulaan
             muatDataSimpanan();
             kemaskiniPaparanAnalisis();
 
