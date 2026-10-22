@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JADUAL BENGKEL PEMBANGUNAN KAPASITI STAF IAB @ CoE TAHUN 2026</title>
+    <title>Pusat Sehenti Bengkel Pembangunan Kapasiti Staf IAB @ CoE Tahun 2026</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -58,6 +58,23 @@
             border-width: 2px !important;
             border-style: solid !important;
         }
+
+        /* Animasi Berkelip dan Bersinar untuk Pautan Google Meet */
+        @keyframes pulseGlowGMeet {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.6);
+                background-color: #0284c7;
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 0 18px 4px rgba(14, 165, 233, 0.85);
+                background-color: #0369a1;
+            }
+        }
+        .gmeet-blink-btn {
+            animation: pulseGlowGMeet 2s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col">
@@ -72,7 +89,7 @@
                 </div>
                 <div>
                     <h1 class="text-lg md:text-xl font-bold leading-tight">
-                        JADUAL BENGKEL PEMBANGUNAN KAPASITI STAF IAB @ CoE TAHUN 2026
+                        Pusat Sehenti Bengkel Pembangunan Kapasiti Staf IAB @ CoE Tahun 2026
                     </h1>
                     <p class="text-xs text-sky-200 mt-1 flex items-center justify-center md:justify-start gap-2 flex-wrap">
                         <span><i class="fa-regular fa-calendar-days text-amber-300"></i> 2 HINGGA 5 NOVEMBER 2026</span>
@@ -217,9 +234,10 @@
                             </div>
                         </div>
 
+                        <!-- Butang Google Meet Berkelip (Blinking) -->
                         <div class="pt-2">
-                            <a href="https://meet.google.com/zqi-apdg-fcy" target="_blank" class="flex items-center justify-center gap-3 bg-sky-600 hover:bg-sky-700 text-white font-bold p-4 rounded-xl shadow-md transition text-center">
-                                <i class="fa-solid fa-camera-retro text-lg"></i>
+                            <a href="https://meet.google.com/zqi-apdg-fcy" target="_blank" class="gmeet-blink-btn flex items-center justify-center gap-3 text-white font-bold p-4 rounded-xl shadow-lg transition text-center">
+                                <i class="fa-solid fa-video text-lg animate-bounce"></i>
                                 <span>Sertai Google Meet: Kuliah Subuh BPKS IAB@CoE 2026</span>
                             </a>
                         </div>
@@ -347,7 +365,7 @@
                             <li>Nyanyian Lagu IAB</li>
                             <li>Bacaan Doa</li>
                             <li>Ucapan Alu-aluan</li>
-                            <li>Majlis Perasmian Pembukaan</li>
+                            <li>Ucapan Perasmian Pembukaan</li>
                             <li>Sesi Bergambar</li>
                             <li>Bersurai</li>
                         </ul>
@@ -378,7 +396,7 @@
                             <li>Nyanyian Lagu IAB</li>
                             <li>Bacaan Doa</li>
                             <li>Ucapan Alu-aluan</li>
-                            <li>Majlis Perasmian Penutupan</li>
+                            <li>Ucapan Perasmian Penutupan</li>
                             <li>Sesi Bergambar</li>
                             <li>Bersurai</li>
                         </ul>
@@ -687,7 +705,7 @@
                 © 2026 Institut Aminuddin Baki @ CoE. Hak Cipta Terpelihara.
             </p>
             <p class="text-xs text-slate-500 tracking-wider uppercase">
-                JADUAL BENGKEL PEMBANGUNAN KAPASITI STAF IAB @ CoE TAHUN 2026
+                Pusat Sehenti Bengkel Pembangunan Kapasiti Staf IAB @ CoE Tahun 2026
             </p>
         </div>
     </footer>
@@ -776,7 +794,7 @@
                             "• Nyanyian Lagu IAB",
                             "• Bacaan Doa",
                             "• Ucapan Alu-aluan",
-                            "• Majlis Perasmian Pembukaan",
+                            "• Ucapan Perasmian Pembukaan",
                             "• Sesi Bergambar",
                             "• Bersurai"
                         ] 
@@ -958,7 +976,7 @@
                             "• Nyanyian Lagu IAB",
                             "• Bacaan Doa",
                             "• Ucapan Alu-aluan",
-                            "• Majlis Perasmian Penutupan",
+                            "• Ucapan Perasmian Penutupan",
                             "• Sesi Bergambar",
                             "• Bersurai"
                         ] 
@@ -1041,30 +1059,52 @@
                     {
                         slotTitle: "Kuliah Subuh: \"Hadith 40\" (al-Fadhil Ustaz alHuzaee bin Sulaiman)",
                         domainKandungan: [
-                            { id: "q_f3_k1_1", text: "Mesej hadith padat, bermakna, dan memberi ketenangan sebelum memulakan tugasan." }
+                            { id: "q_f3_k1_1", text: "Mesej hadith padat, jelas, dan memberi ketenangan sebelum memulakan aktiviti luar." },
+                            { id: "q_f3_k1_2", text: "Kupasan hadith menekankan nilai kesabaran dan tolak ansur sesama ahli pasukan." },
+                            { id: "q_f3_k1_3", text: "Pengisian kuliah mengukuhkan keikhlasan dalam menyempurnakan setiap tugasan yang diamanahkan." },
+                            { id: "q_f3_k1_4", text: "Membina disiplin rohani yang menyokong ketahanan fizikal dan mental peserta sepanjang hari." },
+                            { id: "q_f3_k1_5", text: "Topik hadith membimbing adab komunikasi yang baik dalam pergaulan harian." },
+                            { id: "q_f3_k1_6", text: "Peringatan yang disampaikan relevan dengan cabaran pengurusan emosi di tempat kerja." },
+                            { id: "q_f3_k1_7", text: "Kuliah subuh ini berterusan menyemarakkan aura positif bagi aktiviti kerja sepasukan." }
                         ],
                         domainPenceramah: [
-                            { id: "q_f3_p1_1", text: "Gaya penyampaian penceramah berjaya mengekalkan tumpuan peserta." }
+                            { id: "q_f3_p1_1", text: "Penceramah menguasai huraian hadith dengan susunan isi yang teratur dan padat." },
+                            { id: "q_f3_p1_2", text: "Penyampaian penceramah tenang, bersahaja, dan mudah dihayati oleh segenap lapisan staf." },
+                            { id: "q_f3_p1_3", text: "Penceramah berjaya memelihara interaksi dan penghayatan peserta sepanjang sesi." }
                         ]
                     },
                     {
                         slotTitle: "Pembangunan Kerja Sepasukan (Hadapan Rumah Puspanita)",
                         domainKandungan: [
                             { id: "q_f3_k2_1", text: "Modul aktiviti menuntut strategi perancangan, kepimpinan bersama, dan agihan tugas yang adil." },
-                            { id: "q_f3_k2_2", text: "Aktiviti berjaya merapatkan ukhuwah dan persefahaman antara ahli kumpulan." }
+                            { id: "q_f3_k2_2", text: "Aktiviti yang dijalankan menguji tahap kesabaran, tolak ansur, dan komunikasi dua hala." },
+                            { id: "q_f3_k2_3", text: "Kandungan cabaran berupaya membina rasa saling mempercayai (mutual trust) antara ahli." },
+                            { id: "q_f3_k2_4", text: "Aktiviti berjaya merapatkan jurang perbezaan cawangan, jabatan, dan gred perkhidmatan." },
+                            { id: "q_f3_k2_5", text: "Membina semangat daya juang dan ketahanan fizikal serta mental dalam suasana ceria." },
+                            { id: "q_f3_k2_6", text: "Peserta dapat mengaitkan pengalaman permainan dengan realiti penyelesaian masalah di pejabat." },
+                            { id: "q_f3_k2_7", text: "Slot ini memperkukuh komitmen dan sinergi bersama ke arah pencapaian matlamat institusi." }
                         ],
                         domainPenceramah: [
-                            { id: "q_f3_p2_1", text: "Fasilitator menerangkan objektif dan menjaga disiplin serta kebajikan peserta dengan baik." }
+                            { id: "q_f3_p2_1", text: "Fasilitator menerangkan objektif dan panduan keselamatan setiap tugasan secara jelas." },
+                            { id: "q_f3_p2_2", text: "Fasilitator mengawal disiplin, keselamatan, dan kebajikan peserta dengan sangat baik." },
+                            { id: "q_f3_p2_3", text: "Fasilitator membimbing sesi refleksi (debriefing) sehingga peserta memahami pengajaran tersirat." }
                         ]
                     },
                     {
                         slotTitle: "Malam Budaya IAB (Persembahan dan Pengurusan Sahaja)",
                         domainKandungan: [
-                            { id: "q_f3_k3_1", text: "Persembahan kebudayaan memperlihatkan bakat, kreativiti, dan keunikan identiti warga IAB." },
-                            { id: "q_f3_k3_2", text: "Tema pakaian tradisi menyemarakkan rasa bangga terhadap keharmonian kepelbagaian budaya Malaysia." }
+                            { id: "q_f3_k3_1", text: "Persembahan kebudayaan memperlihatkan bakat seni, kreativiti, dan keunikan identiti warga IAB." },
+                            { id: "q_f3_k3_2", text: "Tema pakaian tradisi menyemarakkan rasa bangga terhadap keharmonian kepelbagaian budaya Malaysia." },
+                            { id: "q_f3_k3_3", text: "Kerjasama antara ahli kumpulan dalam menjayakan persembahan mencerminkan kesepakatan yang tinggi." },
+                            { id: "q_f3_k3_4", text: "Pengisian malam budaya berupaya memupuk semangat kekeluargaan, kegembiraan, dan keakraban staf." },
+                            { id: "q_f3_k3_5", text: "Mewujudkan suasana santai dan pelepasan tekanan yang membina kesejahteraan minda warga kerja." },
+                            { id: "q_f3_k3_6", text: "Acara ini memberi ruang penghargaan kepada kepelbagaian latar belakang warga IAB." },
+                            { id: "q_f3_k3_7", text: "Malam Budaya berjaya mencapai objektif mempererat tali silaturahim dalam suasana yang harmoni." }
                         ],
                         domainPenceramah: [
-                            { id: "q_f3_p3_1", text: "Pengurusan majlis dan atur cara persembahan berjalan lancar dan teratur." }
+                            { id: "q_f3_p3_1", text: "Pengurusan majlis dan susunan atur cara persembahan berjalan lancar dan teratur." },
+                            { id: "q_f3_p3_2", text: "Pengacara majlis mengendalikan acara dengan ceria, menghiburkan, dan bersopan." },
+                            { id: "q_f3_p3_3", text: "Peralatan teknikal, audio, dan pencahayaan majlis berada dalam keadaan memuaskan." }
                         ]
                     }
                 ]
@@ -1073,23 +1113,54 @@
                 title: "Penilaian Fasa 3: Hari 4 (Khamis)",
                 sections: [
                     {
-                        slotTitle: "Ceramah \"Tingkah Laku Organisasi\" (Encik Ahmad Sabri bin Mohamad)",
+                        slotTitle: "Kuliah Subuh: \"Hadith 40\" (al-Fadhil Ustaz alHuzaee bin Sulaiman)",
                         domainKandungan: [
-                            { id: "q_f4_k1_1", text: "Kandungan ceramah memperkukuh kefahaman mengenai dinamika tingkah laku dan etika kerja korporat." },
-                            { id: "q_f4_k1_2", text: "Memberi panduan bernas mengenai kaedah membina persefahaman dan keharmonian pejabat." }
+                            { id: "q_f4_k1_1", text: "Pengisian hadith membina keinsafan berterusan untuk istiqamah dalam integriti kerja." },
+                            { id: "q_f4_k1_2", text: "Kupasan hadith merumuskan adab perkhidmatan dan kemuliaan mencari rezeki yang berkat." },
+                            { id: "q_f4_k1_3", text: "Mesej hadith memberi peringatan tentang pentingnya menjaga ukhuwah selepas bengkel tamat." },
+                            { id: "q_f4_k1_4", text: "Kandungan kuliah memperkukuh azam untuk menjadi warga pendidik yang berakauntabiliti tinggi." },
+                            { id: "q_f4_k1_5", text: "Kuliah subuh sepanjang 3 hari ini berjaya menyemai ketenangan rohani dan disiplin kendiri." },
+                            { id: "q_f4_k1_6", text: "Pengisian kuliah mudah dihadam dan relevan dengan etika tatakelakuan penjawat awam." },
+                            { id: "q_f4_k1_7", text: "Memberi dorongan moral untuk terus berkhidmat dengan hati yang ikhlas dan berjiwa besar." }
                         ],
                         domainPenceramah: [
-                            { id: "q_f4_p1_1", text: "Penceramah menguasai bidang ilmu dengan kupasan fakta yang matang dan berwibawa." }
+                            { id: "q_f4_p1_1", text: "Penceramah mengekalkan kualiti penyampaian yang mantap, bernas, dan berhikmah sepanjang siri." },
+                            { id: "q_f4_p1_2", text: "Gaya bicara penceramah mesra, penuh keikhlasan, dan memberi inspirasi kepada peserta." },
+                            { id: "q_f4_p1_3", text: "Penceramah mengurus masa 10 minit secara berdisiplin, terancang, dan tepat pada waktunya." }
+                        ]
+                    },
+                    {
+                        slotTitle: "Ceramah \"Tingkah Laku Organisasi\" (Encik Ahmad Sabri bin Mohamad)",
+                        domainKandungan: [
+                            { id: "q_f4_k2_1", text: "Kandungan ceramah memperkukuh kefahaman mengenai dinamika tingkah laku individu dan kumpulan." },
+                            { id: "q_f4_k2_2", text: "Topik etika kerja korporat dan profesionalisme penjawat awam dihuraikan berteraskan realiti." },
+                            { id: "q_f4_k2_3", text: "Memberi panduan bernas mengenai kaedah membina persefahaman dan keharmonian pejabat." },
+                            { id: "q_f4_k2_4", text: "Membantu peserta mengenal pasti faktor yang mempengaruhi iklim dan budaya kerja positif." },
+                            { id: "q_f4_k2_5", text: "Strategi menangani konflik dan cabaran komunikasi interpersonal dihuraikan secara praktikal." },
+                            { id: "q_f4_k2_6", text: "Pengisian ceramah menyuntik iltizam untuk meningkatkan disiplin kerja dan kualiti penyampaian." },
+                            { id: "q_f4_k2_7", text: "Kandungan slot selari dengan aspirasi pembudayaan organisasi berprestasi tinggi di IAB." }
+                        ],
+                        domainPenceramah: [
+                            { id: "q_f4_p2_1", text: "Penceramah menguasai disiplin ilmu tingkah laku organisasi dengan hujah dan fakta yang meyakinkan." },
+                            { id: "q_f4_p2_2", text: "Gaya penyampaian penceramah ilmiah, menarik, teratur, dan berwibawa." },
+                            { id: "q_f4_p2_3", text: "Penceramah berjaya merangsang pemikiran reflektif peserta terhadap peranan diri dalam organisasi." }
                         ]
                     },
                     {
                         slotTitle: "Pengurusan Logistik dan Urus Setia",
                         domainKandungan: [
-                            { id: "q_f4_k2_1", text: "Pengurusan pendaftaran asrama kediaman dan kemudahan bilik dalam keadaan memuaskan." },
-                            { id: "q_f4_k2_2", text: "Kualiti hidangan, kesesuaian menu, dan ketepatan masa sajian makanan dijaga dengan baik." }
+                            { id: "q_f4_k3_1", text: "Pengurusan pendaftaran asrama kediaman dan kemudahan bilik berjalan lancar dan teratur." },
+                            { id: "q_f4_k3_2", text: "Kebersihan dan kelengkapan bilik asrama kediaman berada dalam keadaan yang memuaskan." },
+                            { id: "q_f4_k3_3", text: "Kualiti hidangan, kesesuaian menu, dan ketepatan masa sajian makanan dijaga dengan sangat baik." },
+                            { id: "q_f4_k3_4", text: "Penyediaan bahan dokumentasi digital dan kod QR mudah diakses dan berfungsi sepenuhnya." },
+                            { id: "q_f4_k3_5", text: "Pengurusan dewan, auditorium, dan padang aktiviti selesa serta menyokong perjalanan modul." },
+                            { id: "q_f4_k3_6", text: "Aliran maklumat dan hebahan peringatan aktiviti harian disampaikan secara jelas dan tepat." },
+                            { id: "q_f4_k3_7", text: "Keseluruhan penganjuran bengkel dirancang dengan profesional dan teratur." }
                         ],
                         domainPenceramah: [
-                            { id: "q_f4_p2_1", text: "Barisan urus setia bertindak secara responsif, mesra, dan prihatin sepanjang program." }
+                            { id: "q_f4_p3_1", text: "Barisan urus setia bertindak secara responsif, cekap, dan bersedia membantu pada setiap masa." },
+                            { id: "q_f4_p3_2", text: "Layanan urus setia sentiasa mesra, bersopan santun, dan prihatin terhadap kebajikan peserta." },
+                            { id: "q_f4_p3_3", text: "Urus setia berjaya mengawal pengurusan masa dan disiplin program dengan cemerlang." }
                         ]
                     }
                 ]
@@ -1544,8 +1615,9 @@
                 { nama: "Kuliah Subuh (Rabu)", fasa: 3, key: "q_f3_k1_1" },
                 { nama: "Pembangunan Kerja Sepasukan", fasa: 3, key: "q_f3_k2_1" },
                 { nama: "Malam Budaya IAB", fasa: 3, key: "q_f3_k3_1" },
-                { nama: "Ceramah \"Tingkah Laku Organisasi\"", fasa: 4, key: "q_f4_k1_1" },
-                { nama: "Pengurusan Logistik dan Urus Setia", fasa: 4, key: "q_f4_k2_1" }
+                { nama: "Kuliah Subuh (Khamis)", fasa: 4, key: "q_f4_k1_1" },
+                { nama: "Ceramah \"Tingkah Laku Organisasi\"", fasa: 4, key: "q_f4_k2_1" },
+                { nama: "Pengurusan Logistik dan Urus Setia", fasa: 4, key: "q_f4_k3_1" }
             ];
 
             const slotCountsContainer = document.getElementById('slot-counts-container');
@@ -1698,8 +1770,8 @@
             const modalExtra = document.getElementById('modal-extra');
             if (item.link) {
                 modalExtra.innerHTML = `
-                    <a href="${item.link}" target="_blank" class="flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-bold p-3 rounded-xl transition text-xs">
-                        <i class="fa-solid fa-video"></i> Sertai Google Meet Sekarang
+                    <a href="${item.link}" target="_blank" class="gmeet-blink-btn flex items-center justify-center gap-2 text-white font-bold p-3 rounded-xl transition text-xs shadow-md">
+                        <i class="fa-solid fa-video animate-bounce"></i> Sertai Google Meet Sekarang
                     </a>
                 `;
             } else {
@@ -1713,6 +1785,7 @@
             document.getElementById('activity-modal').classList.add('hidden');
         }
 
+        // Inisialisasi Apabila Laman Dimuatkan Sepenuhnya
         window.addEventListener('DOMContentLoaded', () => {
             filterDay(1);
             pilihFasa(2);
