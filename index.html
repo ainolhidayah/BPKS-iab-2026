@@ -92,7 +92,6 @@
         <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-4 text-center md:text-left">
                 <div class="bg-white p-2 rounded-xl shadow-md flex items-center justify-center shrink-0">
-                    <!-- Logo IAB -->
                     <img src="logo_IAB_KPM-removebg-preview.png" alt="Logo IAB" class="h-14 w-auto object-contain" onerror="this.src='https://placehold.co/120x60/ffffff/0284c7?text=IAB+KPM'">
                 </div>
                 <div>
@@ -107,7 +106,6 @@
                 </div>
             </div>
 
-            <!-- Lencana Pengepala Khas -->
             <div class="shrink-0">
                 <div class="bg-sky-950/70 border border-sky-400/40 rounded-2xl px-5 py-2 text-center shadow-inner">
                     <span class="text-sky-200 font-semibold text-[11px] sm:text-xs block tracking-wide uppercase">
@@ -124,7 +122,7 @@
     <!-- KANDUNGAN UTAMA -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-8">
 
-        <!-- NAVIGASI SEKSYEN KAD GRID (DENGAN 8 TAB LENGKAP TERMASUK MALAM BUDAYA) -->
+        <!-- NAVIGASI SEKSYEN KAD GRID (8 TAB LENGKAP) -->
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 mb-5 bg-sky-100/70 p-3 rounded-2xl border-2 border-slate-400 shadow-sm">
             <button onclick="switchSection('jadual')" id="sec-tab-jadual" class="section-tab active px-2.5 py-2.5 font-semibold text-slate-800 bg-white hover:bg-sky-50 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-sm">
                 <i class="fa-solid fa-calendar-check text-sky-600 text-sm"></i> <span>Jadual Harian</span>
@@ -152,7 +150,7 @@
             </button>
         </div>
 
-        <!-- GARISAN PEMISAH KREATIF ANTARA BARISAN MENU DAN KANDUNGAN -->
+        <!-- GARISAN PEMISAH KREATIF -->
         <div class="relative flex items-center justify-center my-6">
             <div class="w-full border-t border-sky-200"></div>
             <div class="absolute px-4 bg-sky-50 text-[11px] font-bold text-sky-700 uppercase tracking-widest flex items-center gap-2 border border-sky-200 rounded-full py-0.5 shadow-2xs">
@@ -163,7 +161,6 @@
 
         <!-- SEKSYEN 1: JADUAL BENGKEL -->
         <section id="section-jadual" class="space-y-6">
-            <!-- Tapis Hari -->
             <div class="flex flex-wrap gap-2.5 justify-center md:justify-start bg-white/80 p-2.5 rounded-2xl border border-sky-100 shadow-2xs">
                 <button onclick="filterDay(1)" id="day-btn-1" class="tab-btn active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-sky-200 shadow-sm">
                     <i class="fa-regular fa-calendar-check"></i>
@@ -183,7 +180,6 @@
                 </button>
             </div>
 
-            <!-- Kad Penunjuk Hari -->
             <div id="day-header-card" class="bg-gradient-to-r from-sky-700 to-sky-600 text-white p-5 rounded-2xl shadow-md flex justify-between items-center">
                 <div>
                     <h2 id="day-title" class="text-xl font-bold">Hari 1: Isnin (2 November 2026)</h2>
@@ -191,7 +187,6 @@
                 </div>
             </div>
 
-            <!-- Senarai Slot Masa -->
             <div id="schedule-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Dijana melalui Javascript -->
             </div>
@@ -211,7 +206,6 @@
 
                     <div class="bg-sky-50/50 p-6 rounded-2xl border border-sky-100 inline-block shadow-inner">
                         <div class="bg-white p-4 rounded-xl shadow border border-sky-100 inline-block">
-                            <!-- Kod QR Kehadiran Insyst Sebenar -->
                             <img src="pendaftaran insyst.png" alt="Kod QR Pendaftaran Insyst" class="w-52 h-52 object-contain mx-auto block rounded-lg" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Fsistem.iab.edu.my%2Finsyst%2Fmodul-qrcode%2Fdaftar_peserta.php%3Fid%3D51281';">
                         </div>
                         <p class="text-xs font-semibold text-slate-500 mt-3">SISTEM INSYST IAB</p>
@@ -259,7 +253,6 @@
                             </div>
                         </div>
 
-                        <!-- Butang Google Meet Berkelip (Blinking) -->
                         <div class="pt-2">
                             <a href="https://meet.google.com/zqi-apdg-fcy" target="_blank" class="gmeet-blink-btn flex items-center justify-center gap-3 text-white font-bold p-4 rounded-xl shadow-lg transition text-center">
                                 <i class="fa-solid fa-video text-lg animate-bounce"></i>
@@ -373,61 +366,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Atur Cara Majlis Rasmi -->
-            <div>
-                <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-sky-600"></i> Atur Cara Majlis Rasmi
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-white p-5 rounded-2xl border border-sky-100 shadow-sm">
-                        <h4 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
-                            <i class="fa-solid fa-award text-sky-600"></i> Aturcara Majlis Pembukaan
-                        </h4>
-                        <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
-                            <li>Taklimat Urus setia</li>
-                            <li>Nyanyian Lagu Negaraku</li>
-                            <li>Nyanyian Lagu IAB</li>
-                            <li>Bacaan Doa</li>
-                            <li>Ucapan Alu-aluan</li>
-                            <li>Ucapan Perasmian Pembukaan</li>
-                            <li>Sesi Bergambar</li>
-                            <li>Bersurai</li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-2xl border border-sky-100 shadow-sm">
-                        <h4 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
-                            <i class="fa-solid fa-masks-theater text-purple-600"></i> Aturcara Majlis Malam Budaya
-                        </h4>
-                        <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
-                            <li>Nyanyian Lagu Negaraku</li>
-                            <li>Nyanyian Lagu IAB</li>
-                            <li>Bacaan Doa</li>
-                            <li>Ucapan Alu-aluan</li>
-                            <li>Ucapan Amanat Pengarah</li>
-                            <li>Persembahan Kebudayaan</li>
-                            <li>Sesi Bergambar</li>
-                            <li>Bersurai</li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-2xl border border-sky-100 shadow-sm">
-                        <h4 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
-                            <i class="fa-solid fa-flag-checkered text-emerald-600"></i> Aturcara Majlis Penutupan
-                        </h4>
-                        <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
-                            <li>Nyanyian Lagu Negaraku</li>
-                            <li>Nyanyian Lagu IAB</li>
-                            <li>Bacaan Doa</li>
-                            <li>Ucapan Alu-aluan</li>
-                            <li>Ucapan Perasmian Penutupan</li>
-                            <li>Sesi Bergambar</li>
-                            <li>Bersurai</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <!-- SEKSYEN 5: MALAM BUDAYA & PENDAFTARAN PERSEMBAHAN -->
@@ -439,7 +377,7 @@
                     </span>
                     <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Pendaftaran & Giliran Persembahan</h2>
                     <p class="text-purple-100 text-xs md:text-sm">
-                        Sila daftarkan persembahan kumpulan anda bagi Malam Budaya IAB. Susunan giliran dan butiran persembahan akan dipaparkan secara langsung pada papan pemuka di bawah.
+                        Sila daftarkan persembahan kumpulan anda mengikut Pusat / Cawangan masing-masing. Susunan giliran persembahan akan dipaparkan secara langsung (*live*) di papan pemuka di bawah.
                     </p>
                 </div>
                 <div class="absolute -right-6 -bottom-8 opacity-15 text-9xl">
@@ -454,29 +392,45 @@
                         <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
                             <i class="fa-solid fa-file-pen text-purple-600"></i> Borang Daftar Persembahan
                         </h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Lengkapkan maklumat persembahan pasukan anda</p>
+                        <p class="text-xs text-slate-500 mt-0.5">Lengkapkan maklumat persembahan (Auto Huruf Besar)</p>
                     </div>
 
                     <form id="form-persembahan" onsubmit="hantarPendaftaranPersembahan(event)" class="space-y-4">
+                        <!-- Dropdown Pilihan Pusat / Cawangan -->
+                        <div>
+                            <label for="persembahan-organisasi" class="block text-xs font-bold text-slate-700 mb-1">
+                                Pusat / Cawangan IAB <span class="text-rose-500">*</span>
+                            </label>
+                            <select id="persembahan-organisasi" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none bg-white font-bold text-slate-800 uppercase">
+                                <option value="" disabled selected>-- Sila Pilih Pusat / Cawangan --</option>
+                                <option value="IAB INDUK BANDAR ENSTEK">IAB Induk Bandar Enstek</option>
+                                <option value="IAB CAWANGAN GENTING HIGHLANDS">IAB Cawangan Genting Highlands</option>
+                                <option value="IAB CAWANGAN UTARA">IAB Cawangan Utara</option>
+                                <option value="IAB CAWANGAN SABAH">IAB Cawangan Sabah</option>
+                                <option value="IAB CAWANGAN SARAWAK">IAB Cawangan Sarawak</option>
+                            </select>
+                        </div>
+
                         <div>
                             <label for="persembahan-wakil" class="block text-xs font-bold text-slate-700 mb-1">
                                 Nama Wakil / Ketua Kumpulan <span class="text-rose-500">*</span>
                             </label>
-                            <input type="text" id="persembahan-wakil" required placeholder="Contoh: Encik Ahmad Razali" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label for="persembahan-organisasi" class="block text-xs font-bold text-slate-700 mb-1">
-                                Cawangan / Jabatan / Organisasi <span class="text-rose-500">*</span>
-                            </label>
-                            <input type="text" id="persembahan-organisasi" required placeholder="Contoh: IAB Cawangan Sabah / IAB Bandar Enstek" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                            <input type="text" id="persembahan-wakil" required placeholder="Contoh: Encik Ahmad Razali" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase font-semibold">
                         </div>
 
                         <div>
                             <label for="persembahan-tajuk" class="block text-xs font-bold text-slate-700 mb-1">
                                 Tajuk & Jenis Persembahan <span class="text-rose-500">*</span>
                             </label>
-                            <input type="text" id="persembahan-tajuk" required placeholder="Contoh: Sketsa Muzikal Tradisional / Tarian Inang" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                            <input type="text" id="persembahan-tajuk" required placeholder="Contoh: Sketsa Muzikal Tradisional / Tarian Inang" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase font-semibold">
+                        </div>
+
+                        <!-- Ruangan Mendaftar Senarai Nama Ahli Kumpulan -->
+                        <div>
+                            <label for="persembahan-ahli" class="block text-xs font-bold text-slate-700 mb-1">
+                                Senarai Nama Ahli Kumpulan <span class="text-rose-500">*</span>
+                            </label>
+                            <textarea id="persembahan-ahli" required rows="3" placeholder="Masukkan nama semua ahli kumpulan (seorang satu baris atau koma)&#10;Contoh:&#10;1. Ahmad Razali&#10;2. Siti Aminah&#10;3. Mohd Faizal" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase font-semibold"></textarea>
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
@@ -484,13 +438,13 @@
                                 <label for="persembahan-bilangan" class="block text-xs font-bold text-slate-700 mb-1">
                                     Bilangan Peserta
                                 </label>
-                                <input type="number" id="persembahan-bilangan" min="1" value="1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                                <input type="number" id="persembahan-bilangan" min="1" value="1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none font-bold">
                             </div>
                             <div>
                                 <label for="persembahan-durasi" class="block text-xs font-bold text-slate-700 mb-1">
                                     Anggaran Durasi
                                 </label>
-                                <select id="persembahan-durasi" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none bg-white">
+                                <select id="persembahan-durasi" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none bg-white font-semibold">
                                     <option value="3-5 Minit">3 - 5 Minit</option>
                                     <option value="5-7 Minit" selected>5 - 7 Minit</option>
                                     <option value="7-10 Minit">7 - 10 Minit</option>
@@ -502,12 +456,12 @@
                             <label for="persembahan-teknikal" class="block text-xs font-bold text-slate-700 mb-1">
                                 Keperluan Teknikal / Audio (Jika ada)
                             </label>
-                            <textarea id="persembahan-teknikal" rows="2" placeholder="Contoh: Perlukan 2 mikrofon berdiri & pasang audio minus-one USB" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"></textarea>
+                            <textarea id="persembahan-teknikal" rows="2" placeholder="Contoh: Perlukan 2 mikrofon berdiri & audio minus-one pen drive" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase"></textarea>
                         </div>
 
                         <div id="persembahan-status-msg" class="text-xs font-semibold hidden"></div>
 
-                        <button type="submit" id="btn-submit-persembahan" class="w-full py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold rounded-xl shadow-md shadow-purple-600/25 transition text-xs flex items-center justify-center gap-2">
+                        <button type="submit" id="btn-submit-persembahan" class="w-full py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold rounded-xl shadow-md shadow-purple-600/25 transition text-xs flex items-center justify-center gap-2 cursor-pointer">
                             <i class="fa-solid fa-paper-plane"></i> Hantar Pendaftaran Persembahan
                         </button>
                     </form>
@@ -528,7 +482,7 @@
                     </div>
 
                     <!-- Bekas Kad Persembahan Masa Nyata -->
-                    <div id="senarai-persembahan-container" class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
+                    <div id="senarai-persembahan-container" class="space-y-3 max-h-[600px] overflow-y-auto pr-1">
                         <!-- Dijana secara dinamik melalui JavaScript -->
                     </div>
                 </div>
@@ -550,7 +504,6 @@
                 
                 <div class="bg-sky-50/50 p-6 rounded-2xl border border-sky-100 inline-block shadow-inner">
                     <div class="bg-white p-3 rounded-xl border border-sky-100 inline-block shadow">
-                        <!-- Kod QR Dokumentasi Rasmi -->
                         <img src="image_e9da37.png" alt="Kod QR Dokumentasi" class="w-56 h-auto object-contain mx-auto block" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1U_1M0KHM41lALpBRcGPGFAWwdCWZsMz3%3Fusp%3Ddrive_link';">
                     </div>
                     <p class="text-xs font-semibold text-sky-800 mt-3">GOOGLE DRIVE DOKUMENTASI</p>
@@ -629,7 +582,6 @@
                     <!-- Borang Interaktif -->
                     <form id="borang-maklumbalas" onsubmit="hantarMaklumBalas(event)" class="hidden bg-sky-50/40 p-6 rounded-2xl border border-sky-100 space-y-6">
                         
-                        <!-- Bahagian Emel Peserta -->
                         <div class="bg-white p-5 rounded-2xl border border-sky-100 shadow-sm space-y-2">
                             <label for="peserta-email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                                 Alamat Emel Peserta (Wajib)
@@ -651,7 +603,6 @@
 
                         <!-- Ruangan Komen Terbuka: 2 Bahagian Berasingan -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Bahagian 1: Maklum Balas Positif -->
                             <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm space-y-2">
                                 <label for="peserta-positif" class="block text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
                                     <i class="fa-solid fa-thumbs-up text-emerald-600"></i> Maklum Balas Positif
@@ -660,7 +611,6 @@
                                 <textarea id="peserta-positif" rows="3" placeholder="Contoh: Pengisian ceramah sangat memberi inspirasi dan berimpak tinggi..." class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"></textarea>
                             </div>
 
-                            <!-- Bahagian 2: Cadangan Penambahbaikan -->
                             <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm space-y-2">
                                 <label for="peserta-cadangan" class="block text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
                                     <i class="fa-solid fa-lightbulb text-amber-600"></i> Cadangan Penambahbaikan
@@ -676,22 +626,20 @@
                             <span id="unanswered-warning-text">Terdapat soalan yang belum dijawab. Sila lengkapkan soalan yang bertanda kelipan merah sebelum menghantar.</span>
                         </div>
 
-                        <!-- Butang Hantar -->
                         <div class="pt-2 text-center">
-                            <button type="submit" id="btn-submit-maklumbalas" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-bold px-10 py-3.5 rounded-xl shadow-lg shadow-sky-600/20 transition text-sm">
+                            <button type="submit" id="btn-submit-maklumbalas" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-bold px-10 py-3.5 rounded-xl shadow-lg shadow-sky-600/20 transition text-sm cursor-pointer">
                                 <i class="fa-solid fa-paper-plane"></i> Hantar Penilaian Fasa Ini
                             </button>
                         </div>
                     </form>
 
-                    <!-- Mesej Kejayaan / Status -->
                     <div id="form-success-box" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-800 p-6 rounded-2xl text-center space-y-2">
                         <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto text-xl">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <h4 class="font-bold text-base">Terima Kasih! Penilaian Anda Telah Diterima</h4>
                         <p class="text-xs text-emerald-600" id="form-success-detail">Maklum balas anda telah direkodkan secara langsung ke dalam pangkalan data.</p>
-                        <button onclick="resetBorang()" class="mt-2 text-xs font-semibold text-emerald-700 underline">Buka Fasa Lain</button>
+                        <button onclick="resetBorang()" class="mt-2 text-xs font-semibold text-emerald-700 underline cursor-pointer">Buka Fasa Lain</button>
                     </div>
 
                 </div>
@@ -702,7 +650,6 @@
         <section id="section-analisis" class="hidden space-y-6">
             <div class="bg-white rounded-3xl shadow-sm border border-sky-100 p-6 md:p-8 space-y-8">
                 
-                <!-- Pengepala Analisis -->
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-sky-100 pb-5">
                     <div>
                         <div class="flex items-center gap-2">
@@ -714,16 +661,16 @@
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <button onclick="kemaskiniPaparanAnalisis()" class="px-4 py-2 bg-sky-50 text-sky-700 hover:bg-sky-100 rounded-xl text-xs font-semibold border border-sky-200 transition flex items-center gap-1.5">
+                        <button onclick="kemaskiniPaparanAnalisis()" class="px-4 py-2 bg-sky-50 text-sky-700 hover:bg-sky-100 rounded-xl text-xs font-semibold border border-sky-200 transition flex items-center gap-1.5 cursor-pointer">
                             <i class="fa-solid fa-arrows-rotate"></i> Kemaskini Paparan
                         </button>
-                        <button onclick="eksportDataCSV()" class="px-4 py-2 bg-slate-800 text-white hover:bg-slate-900 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
+                        <button onclick="eksportDataCSV()" class="px-4 py-2 bg-slate-800 text-white hover:bg-slate-900 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer">
                             <i class="fa-solid fa-download"></i> Muat Turun Data
                         </button>
                     </div>
                 </div>
 
-                <!-- Paparan Pecahan Respons Padat Mengikut Slot Penilaian -->
+                <!-- Paparan Pecahan Respons Mengikut Slot -->
                 <div class="bg-sky-50/40 p-5 rounded-2xl border border-sky-100 space-y-3">
                     <div class="flex items-center justify-between">
                         <h4 class="font-bold text-slate-800 text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2">
@@ -813,9 +760,8 @@
                     </div>
                 </div>
 
-                <!-- Paparan Kualitatif: 2 Paparan Berasingan Tanpa Nama/Emel -->
+                <!-- Paparan Kualitatif Berasingan Tanpa Nama/Emel -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Paparan 1: Maklum Balas Positif -->
                     <div class="bg-emerald-50/40 p-6 rounded-2xl border border-emerald-100 space-y-4">
                         <div class="flex items-center justify-between border-b border-emerald-100 pb-3">
                             <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2">
@@ -828,7 +774,6 @@
                         </div>
                     </div>
 
-                    <!-- Paparan 2: Cadangan Penambahbaikan -->
                     <div class="bg-amber-50/40 p-6 rounded-2xl border border-amber-100 space-y-4">
                         <div class="flex items-center justify-between border-b border-amber-100 pb-3">
                             <h4 class="font-bold text-amber-900 text-sm flex items-center gap-2">
@@ -847,11 +792,11 @@
 
     </main>
 
-    <!-- MODAL POPUP DENGAN PENUKARAN TAJUK DINAMIK -->
+    <!-- MODAL POPUP AKTIVITI -->
     <div id="activity-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl overflow-hidden border border-slate-100 transform transition-all">
             <div class="bg-gradient-to-r from-sky-700 to-sky-600 text-white p-6 relative">
-                <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition">
+                <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
                 <span id="modal-time" class="inline-block px-3 py-1 bg-amber-300 text-slate-900 font-bold rounded-full text-xs mb-2"></span>
@@ -859,7 +804,6 @@
             </div>
             <div class="p-6 space-y-4 text-sm text-slate-600">
                 <div>
-                    <!-- Tajuk Dinamik: "Atur cara Majlis" atau "Perincian Aktiviti" -->
                     <span id="modal-section-header" class="text-xs font-bold text-sky-800 uppercase tracking-wider block mb-1">
                         Perincian Aktiviti
                     </span>
@@ -878,7 +822,7 @@
                 <div id="modal-extra" class="pt-2"></div>
             </div>
             <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 text-right">
-                <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-900 text-white font-semibold px-5 py-2 rounded-xl text-xs transition">
+                <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-900 text-white font-semibold px-5 py-2 rounded-xl text-xs transition cursor-pointer">
                     Tutup Tetingkap
                 </button>
             </div>
@@ -897,8 +841,8 @@
         </div>
     </footer>
 
+    <!-- JAVASCRIPT LOGIC & SUPABASE -->
     <script>
-        // Konfigurasi Klien Supabase
         const SUPABASE_URL = "https://ftygvhlqejaksjrjdrqw.supabase.co";
         const SUPABASE_KEY = "sb_publishable_wPFi9afiTEYKdP7TO324pQ_TtegMQIt";
         let supabaseClient = null;
@@ -1500,7 +1444,7 @@
                                     <span class="font-bold text-purple-800 flex items-center gap-1">
                                         <i class="fa-solid fa-users text-[10px]"></i> Ahli Kumpulan:
                                     </span>
-                                    <p class="whitespace-pre-line text-slate-700 font-medium">${item.senarai_ahli}</p>
+                                    <p class="whitespace-pre-line text-slate-700 font-semibold">${item.senarai_ahli}</p>
                                 </div>
                             ` : ''}
                             ${item.keperluan_teknikal ? `
@@ -1526,16 +1470,30 @@
             const btn = document.getElementById('btn-submit-persembahan');
             const msg = document.getElementById('persembahan-status-msg');
 
-            const namaWakil = document.getElementById('persembahan-wakil').value.trim().toUpperCase();
-            const organisasi = document.getElementById('persembahan-organisasi').value.trim().toUpperCase();
-            const tajuk = document.getElementById('persembahan-tajuk').value.trim().toUpperCase();
-            const senaraiAhli = document.getElementById('persembahan-ahli').value.trim().toUpperCase();
-            const bilangan = parseInt(document.getElementById('persembahan-bilangan').value, 10) || 1;
-            const durasi = document.getElementById('persembahan-durasi').value;
-            const teknikalRaw = document.getElementById('persembahan-teknikal').value.trim().toUpperCase();
+            const orgElement = document.getElementById('persembahan-organisasi');
+            const wakilElement = document.getElementById('persembahan-wakil');
+            const tajukElement = document.getElementById('persembahan-tajuk');
+            const ahliElement = document.getElementById('persembahan-ahli');
+            const bilElement = document.getElementById('persembahan-bilangan');
+            const durasiElement = document.getElementById('persembahan-durasi');
+            const tekElement = document.getElementById('persembahan-teknikal');
+
+            const organisasi = orgElement ? orgElement.value.trim().toUpperCase() : '';
+            const namaWakil = wakilElement ? wakilElement.value.trim().toUpperCase() : '';
+            const tajuk = tajukElement ? tajukElement.value.trim().toUpperCase() : '';
+            const senaraiAhli = ahliElement ? ahliElement.value.trim().toUpperCase() : '';
+            const bilangan = bilElement ? (parseInt(bilElement.value, 10) || 1) : 1;
+            const durasi = durasiElement ? durasiElement.value : '';
+            const teknikalRaw = tekElement ? tekElement.value.trim().toUpperCase() : '';
             const teknikal = durasi ? `[${durasi.toUpperCase()}] ${teknikalRaw}` : teknikalRaw;
 
-            if (!namaWakil || !organisasi || !tajuk || !senaraiAhli) return;
+            if (!organisasi || !namaWakil || !tajuk || !senaraiAhli) {
+                if (msg) {
+                    msg.className = "text-xs font-semibold p-3 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 block";
+                    msg.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> Sila lengkapkan semua medan bertanda * termasuk Pusat/Cawangan dan Senarai Ahli.`;
+                }
+                return;
+            }
 
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Mendaftar...`;
@@ -1563,8 +1521,7 @@
                         berjayaAwan = true;
                         persembahanDB.push(data[0]);
                     } else if (error) {
-                        console.warn("Mencuba simpanan alternatif (jika lajur senarai_ahli belum wujud di Supabase):", error);
-                        // Fallback sekiranya lajur 'senarai_ahli' belum ditambah di Supabase: simpan bersama keperluan teknikal
+                        console.warn("Mencuba simpanan sandaran alternatif jika skema berbeza:", error);
                         const rekodFallback = {
                             nama_wakil: namaWakil,
                             organisasi: organisasi,
@@ -1600,12 +1557,13 @@
             btn.disabled = false;
             btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Hantar Pendaftaran Persembahan`;
 
-            msg.className = "text-xs font-semibold p-3 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 block";
-            msg.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Persembahan anda berjaya didaftarkan dan kini berada dalam giliran live!`;
-
-            setTimeout(() => {
-                msg.classList.add('hidden');
-            }, 6000);
+            if (msg) {
+                msg.className = "text-xs font-semibold p-3 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 block";
+                msg.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Persembahan dari ${organisasi} berjaya didaftarkan dan kini berada dalam giliran live!`;
+                setTimeout(() => {
+                    msg.classList.add('hidden');
+                }, 6000);
+            }
         }
 
         function switchSection(sectionName) {
@@ -1716,9 +1674,9 @@
             });
             document.querySelectorAll('.sub-slot-pill').forEach((btn, i) => {
                 if (i === idx) {
-                    btn.className = "sub-slot-pill px-3 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-sm border border-sky-600 transition flex items-center gap-1.5";
+                    btn.className = "sub-slot-pill px-3 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-sm border border-sky-600 transition flex items-center gap-1.5 cursor-pointer";
                 } else {
-                    btn.className = "sub-slot-pill px-3 py-2 rounded-xl text-xs font-medium bg-white text-slate-700 hover:bg-sky-50 border border-slate-200 transition flex items-center gap-1.5";
+                    btn.className = "sub-slot-pill px-3 py-2 rounded-xl text-xs font-medium bg-white text-slate-700 hover:bg-sky-50 border border-slate-200 transition flex items-center gap-1.5 cursor-pointer";
                 }
             });
         }
@@ -1752,7 +1710,7 @@
                 </div>
                 <div class="flex flex-wrap gap-2 pt-1" id="sub-slot-buttons">
                     ${dataFasa.sections.map((sec, idx) => `
-                        <button type="button" onclick="tukarSubSlot(${idx})" class="sub-slot-pill ${idx === 0 ? 'px-3 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-sm border border-sky-600 transition flex items-center gap-1.5' : 'px-3 py-2 rounded-xl text-xs font-medium bg-white text-slate-700 hover:bg-sky-50 border border-slate-200 transition flex items-center gap-1.5'}">
+                        <button type="button" onclick="tukarSubSlot(${idx})" class="sub-slot-pill ${idx === 0 ? 'px-3 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-sm border border-sky-600 transition flex items-center gap-1.5 cursor-pointer' : 'px-3 py-2 rounded-xl text-xs font-medium bg-white text-slate-700 hover:bg-sky-50 border border-slate-200 transition flex items-center gap-1.5 cursor-pointer'}">
                             <span class="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">${idx + 1}</span>
                             <span class="truncate max-w-[180px] sm:max-w-none">${sec.slotTitle.split('(')[0].trim()}</span>
                         </button>
@@ -1828,12 +1786,12 @@
                 html += `
                     <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                         ${sIdx > 0 ? `
-                            <button type="button" onclick="tukarSubSlot(${sIdx - 1})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition flex items-center gap-1">
+                            <button type="button" onclick="tukarSubSlot(${sIdx - 1})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition flex items-center gap-1 cursor-pointer">
                                 <i class="fa-solid fa-chevron-left"></i> Slot Sebelumnya
                             </button>
                         ` : `<div></div>`}
                         ${sIdx < dataFasa.sections.length - 1 ? `
-                            <button type="button" onclick="tukarSubSlot(${sIdx + 1})" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl text-xs transition flex items-center gap-1">
+                            <button type="button" onclick="tukarSubSlot(${sIdx + 1})" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl text-xs transition flex items-center gap-1 cursor-pointer">
                                 Slot Seterusnya <i class="fa-solid fa-chevron-right"></i>
                             </button>
                         ` : `
