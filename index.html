@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pusat Sehenti Bengkel Pembangunan Kapasiti Staf IAB @ CoE Tahun 2026</title>
+    <title>APS Maklumat Bengkel Pembangunan Kapasiti Staf IAB @ CoE Tahun 2026</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -79,7 +79,7 @@
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col">
 
-    <!-- HEADER / NAVIGATION (TEMA BIRU CAIR) -->
+    <!-- HEADER / NAVIGATION -->
     <header class="bg-gradient-to-r from-sky-900 via-sky-800 to-sky-700 text-white shadow-lg sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-4 text-center md:text-left">
@@ -89,7 +89,7 @@
                 </div>
                 <div>
                     <h1 class="text-lg md:text-xl font-bold leading-tight">
-                        Pusat Sehenti Bengkel Pembangunan Kapasiti Staf IAB @ CoE Tahun 2026
+                        APS Maklumat Bengkel Pembangunan Kapasiti Staf IAB @ CoE Tahun 2026
                     </h1>
                     <p class="text-xs text-sky-200 mt-1 flex items-center justify-center md:justify-start gap-2 flex-wrap">
                         <span><i class="fa-regular fa-calendar-days text-amber-300"></i> 2 HINGGA 5 NOVEMBER 2026</span>
@@ -99,7 +99,7 @@
                 </div>
             </div>
 
-            <!-- Lencana Pengepala Khas (Kementerian Pendidikan dan Institut Aminuddin Baki) -->
+            <!-- Lencana Pengepala Khas -->
             <div class="shrink-0">
                 <div class="bg-sky-950/70 border border-sky-400/40 rounded-2xl px-5 py-2 text-center shadow-inner">
                     <span class="text-sky-200 font-semibold text-[11px] sm:text-xs block tracking-wide uppercase">
@@ -116,8 +116,8 @@
     <!-- KANDUNGAN UTAMA -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-8">
 
-        <!-- NAVIGASI SEKSYEN KAD GRID (TIADA LAGI BAR SKROL) -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 mb-8 bg-sky-100/60 p-2 rounded-2xl border border-sky-200 shadow-sm">
+        <!-- NAVIGASI SEKSYEN KAD GRID (BARISAN PERTAMA) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 mb-5 bg-sky-100/70 p-2.5 rounded-2xl border border-sky-200 shadow-sm">
             <button onclick="switchSection('jadual')" id="sec-tab-jadual" class="section-tab active px-3 py-2.5 font-medium text-slate-700 bg-white hover:bg-sky-50 border border-slate-200/80 transition flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl text-xs text-center shadow-2xs">
                 <i class="fa-solid fa-calendar-check text-sky-600 text-sm"></i> <span>Jadual Harian</span>
             </button>
@@ -141,20 +141,33 @@
             </button>
         </div>
 
+        <!-- GARISAN PEMISAH KREATIF ANTARA BARISAN MENU DAN KANDUNGAN -->
+        <div class="relative flex items-center justify-center my-6">
+            <div class="w-full border-t border-sky-200"></div>
+            <div class="absolute px-4 bg-sky-50 text-[11px] font-bold text-sky-700 uppercase tracking-widest flex items-center gap-2 border border-sky-200 rounded-full py-0.5 shadow-2xs">
+                <span class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
+                <span>Program Bengkel CoE 2026</span>
+            </div>
+        </div>
+
         <!-- SEKSYEN 1: JADUAL BENGKEL -->
         <section id="section-jadual" class="space-y-6">
-            <!-- Tapis Hari -->
-            <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-                <button onclick="filterDay(1)" id="day-btn-1" class="tab-btn active px-5 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 border border-sky-200">
+            <!-- Tapis Hari (Barisan Kedua dengan Gaya Tona Lembut) -->
+            <div class="flex flex-wrap gap-2.5 justify-center md:justify-start bg-white/80 p-2.5 rounded-2xl border border-sky-100 shadow-2xs">
+                <button onclick="filterDay(1)" id="day-btn-1" class="tab-btn active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-sky-200 shadow-sm">
+                    <i class="fa-regular fa-calendar-check"></i>
                     <span>Hari 1</span> <span class="text-xs opacity-75">(Isnin, 2 Nov)</span>
                 </button>
-                <button onclick="filterDay(2)" id="day-btn-2" class="tab-btn bg-white text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 border border-sky-200">
+                <button onclick="filterDay(2)" id="day-btn-2" class="tab-btn bg-slate-50 text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-slate-200">
+                    <i class="fa-regular fa-calendar"></i>
                     <span>Hari 2</span> <span class="text-xs opacity-75">(Selasa, 3 Nov)</span>
                 </button>
-                <button onclick="filterDay(3)" id="day-btn-3" class="tab-btn bg-white text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 border border-sky-200">
+                <button onclick="filterDay(3)" id="day-btn-3" class="tab-btn bg-slate-50 text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-slate-200">
+                    <i class="fa-regular fa-calendar"></i>
                     <span>Hari 3</span> <span class="text-xs opacity-75">(Rabu, 4 Nov)</span>
                 </button>
-                <button onclick="filterDay(4)" id="day-btn-4" class="tab-btn bg-white text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 border border-sky-200">
+                <button onclick="filterDay(4)" id="day-btn-4" class="tab-btn bg-slate-50 text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-slate-200">
+                    <i class="fa-regular fa-calendar"></i>
                     <span>Hari 4</span> <span class="text-xs opacity-75">(Khamis, 5 Nov)</span>
                 </button>
             </div>
@@ -437,7 +450,7 @@
             </div>
         </section>
 
-        <!-- SEKSYEN 6: PENILAIAN SLOT (BERASASKAN EMEL UNIK) -->
+        <!-- SEKSYEN 6: PENILAIAN SLOT -->
         <section id="section-maklumbalas" class="hidden space-y-6">
             <div class="bg-white rounded-3xl shadow-sm border border-sky-100 p-6 md:p-8">
                 <div class="max-w-3xl mx-auto space-y-6">
@@ -557,7 +570,7 @@
             </div>
         </section>
 
-        <!-- SEKSYEN 7: ANALISIS DAPATAN (PAPAN PEMUKA LIVE) -->
+        <!-- SEKSYEN 7: ANALISIS DAPATAN (PAPAN PEMUKA EKSKLUSIF) -->
         <section id="section-analisis" class="hidden space-y-6">
             <div class="bg-white rounded-3xl shadow-sm border border-sky-100 p-6 md:p-8 space-y-8">
                 
@@ -569,7 +582,7 @@
                             <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase">Data Masa Nyata</span>
                         </div>
                         <h2 class="text-2xl font-bold text-slate-800 mt-1">Papan Pemuka Analisis Maklum Balas</h2>
-                        <p class="text-xs text-slate-500">Pemantauan bilangan penilai mengikut slot, skor purata, dan dapatan kualitatif.</p>
+                        <p class="text-xs text-slate-500">Pemantauan bilangan penilai mengikut slot, skor purata, dan carta bar eksklusif bagi setiap item soalan.</p>
                     </div>
 
                     <div class="flex items-center gap-2">
@@ -598,34 +611,77 @@
                     </div>
                 </div>
 
-                <!-- Perbandingan Skor: Isi Kandungan Slot vs Penceramah dan Fasilitator -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white p-6 rounded-2xl border border-sky-100 shadow-sm space-y-4">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                <i class="fa-solid fa-book-open text-sky-600"></i> Isi Kandungan Slot
-                            </h4>
-                            <span id="score-domain-kandungan" class="text-xs font-bold px-2.5 py-1 bg-sky-100 text-sky-800 rounded-md">
-                                0.00 / 5.00
-                            </span>
+                <!-- PENAPIS SLOT EKSKLUSIF (INTERACTIVE SLOT SELECTOR) -->
+                <div class="bg-white p-5 rounded-2xl border border-sky-200 shadow-sm space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <label for="analisis-slot-select" class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-filter text-sky-600"></i> Pilih Slot untuk Paparan Terperinci:
+                        </label>
+                        <span class="text-[11px] text-sky-600 font-medium">Carta bar 10 soalan akan dipaparkan secara automatik</span>
+                    </div>
+                    <select id="analisis-slot-select" onchange="tukarAnalisisSlot(this.value)" class="w-full bg-sky-50/60 border border-sky-200 text-slate-800 text-xs sm:text-sm font-semibold rounded-xl p-3 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                        <option value="all">Ringkasan Keseluruhan Bengkel (Semua Slot)</option>
+                        <option value="q_f2_k1">Hari 2: Kuliah Subuh "Hadith 40" (Ustaz alHuzaee)</option>
+                        <option value="q_f2_k2">Hari 2: Sesi Suai Kenal (Encik Kadir)</option>
+                        <option value="q_f2_k3">Hari 2: Ceramah "I Love Myself" (Encik Kadir)</option>
+                        <option value="q_f3_k1">Hari 3: Kuliah Subuh "Hadith 40" (Ustaz alHuzaee)</option>
+                        <option value="q_f3_k2">Hari 3: Pembangunan Kerja Sepasukan</option>
+                        <option value="q_f3_k3">Hari 3: Malam Budaya IAB</option>
+                        <option value="q_f4_k1">Hari 4: Kuliah Subuh "Hadith 40" (Ustaz alHuzaee)</option>
+                        <option value="q_f4_k2">Hari 4: Ceramah "Tingkah Laku Organisasi" (Encik Ahmad Sabri)</option>
+                        <option value="q_f4_k3">Hari 4: Pengurusan Logistik dan Urus Setia</option>
+                    </select>
+                </div>
+
+                <!-- KAD METRIK SLOT DIPILIH -->
+                <div id="slot-metrics-overview" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-sky-50/60 p-4 rounded-2xl border border-sky-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-[11px] font-semibold text-slate-500 block">Bilangan Respons Slot</span>
+                            <h3 id="stat-slot-respons" class="text-xl font-bold text-sky-800 mt-0.5">8</h3>
                         </div>
-                        <div class="space-y-3" id="progress-container-kandungan">
-                            <!-- Bar kemajuan dinamik -->
+                        <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                    </div>
+                    <div class="bg-sky-50/60 p-4 rounded-2xl border border-sky-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-[11px] font-semibold text-slate-500 block">Purata Isi Kandungan</span>
+                            <h3 id="stat-slot-kandungan" class="text-xl font-bold text-sky-800 mt-0.5">4.85 / 5.00</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50/60 p-4 rounded-2xl border border-amber-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-[11px] font-semibold text-slate-500 block">Purata Penceramah / Pengendali</span>
+                            <h3 id="stat-slot-penceramah" class="text-xl font-bold text-amber-800 mt-0.5">4.90 / 5.00</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARTA BAR MENDATAR ITEM SOALAN EKSKLUSIF (HTML/TAILWIND CLEAN) -->
+                <div class="bg-white p-6 rounded-2xl border border-sky-100 shadow-sm space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                        <div>
+                            <h4 id="chart-section-title" class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-chart-simple text-sky-600"></i> Analisis Skor Setiap Item Soalan
+                            </h4>
+                            <p class="text-xs text-slate-500 mt-0.5">Skor purata Skala Likert 1 (Sangat Tidak Setuju) hingga 5 (Sangat Setuju).</p>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs">
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-sky-600 inline-block"></span> Isi Kandungan</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Penceramah</span>
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl border border-sky-100 shadow-sm space-y-4">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                <i class="fa-solid fa-chalkboard-user text-amber-600"></i> Penceramah dan Fasilitator
-                            </h4>
-                            <span id="score-domain-penceramah" class="text-xs font-bold px-2.5 py-1 bg-amber-100 text-amber-800 rounded-md">
-                                0.00 / 5.00
-                            </span>
-                        </div>
-                        <div class="space-y-3" id="progress-container-penceramah">
-                            <!-- Bar kemajuan dinamik -->
-                        </div>
+                    <!-- Bekas Bar Item Soalan Dinamik -->
+                    <div id="item-bars-container" class="space-y-3.5 pt-1">
+                        <!-- Dijana secara dinamik melalui JavaScript -->
                     </div>
                 </div>
 
@@ -663,7 +719,7 @@
 
     </main>
 
-    <!-- MODAL POPUP -->
+    <!-- MODAL POPUP DENGAN PENUKARAN TAJUK DINAMIK -->
     <div id="activity-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl overflow-hidden border border-slate-100 transform transition-all">
             <div class="bg-gradient-to-r from-sky-700 to-sky-600 text-white p-6 relative">
@@ -675,7 +731,10 @@
             </div>
             <div class="p-6 space-y-4 text-sm text-slate-600">
                 <div>
-                    <span class="text-xs font-bold text-sky-800 uppercase tracking-wider block mb-1">Perincian Aktiviti</span>
+                    <!-- Tajuk Dinamik: "Atur cara Majlis" atau "Perincian Aktiviti" -->
+                    <span id="modal-section-header" class="text-xs font-bold text-sky-800 uppercase tracking-wider block mb-1">
+                        Perincian Aktiviti
+                    </span>
                     <div id="modal-details" class="bg-sky-50/50 p-4 rounded-xl border border-sky-100 text-slate-700"></div>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
@@ -705,7 +764,7 @@
                 © 2026 Institut Aminuddin Baki @ CoE. Hak Cipta Terpelihara.
             </p>
             <p class="text-xs text-slate-500 tracking-wider uppercase">
-                Pusat Sehenti Bengkel Pembangunan Kapasiti Staf IAB @ CoE Tahun 2026
+                APS Maklumat Bengkel Pembangunan Kapasiti Staf IAB @ CoE Tahun 2026
             </p>
         </div>
     </footer>
@@ -1001,6 +1060,7 @@
                 title: "Penilaian Fasa 1: Hari 2 (Selasa)",
                 sections: [
                     {
+                        slotKey: "q_f2_k1",
                         slotTitle: "Kuliah Subuh: \"Hadith 40\" (al-Fadhil Ustaz alHuzaee bin Sulaiman)",
                         domainKandungan: [
                             { id: "q_f2_k1_1", text: "Pengisian hadith memberi peringatan yang menyentuh hati dan menyuntik kesedaran rohani." },
@@ -1018,6 +1078,7 @@
                         ]
                     },
                     {
+                        slotKey: "q_f2_k2",
                         slotTitle: "Sesi Suai Kenal (Encik Kadir bin Ali)",
                         domainKandungan: [
                             { id: "q_f2_k2_1", text: "Aktiviti yang dirangka berkesan memecahkan rasa kekok (ice-breaking) antara staf cawangan dan induk." },
@@ -1035,6 +1096,7 @@
                         ]
                     },
                     {
+                        slotKey: "q_f2_k3",
                         slotTitle: "Ceramah \"I Love Myself\" (Encik Kadir bin Ali)",
                         domainKandungan: [
                             { id: "q_f2_k3_1", text: "Kandungan ceramah membantu peserta mengenal potensi, kekuatan peribadi, dan penghargaan kendiri." },
@@ -1057,6 +1119,7 @@
                 title: "Penilaian Fasa 2: Hari 3 (Rabu)",
                 sections: [
                     {
+                        slotKey: "q_f3_k1",
                         slotTitle: "Kuliah Subuh: \"Hadith 40\" (al-Fadhil Ustaz alHuzaee bin Sulaiman)",
                         domainKandungan: [
                             { id: "q_f3_k1_1", text: "Mesej hadith padat, jelas, dan memberi ketenangan sebelum memulakan aktiviti luar." },
@@ -1074,6 +1137,7 @@
                         ]
                     },
                     {
+                        slotKey: "q_f3_k2",
                         slotTitle: "Pembangunan Kerja Sepasukan (Hadapan Rumah Puspanita)",
                         domainKandungan: [
                             { id: "q_f3_k2_1", text: "Modul aktiviti menuntut strategi perancangan, kepimpinan bersama, dan agihan tugas yang adil." },
@@ -1091,6 +1155,7 @@
                         ]
                     },
                     {
+                        slotKey: "q_f3_k3",
                         slotTitle: "Malam Budaya IAB (Persembahan dan Pengurusan Sahaja)",
                         domainKandungan: [
                             { id: "q_f3_k3_1", text: "Persembahan kebudayaan memperlihatkan bakat seni, kreativiti, dan keunikan identiti warga IAB." },
@@ -1113,6 +1178,7 @@
                 title: "Penilaian Fasa 3: Hari 4 (Khamis)",
                 sections: [
                     {
+                        slotKey: "q_f4_k1",
                         slotTitle: "Kuliah Subuh: \"Hadith 40\" (al-Fadhil Ustaz alHuzaee bin Sulaiman)",
                         domainKandungan: [
                             { id: "q_f4_k1_1", text: "Pengisian hadith membina keinsafan berterusan untuk istiqamah dalam integriti kerja." },
@@ -1130,6 +1196,7 @@
                         ]
                     },
                     {
+                        slotKey: "q_f4_k2",
                         slotTitle: "Ceramah \"Tingkah Laku Organisasi\" (Encik Ahmad Sabri bin Mohamad)",
                         domainKandungan: [
                             { id: "q_f4_k2_1", text: "Kandungan ceramah memperkukuh kefahaman mengenai dinamika tingkah laku individu dan kumpulan." },
@@ -1147,6 +1214,7 @@
                         ]
                     },
                     {
+                        slotKey: "q_f4_k3",
                         slotTitle: "Pengurusan Logistik dan Urus Setia",
                         domainKandungan: [
                             { id: "q_f4_k3_1", text: "Pengurusan pendaftaran asrama kediaman dan kemudahan bilik berjalan lancar dan teratur." },
@@ -1170,6 +1238,7 @@
         let submissionsDB = [];
         let fasaSemasa = 2;
         let slotAktifIdx = 0;
+        let slotAnalisisPilihan = "all";
 
         function muatDataSimpanan() {
             try {
@@ -1201,17 +1270,21 @@
             ];
             
             initialEmails.forEach((email, idx) => {
+                const ratingObj2 = {};
+                // Slot 1
+                for(let i=1; i<=7; i++) ratingObj2[`q_f2_k1_${i}`] = 4 + (idx % 2);
+                for(let i=1; i<=3; i++) ratingObj2[`q_f2_p1_${i}`] = 5;
+                // Slot 2
+                for(let i=1; i<=7; i++) ratingObj2[`q_f2_k2_${i}`] = 4 + ((idx + i) % 2);
+                for(let i=1; i<=3; i++) ratingObj2[`q_f2_p2_${i}`] = 5;
+                // Slot 3
+                for(let i=1; i<=7; i++) ratingObj2[`q_f2_k3_${i}`] = 4 + (idx % 2);
+                for(let i=1; i<=3; i++) ratingObj2[`q_f2_p3_${i}`] = 5;
+
                 submissionsDB.push({
                     email: email,
                     fasa: 2,
-                    ratings: {
-                        "q_f2_k1_1": 5, "q_f2_k1_2": 4 + (idx % 2),
-                        "q_f2_p1_1": 5,
-                        "q_f2_k2_1": 5, "q_f2_k2_2": 4,
-                        "q_f2_p2_1": 5,
-                        "q_f2_k3_1": 5, "q_f2_k3_2": 4 + (idx % 2),
-                        "q_f2_p3_1": 5
-                    },
+                    ratings: ratingObj2,
                     maklumbalasPositif: idx === 0 
                         ? "Sesi ceramah kendiri sangat menyentuh hati, membakar semangat dan membuka minda kami." 
                         : (idx === 1 ? "Aktiviti suai kenal amat berjaya merapatkan hubungan dan ukhuwah antara staf cawangan dan induk." : (idx === 2 ? "Pengisian Hadith 40 pada sesi subuh memberi ketenangan sebelum memulakan sesi harian." : "")),
@@ -1221,16 +1294,18 @@
                 });
 
                 if (idx < 5) {
+                    const ratingObj3 = {};
+                    for(let i=1; i<=7; i++) ratingObj3[`q_f3_k1_${i}`] = 5;
+                    for(let i=1; i<=3; i++) ratingObj3[`q_f3_p1_${i}`] = 5;
+                    for(let i=1; i<=7; i++) ratingObj3[`q_f3_k2_${i}`] = 4 + (i % 2);
+                    for(let i=1; i<=3; i++) ratingObj3[`q_f3_p2_${i}`] = 5;
+                    for(let i=1; i<=7; i++) ratingObj3[`q_f3_k3_${i}`] = 5;
+                    for(let i=1; i<=3; i++) ratingObj3[`q_f3_p3_${i}`] = 4 + (i % 2);
+
                     submissionsDB.push({
                         email: email,
                         fasa: 3,
-                        ratings: {
-                            "q_f3_k1_1": 5, "q_f3_p1_1": 5,
-                            "q_f3_k2_1": 4, "q_f3_k2_2": 5,
-                            "q_f3_p2_1": 5,
-                            "q_f3_k3_1": 5, "q_f3_k3_2": 5,
-                            "q_f3_p3_1": 4
-                        },
+                        ratings: ratingObj3,
                         maklumbalasPositif: "Malam Budaya sangat meriah, menyatukan staf berbilang kaum dan menyerlahkan bakat terpendam warga IAB.",
                         cadanganPenambahbaikan: "Aktiviti padang boleh dimulakan sedikit awal pagi sebelum cuaca panas."
                     });
@@ -1258,9 +1333,9 @@
                 const btn = document.getElementById(`day-btn-${i}`);
                 if (!btn) continue;
                 if (i === dayNumber) {
-                    btn.className = "tab-btn active px-5 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 border border-sky-200";
+                    btn.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-sky-200 shadow-sm";
                 } else {
-                    btn.className = "tab-btn bg-white text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 border border-sky-200";
+                    btn.className = "tab-btn bg-slate-50 text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-slate-200";
                 }
             }
 
@@ -1502,7 +1577,6 @@
             const emailInput = document.getElementById('peserta-email');
             const email = emailInput.value.trim().toLowerCase();
 
-            // 1. Semakan Emel
             if (!email || !email.includes('@')) {
                 emailInput.focus();
                 return;
@@ -1514,12 +1588,10 @@
                 return;
             }
 
-            // 2. Semakan Soalan Tertinggal bagi Keseluruhan Slot Fasa Semasa
             const dataFasa = feedbackQuestions[fasaSemasa];
             const senaraiTertinggal = [];
             let slotPertamaTertinggal = null;
 
-            // Bersihkan semua kesan amaran sebelumnya
             document.querySelectorAll('.question-unanswered-blink').forEach(el => el.classList.remove('question-unanswered-blink'));
 
             dataFasa.sections.forEach((sec, sIdx) => {
@@ -1543,11 +1615,9 @@
             const warningText = document.getElementById('unanswered-warning-text');
 
             if (senaraiTertinggal.length > 0) {
-                // Tunjuk amaran kepada peserta
                 warningText.textContent = `Terdapat ${senaraiTertinggal.length} soalan yang belum dijawab. Sistem telah membawa anda ke slot berkenaan yang berkelip merah.`;
                 warningBox.classList.remove('hidden');
 
-                // Bawa peserta ke slot yang belum dijawab dan skrol ke soalan pertama yang tertinggal
                 tukarSubSlot(slotPertamaTertinggal);
                 const firstCard = document.getElementById(`card_${senaraiTertinggal[0].qId}`);
                 if (firstCard) {
@@ -1556,10 +1626,8 @@
                 return;
             }
 
-            // Jika semua telah dijawab, sorok amaran
             warningBox.classList.add('hidden');
 
-            // 3. Kumpul Skor dan Rekod
             const formData = new FormData(e.target);
             const ratings = {};
             for (let [key, value] of formData.entries()) {
@@ -1602,29 +1670,47 @@
             pilihFasa(fasaSemasa);
         }
 
+        function tukarAnalisisSlot(slotKey) {
+            slotAnalisisPilihan = slotKey;
+            kemaskiniPaparanAnalisis();
+        }
+
+        function dapatkanSemuaDefinisiSoalan() {
+            const map = {};
+            [2, 3, 4].forEach(fNum => {
+                feedbackQuestions[fNum].sections.forEach(sec => {
+                    sec.domainKandungan.forEach(q => {
+                        map[q.id] = { text: q.text, type: 'kandungan', slotKey: sec.slotKey, slotTitle: sec.slotTitle };
+                    });
+                    sec.domainPenceramah.forEach(q => {
+                        map[q.id] = { text: q.text, type: 'penceramah', slotKey: sec.slotKey, slotTitle: sec.slotTitle };
+                    });
+                });
+            });
+            return map;
+        }
+
         function kemaskiniPaparanAnalisis() {
-            // Kira bilangan responden (peserta unik)
             const uniqueEmails = new Set(submissionsDB.map(s => s.email.toLowerCase()));
             document.getElementById('stat-total-peserta-unik').textContent = `Bilangan Responden: ${uniqueEmails.size} orang`;
 
-            // Senarai slot penilaian dan kod soalan pengecam
             const slotList = [
-                { nama: "Kuliah Subuh (Selasa)", fasa: 2, key: "q_f2_k1_1" },
-                { nama: "Sesi Suai Kenal", fasa: 2, key: "q_f2_k2_1" },
-                { nama: "Ceramah \"I Love Myself\"", fasa: 2, key: "q_f2_k3_1" },
-                { nama: "Kuliah Subuh (Rabu)", fasa: 3, key: "q_f3_k1_1" },
-                { nama: "Pembangunan Kerja Sepasukan", fasa: 3, key: "q_f3_k2_1" },
-                { nama: "Malam Budaya IAB", fasa: 3, key: "q_f3_k3_1" },
-                { nama: "Kuliah Subuh (Khamis)", fasa: 4, key: "q_f4_k1_1" },
-                { nama: "Ceramah \"Tingkah Laku Organisasi\"", fasa: 4, key: "q_f4_k2_1" },
-                { nama: "Pengurusan Logistik dan Urus Setia", fasa: 4, key: "q_f4_k3_1" }
+                { nama: "Kuliah Subuh (Selasa)", fasa: 2, keyPrefix: "q_f2_k1", primaryKey: "q_f2_k1_1" },
+                { nama: "Sesi Suai Kenal", fasa: 2, keyPrefix: "q_f2_k2", primaryKey: "q_f2_k2_1" },
+                { nama: "Ceramah \"I Love Myself\"", fasa: 2, keyPrefix: "q_f2_k3", primaryKey: "q_f2_k3_1" },
+                { nama: "Kuliah Subuh (Rabu)", fasa: 3, keyPrefix: "q_f3_k1", primaryKey: "q_f3_k1_1" },
+                { nama: "Pembangunan Kerja Sepasukan", fasa: 3, keyPrefix: "q_f3_k2", primaryKey: "q_f3_k2_1" },
+                { nama: "Malam Budaya IAB", fasa: 3, keyPrefix: "q_f3_k3", primaryKey: "q_f3_k3_1" },
+                { nama: "Kuliah Subuh (Khamis)", fasa: 4, keyPrefix: "q_f4_k1", primaryKey: "q_f4_k1_1" },
+                { nama: "Ceramah \"Tingkah Laku Organisasi\"", fasa: 4, keyPrefix: "q_f4_k2", primaryKey: "q_f4_k2_1" },
+                { nama: "Pengurusan Logistik dan Urus Setia", fasa: 4, keyPrefix: "q_f4_k3", primaryKey: "q_f4_k3_1" }
             ];
 
             const slotCountsContainer = document.getElementById('slot-counts-container');
             slotCountsContainer.innerHTML = '';
 
             slotList.forEach(slot => {
-                const count = submissionsDB.filter(s => s.fasa === slot.fasa && s.ratings && s.ratings[slot.key] !== undefined).length;
+                const count = submissionsDB.filter(s => s.fasa === slot.fasa && s.ratings && s.ratings[slot.primaryKey] !== undefined).length;
                 const slotCard = document.createElement('div');
                 slotCard.className = "bg-white px-3 py-2 rounded-xl border border-sky-100 flex items-center justify-between text-xs";
                 slotCard.innerHTML = `
@@ -1634,55 +1720,130 @@
                 slotCountsContainer.appendChild(slotCard);
             });
 
-            let sumKandungan = 0, countKandungan = 0;
-            let sumPenceramah = 0, countPenceramah = 0;
+            // Analisis Skor Eksklusif Mengikut Pilihan Dropdown
+            const qDefMap = dapatkanSemuaDefinisiSoalan();
+            let senaraiSoalanSasaran = [];
+            let bilanganResponsSlot = 0;
 
-            submissionsDB.forEach(entry => {
-                for (let [qId, val] of Object.entries(entry.ratings)) {
-                    if (qId.includes('_k')) {
-                        sumKandungan += val;
-                        countKandungan++;
-                    } else if (qId.includes('_p')) {
-                        sumPenceramah += val;
-                        countPenceramah++;
+            if (slotAnalisisPilihan === "all") {
+                document.getElementById('chart-section-title').innerHTML = `<i class="fa-solid fa-chart-simple text-sky-600"></i> Analisis Skor Keseluruhan Bengkel (Purata Setiap Slot)`;
+                // Kumpul senarai slot
+                senaraiSoalanSasaran = slotList.map(s => ({
+                    id: s.keyPrefix,
+                    label: s.nama,
+                    type: 'kandungan',
+                    isAggregatedSlot: true,
+                    keyPrefix: s.keyPrefix
+                }));
+                bilanganResponsSlot = uniqueEmails.size;
+            } else {
+                const slotItemInfo = slotList.find(s => s.keyPrefix === slotAnalisisPilihan);
+                const tajukPilihan = slotItemInfo ? slotItemInfo.nama : "Slot Dipilih";
+                document.getElementById('chart-section-title').innerHTML = `<i class="fa-solid fa-chart-simple text-sky-600"></i> Analisis Skor 10 Item Soalan: ${tajukPilihan}`;
+                
+                // Cari 10 soalan sebenar bagi slot ini
+                Object.keys(qDefMap).forEach(qKey => {
+                    const info = qDefMap[qKey];
+                    if (info.slotKey === slotAnalisisPilihan) {
+                        senaraiSoalanSasaran.push({
+                            id: qKey,
+                            label: info.text,
+                            type: info.type,
+                            isAggregatedSlot: false
+                        });
+                    }
+                });
+
+                if (slotItemInfo) {
+                    bilanganResponsSlot = submissionsDB.filter(s => s.fasa === slotItemInfo.fasa && s.ratings && s.ratings[slotItemInfo.primaryKey] !== undefined).length;
+                }
+            }
+
+            // Kira Purata Kandungan dan Penceramah bagi Slot Semasa
+            let sumK = 0, countK = 0;
+            let sumP = 0, countP = 0;
+
+            submissionsDB.forEach(sub => {
+                for (let [qId, val] of Object.entries(sub.ratings)) {
+                    const info = qDefMap[qId];
+                    if (!info) continue;
+                    if (slotAnalisisPilihan === "all" || info.slotKey === slotAnalisisPilihan) {
+                        if (info.type === 'kandungan') {
+                            sumK += val;
+                            countK++;
+                        } else if (info.type === 'penceramah') {
+                            sumP += val;
+                            countP++;
+                        }
                     }
                 }
             });
 
-            const avgKandungan = countKandungan > 0 ? (sumKandungan / countKandungan).toFixed(2) : "0.00";
-            const avgPenceramah = countPenceramah > 0 ? (sumPenceramah / countPenceramah).toFixed(2) : "0.00";
+            const avgK = countK > 0 ? (sumK / countK).toFixed(2) : "0.00";
+            const avgP = countP > 0 ? (sumP / countP).toFixed(2) : "0.00";
 
-            document.getElementById('score-domain-kandungan').textContent = `${avgKandungan} / 5.00`;
-            document.getElementById('score-domain-penceramah').textContent = `${avgPenceramah} / 5.00`;
+            document.getElementById('stat-slot-respons').textContent = `${bilanganResponsSlot} responden`;
+            document.getElementById('stat-slot-kandungan').textContent = `${avgK} / 5.00`;
+            document.getElementById('stat-slot-penceramah').textContent = `${avgP} / 5.00`;
 
-            const percentKandungan = countKandungan > 0 ? (avgKandungan / 5 * 100).toFixed(0) : 0;
-            const percentPenceramah = countPenceramah > 0 ? (avgPenceramah / 5 * 100).toFixed(0) : 0;
+            // Bina Carta Bar Mendatar bagi Setiap Item
+            const barsContainer = document.getElementById('item-bars-container');
+            barsContainer.innerHTML = '';
 
-            document.getElementById('progress-container-kandungan').innerHTML = `
-                <div>
-                    <div class="flex justify-between text-xs text-slate-500 mb-1">
-                        <span>Pencapaian Purata Skor Isi Kandungan Slot</span>
-                        <span class="font-bold text-sky-700">${percentKandungan}%</span>
-                    </div>
-                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                        <div class="bg-sky-600 h-2.5 rounded-full transition-all duration-500" style="width: ${percentKandungan}%"></div>
-                    </div>
-                </div>
-            `;
+            if (senaraiSoalanSasaran.length === 0) {
+                barsContainer.innerHTML = '<p class="text-xs text-slate-400 italic text-center py-4">Tiada data bagi paparan ini.</p>';
+            } else {
+                senaraiSoalanSasaran.forEach((item, idx) => {
+                    let skorItem = 0;
+                    if (item.isAggregatedSlot) {
+                        // Purata keseluruhan slot
+                        let sumSlot = 0, countSlot = 0;
+                        submissionsDB.forEach(sub => {
+                            for (let [qKey, val] of Object.entries(sub.ratings)) {
+                                if (qKey.startsWith(item.keyPrefix)) {
+                                    sumSlot += val;
+                                    countSlot++;
+                                }
+                            }
+                        });
+                        skorItem = countSlot > 0 ? (sumSlot / countSlot).toFixed(2) : "0.00";
+                    } else {
+                        // Skor soalan khusus
+                        let sumQ = 0, countQ = 0;
+                        submissionsDB.forEach(sub => {
+                            if (sub.ratings && sub.ratings[item.id] !== undefined) {
+                                sumQ += sub.ratings[item.id];
+                                countQ++;
+                            }
+                        });
+                        skorItem = countQ > 0 ? (sumQ / countQ).toFixed(2) : "0.00";
+                    }
 
-            document.getElementById('progress-container-penceramah').innerHTML = `
-                <div>
-                    <div class="flex justify-between text-xs text-slate-500 mb-1">
-                        <span>Pencapaian Purata Skor Penceramah dan Fasilitator</span>
-                        <span class="font-bold text-amber-700">${percentPenceramah}%</span>
-                    </div>
-                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                        <div class="bg-amber-500 h-2.5 rounded-full transition-all duration-500" style="width: ${percentPenceramah}%"></div>
-                    </div>
-                </div>
-            `;
+                    const percent = (parseFloat(skorItem) / 5 * 100).toFixed(0);
+                    const isPenceramah = item.type === 'penceramah';
+                    const barColor = isPenceramah ? 'bg-amber-500' : 'bg-sky-600';
+                    const badgeBg = isPenceramah ? 'bg-amber-100 text-amber-800' : 'bg-sky-100 text-sky-800';
 
-            // Paparan 1: Maklum Balas Positif (Tanpa Emel/Nama)
+                    const barRow = document.createElement('div');
+                    barRow.className = "space-y-1";
+                    barRow.innerHTML = `
+                        <div class="flex items-center justify-between text-xs gap-3">
+                            <span class="text-slate-700 font-medium truncate max-w-xs sm:max-w-xl" title="${item.label}">
+                                <strong class="text-slate-900">${idx + 1}.</strong> ${item.label}
+                            </span>
+                            <span class="${badgeBg} font-extrabold px-2 py-0.5 rounded text-[11px] shrink-0">
+                                ${skorItem} / 5.00
+                            </span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                            <div class="${barColor} h-3 rounded-full transition-all duration-700" style="width: ${percent}%"></div>
+                        </div>
+                    `;
+                    barsContainer.appendChild(barRow);
+                });
+            }
+
+            // Paparan Komen Kualitatif (Tanpa Nama)
             const positifContainer = document.getElementById('live-positif-container');
             positifContainer.innerHTML = '';
             const senaraiPositif = submissionsDB.filter(s => (s.maklumbalasPositif && s.maklumbalasPositif.trim().length > 0) || (s.komen && s.komen.trim().length > 0));
@@ -1706,7 +1867,6 @@
                 });
             }
 
-            // Paparan 2: Cadangan Penambahbaikan (Tanpa Emel/Nama)
             const cadanganContainer = document.getElementById('live-cadangan-container');
             cadanganContainer.innerHTML = '';
             const senaraiCadangan = submissionsDB.filter(s => s.cadanganPenambahbaikan && s.cadanganPenambahbaikan.trim().length > 0);
@@ -1757,6 +1917,15 @@
             document.getElementById('modal-time').textContent = item.time;
             document.getElementById('modal-title').textContent = item.title;
             
+            // Penukaran Tajuk: "Atur cara Majlis" untuk Perasmian Pembukaan, Penutupan dan Malam Budaya Sahaja
+            const headerElement = document.getElementById('modal-section-header');
+            const tajukKecil = item.title.toLowerCase();
+            if (tajukKecil.includes('perasmian pembukaan') || tajukKecil.includes('perasmian penutupan') || tajukKecil.includes('malam budaya')) {
+                headerElement.textContent = "Atur cara Majlis";
+            } else {
+                headerElement.textContent = "Perincian Aktiviti";
+            }
+
             let bulletDetails = '<ul class="space-y-1 list-none">';
             item.details.forEach(d => {
                 bulletDetails += `<li>${d}</li>`;
@@ -1785,20 +1954,18 @@
             document.getElementById('activity-modal').classList.add('hidden');
         }
 
-        // Inisialisasi Apabila Laman Dimuatkan Sepenuhnya
+        // Inisialisasi Apabila Laman Dimuatkan
         window.addEventListener('DOMContentLoaded', () => {
             filterDay(1);
             pilihFasa(2);
             muatDataSimpanan();
             kemaskiniPaparanAnalisis();
 
-            // Pasang pendengar peristiwa untuk semakan emel interaktif
             const emailInput = document.getElementById('peserta-email');
             if (emailInput) {
                 emailInput.addEventListener('input', semakStatusEmelSemasa);
             }
 
-            // QR Code Pendaftaran Kehadiran Insyst
             try {
                 const qrContainer = document.getElementById("insyst-qr-code");
                 if (qrContainer && typeof QRCode !== 'undefined') {
