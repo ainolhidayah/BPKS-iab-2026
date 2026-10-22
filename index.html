@@ -430,7 +430,7 @@
                             <label for="persembahan-ahli" class="block text-xs font-bold text-slate-700 mb-1">
                                 Senarai Nama Ahli Kumpulan <span class="text-rose-500">*</span>
                             </label>
-                            <textarea id="persembahan-ahli" required rows="3" placeholder="Masukkan nama semua ahli kumpulan (seorang satu baris atau koma)&#10;Contoh:&#10;1. Ahmad Razali&#10;2. Siti Aminah&#10;3. Mohd Faizal" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase font-semibold"></textarea>
+                            <textarea id="persembahan-ahli" required rows="3" oninput="autoKiraBilanganAhli(this.value)" placeholder="Masukkan nama semua ahli kumpulan (seorang satu baris atau koma)&#10;Contoh:&#10;1. Ahmad Razali&#10;2. Siti Aminah&#10;3. Mohd Faizal" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase font-semibold"></textarea>
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
@@ -1386,7 +1386,23 @@
                         .order('id', { ascending: true });
 
                     if (!error && data) {
-                        persembahanDB = data;
+                        persembahanDB = data.map(item => {
+                            // Ekstrak nama ahli jika sebelum ini tersimpan dalam keperluan_teknikal
+                            let ahli = item.senarai_ahli || '';
+                            let teknikal = item.keperluan_teknikal || '';
+                            if (!ahli && teknikal.includes('[AHLI:')) {
+                                const padanan = teknikal.match(/\[AHLI:\s*([^\]]+)\]/);
+                                if (padanan) {
+                                    ahli = padanan[1].trim();
+                                    teknikal = teknikal.replace(/\[AHLI:\s*[^\]]+\]\s*/, '').trim();
+                                }
+                            }
+                            return {
+                                ...item,
+                                senarai_ahli: ahli,
+                                keperluan_teknikal: teknikal
+                            };
+                        });
                         localStorage.setItem('iab_persembahan_2026', JSON.stringify(persembahanDB));
                     }
                 } catch (err) {
@@ -1394,6 +1410,19 @@
                 }
             }
             paparkanSenaraiPersembahan();
+        }
+
+        function autoKiraBilanganAhli(teks) {
+            if (!teks) return;
+            // Pecahkan mengikut baris atau koma
+            const senarai = teks.split(/[\n,]+/)
+                .map(item => item.replace(/^\d+[\.\)]\s*/, '').trim()) // buang penomboran seperti 1. atau 2)
+                .filter(item => item.length > 0);
+            
+            const inputBilangan = document.getElementById('persembahan-bilangan');
+            if (inputBilangan && senarai.length > 0) {
+                inputBilangan.value = senarai.length;
+            }
         }
 
         function paparkanSenaraiPersembahan() {
@@ -1422,6 +1451,12 @@
 
                 const waktu = item.created_at ? new Date(item.created_at).toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' }) : 'Baru';
 
+                // Bersihkan keperluan teknikal daripada tag ahli jika wujud
+                let paparanTeknikal = item.keperluan_teknikal || '';
+                if (paparanTeknikal.includes('[AHLI:')) {
+                    paparanTeknikal = paparanTeknikal.replace(/\[AHLI:\s*[^\]]+\]\s*/, '').trim();
+                }
+
                 card.innerHTML = `
                     <div class="flex items-start gap-3.5 w-full">
                         <div class="w-9 h-9 rounded-xl bg-purple-600 text-white font-extrabold flex items-center justify-center text-sm shrink-0 shadow-sm shadow-purple-600/30">
@@ -1447,9 +1482,9 @@
                                     <p class="whitespace-pre-line text-slate-700 font-semibold">${item.senarai_ahli}</p>
                                 </div>
                             ` : ''}
-                            ${item.keperluan_teknikal ? `
+                            ${paparanTeknikal ? `
                                 <p class="text-[11px] text-slate-500 italic bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100">
-                                    <i class="fa-solid fa-microphone text-amber-500 mr-1"></i> Keperluan: ${item.keperluan_teknikal}
+                                    <i class="fa-solid fa-microphone text-amber-500 mr-1"></i> Keperluan: ${paparanTeknikal}
                                 </p>
                             ` : ''}
                         </div>
@@ -1482,10 +1517,20 @@
             const namaWakil = wakilElement ? wakilElement.value.trim().toUpperCase() : '';
             const tajuk = tajukElement ? tajukElement.value.trim().toUpperCase() : '';
             const senaraiAhli = ahliElement ? ahliElement.value.trim().toUpperCase() : '';
-            const bilangan = bilElement ? (parseInt(bilElement.value, 10) || 1) : 1;
             const durasi = durasiElement ? durasiElement.value : '';
             const teknikalRaw = tekElement ? tekElement.value.trim().toUpperCase() : '';
             const teknikal = durasi ? `[${durasi.toUpperCase()}] ${teknikalRaw}` : teknikalRaw;
+
+            // Kira jumlah nama daripada teks ahli kumpulan secara pintar
+            const senaraiPecah = senaraiAhli.split(/[\n,]+/)
+                .map(item => item.replace(/^\d+[\.\)]\s*/, '').trim())
+                .filter(item => item.length > 0);
+            
+            let bilangan = bilElement ? parseInt(bilElement.value, 10) : 1;
+            if (senaraiPecah.length > 0 && (isNaN(bilangan) || bilangan <= 1 || bilangan !== senaraiPecah.length)) {
+                bilangan = senaraiPecah.length;
+                if (bilElement) bilElement.value = bilangan;
+            }
 
             if (!organisasi || !namaWakil || !tajuk || !senaraiAhli) {
                 if (msg) {
@@ -1521,7 +1566,7 @@
                         berjayaAwan = true;
                         persembahanDB.push(data[0]);
                     } else if (error) {
-                        console.warn("Mencuba simpanan sandaran alternatif jika skema berbeza:", error);
+                        console.warn("Mencuba simpanan sandaran alternatif jika skema lajur senarai_ahli belum wujud:", error);
                         const rekodFallback = {
                             nama_wakil: namaWakil,
                             organisasi: organisasi,
@@ -1554,12 +1599,15 @@
             paparkanSenaraiPersembahan();
 
             document.getElementById('form-persembahan').reset();
+            const inputBilanganReset = document.getElementById('persembahan-bilangan');
+            if (inputBilanganReset) inputBilanganReset.value = 1;
+
             btn.disabled = false;
             btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Hantar Pendaftaran Persembahan`;
 
             if (msg) {
                 msg.className = "text-xs font-semibold p-3 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 block";
-                msg.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Persembahan dari ${organisasi} berjaya didaftarkan dan kini berada dalam giliran live!`;
+                msg.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Persembahan dari ${organisasi} berjaya didaftarkan (${bilangan} orang ahli) dan kini berada dalam giliran live!`;
                 setTimeout(() => {
                     msg.classList.add('hidden');
                 }, 6000);
