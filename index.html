@@ -1254,6 +1254,7 @@
         };
 
         let submissionsDB = [];
+        let persembahanDB = [];
         let fasaSemasa = null;
         let slotAktifIdx = 0;
         let slotAnalisisPilihan = "all";
@@ -1300,6 +1301,162 @@
                     console.log("Menggunakan storan tempatan sementara:", err);
                 }
             }
+
+            // Muat data persembahan serentak
+            await muatDataPersembahan();
+        }
+
+        async function muatDataPersembahan() {
+            try {
+                const tersimpan = localStorage.getItem('iab_persembahan_2026');
+                if (tersimpan) {
+                    persembahanDB = JSON.parse(tersimpan);
+                }
+            } catch (e) {
+                console.error("Gagal membaca cache persembahan", e);
+            }
+
+            if (supabaseClient) {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('persembahan_kebudayaan')
+                        .select('*')
+                        .order('id', { ascending: true });
+
+                    if (!error && data) {
+                        persembahanDB = data;
+                        localStorage.setItem('iab_persembahan_2026', JSON.stringify(persembahanDB));
+                    }
+                } catch (err) {
+                    console.log("Menggunakan storan tempatan bagi persembahan:", err);
+                }
+            }
+            paparkanSenaraiPersembahan();
+        }
+
+        function paparkanSenaraiPersembahan() {
+            const container = document.getElementById('senarai-persembahan-container');
+            const statTotal = document.getElementById('stat-total-persembahan');
+            if (!container) return;
+
+            if (statTotal) {
+                statTotal.textContent = `${persembahanDB.length} Kumpulan Berdaftar`;
+            }
+
+            if (persembahanDB.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 text-center text-slate-400 space-y-2">
+                        <i class="fa-solid fa-masks-theater text-3xl text-purple-300"></i>
+                        <p class="text-xs font-medium">Belum ada persembahan yang berdaftar. Sila daftar melalui borang di sebelah.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            persembahanDB.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-2xl border border-purple-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition hover:shadow-md";
+
+                const waktu = item.created_at ? new Date(item.created_at).toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' }) : 'Baru';
+
+                card.innerHTML = `
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-9 h-9 rounded-xl bg-purple-600 text-white font-extrabold flex items-center justify-center text-sm shrink-0 shadow-sm shadow-purple-600/30">
+                            ${index + 1}
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h4 class="font-bold text-slate-800 text-sm sm:text-base">${item.tajuk_persembahan}</h4>
+                                <span class="px-2 py-0.5 bg-purple-100 text-purple-800 text-[10px] font-bold rounded-md">
+                                    ${item.bilangan_peserta || 1} orang
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-600 font-medium flex items-center gap-1.5">
+                                <i class="fa-solid fa-building text-sky-600 text-[11px]"></i> ${item.organisasi}
+                                <span class="text-slate-300">•</span>
+                                <i class="fa-solid fa-user text-purple-500 text-[11px]"></i> Wakil: ${item.nama_wakil}
+                            </p>
+                            ${item.keperluan_teknikal ? `
+                                <p class="text-[11px] text-slate-500 italic bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100">
+                                    <i class="fa-solid fa-microphone text-amber-500 mr-1"></i> Keperluan: ${item.keperluan_teknikal}
+                                </p>
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="self-end sm:self-center shrink-0 text-right">
+                        <span class="inline-block px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold rounded-lg">
+                            <i class="fa-solid fa-circle-check text-[9px] mr-1"></i> Giliran #${index + 1}
+                        </span>
+                        <span class="text-[10px] text-slate-400 block mt-1">${waktu}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function hantarPendaftaranPersembahan(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-persembahan');
+            const msg = document.getElementById('persembahan-status-msg');
+
+            const namaWakil = document.getElementById('persembahan-wakil').value.trim();
+            const organisasi = document.getElementById('persembahan-organisasi').value.trim();
+            const tajuk = document.getElementById('persembahan-tajuk').value.trim();
+            const bilangan = parseInt(document.getElementById('persembahan-bilangan').value, 10) || 1;
+            const durasi = document.getElementById('persembahan-durasi').value;
+            const teknikal = document.getElementById('persembahan-teknikal').value.trim();
+
+            if (!namaWakil || !organisasi || !tajuk) return;
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Mendaftar...`;
+
+            const rekodBaharu = {
+                nama_wakil: namaWakil,
+                organisasi: organisasi,
+                tajuk_persembahan: tajuk,
+                bilangan_peserta: bilangan,
+                keperluan_teknikal: durasi ? `[${durasi}] ${teknikal}` : teknikal,
+                created_at: new Date().toISOString()
+            };
+
+            let berjayaAwan = false;
+
+            if (supabaseClient) {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('persembahan_kebudayaan')
+                        .insert([rekodBaharu])
+                        .select();
+
+                    if (!error && data && data.length > 0) {
+                        berjayaAwan = true;
+                        persembahanDB.push(data[0]);
+                    }
+                } catch (err) {
+                    console.error("Ralat pendaftaran ke Supabase:", err);
+                }
+            }
+
+            if (!berjayaAwan) {
+                rekodBaharu.id = Date.now();
+                persembahanDB.push(rekodBaharu);
+            }
+
+            localStorage.setItem('iab_persembahan_2026', JSON.stringify(persembahanDB));
+            paparkanSenaraiPersembahan();
+
+            document.getElementById('form-persembahan').reset();
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Hantar Pendaftaran Persembahan`;
+
+            msg.className = "text-xs font-semibold p-3 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 block";
+            msg.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Persembahan anda berjaya didaftarkan dan kini berada dalam giliran live!`;
+
+            setTimeout(() => {
+                msg.classList.add('hidden');
+            }, 6000);
         }
 
         function simpanDataKeStorage() {
@@ -1988,6 +2145,13 @@
                         .channel('maklumbalas-channel')
                         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'maklumbalas' }, () => {
                             muatDataSimpanan();
+                        })
+                        .subscribe();
+
+                    supabaseClient
+                        .channel('persembahan-channel')
+                        .on('postgres_changes', { event: '*', schema: 'public', table: 'persembahan_kebudayaan' }, () => {
+                            muatDataPersembahan();
                         })
                         .subscribe();
                 } catch (e) {
