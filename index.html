@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JADUAL BENGKEL PEMBANGUNAN KAPASITI STAF IAB @ CoE TAHUN 2026</title>
+    <title> PUSAT SEHENTI MAKLUMAT BENGKEL PEMBANGUNAN KAPASITI STAF IAB @ CoE TAHUN 2026</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -1292,66 +1292,14 @@
                                             </label>
                                         </div>
                                     `).join('')}
-                                </div>
-                                <span class="text-[10px] text-slate-400">Sangat Setuju</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                html += `</div>`;
-
-                // Butang navigasi antara slot (Seterusnya / Sebelumnya)
-                html += `
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                        ${sIdx > 0 ? `
-                            <button type="button" onclick="tukarSubSlot(${sIdx - 1})" class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 font-semibold text-slate-700 flex items-center gap-1.5 transition">
-                                <i class="fa-solid fa-chevron-left text-[10px]"></i> Slot Sebelumnya
-                            </button>
-                        ` : `<div></div>`}
-                        ${sIdx < dataFasa.sections.length - 1 ? `
-                            <button type="button" onclick="tukarSubSlot(${sIdx + 1})" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 font-semibold text-white flex items-center gap-1.5 shadow-sm transition">
-                                Slot Seterusnya <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                            </button>
-                        ` : `
-                            <span class="text-emerald-700 font-semibold text-[11px] bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-100">
-                                <i class="fa-solid fa-check"></i> Slot Terakhir Fasa Ini
-                            </span>
-                        `}
-                    </div>
-                `;
-
-                block.innerHTML = html;
-                container.appendChild(block);
-            });
-        }
-
-        const emailInput = document.getElementById('peserta-email');
-        emailInput.addEventListener('input', semakStatusEmelSemasa);
-
-        function semakStatusEmelSemasa() {
-            const email = emailInput.value.trim().toLowerCase();
-            const msgBox = document.getElementById('email-status-message');
-            const submitBtn = document.getElementById('btn-submit-maklumbalas');
-
-            if (!email || !email.includes('@')) {
-                msgBox.classList.add('hidden');
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                return;
+        function buangKelipanSoalan(qId) {
+            const card = document.getElementById(`card_${qId}`);
+            if (card) {
+                card.classList.remove('question-unanswered-blink');
             }
-
-            const dahJawab = submissionsDB.some(sub => sub.email.toLowerCase() === email && sub.fasa === fasaSemasa);
-
-            if (dahJawab) {
-                msgBox.className = "text-xs pt-1 text-rose-600 font-semibold block flex items-center gap-1";
-                msgBox.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Emel ini telah membuat penilaian untuk Fasa ${fasaSemasa === 2 ? '1 (Selasa)' : (fasaSemasa === 3 ? '2 (Rabu)' : '3 (Khamis)')}. Anda hanya boleh membuat penilaian sekali sahaja bagi fasa ini.`;
-                submitBtn.disabled = true;
-                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                msgBox.className = "text-xs pt-1 text-emerald-600 font-semibold block flex items-center gap-1";
-                msgBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> Emel sah. Sedia untuk mengisi penilaian Fasa ini.`;
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            const warningBox = document.getElementById('unanswered-warning-box');
+            if (warningBox && !document.querySelector('.question-unanswered-blink')) {
+                warningBox.classList.add('hidden');
             }
         }
 
@@ -1359,12 +1307,64 @@
             e.preventDefault();
             const email = emailInput.value.trim().toLowerCase();
 
+            // 1. Semakan Emel
+            if (!email || !email.includes('@')) {
+                emailInput.focus();
+                return;
+            }
+
             const dahJawab = submissionsDB.some(sub => sub.email.toLowerCase() === email && sub.fasa === fasaSemasa);
             if (dahJawab) {
                 semakStatusEmelSemasa();
                 return;
             }
 
+            // 2. Semakan Soalan Tertinggal bagi Keseluruhan Slot Fasa Semasa
+            const dataFasa = feedbackQuestions[fasaSemasa];
+            const senaraiTertinggal = [];
+            let slotPertamaTertinggal = null;
+
+            // Bersihkan semua kesan amaran sebelumnya
+            document.querySelectorAll('.question-unanswered-blink').forEach(el => el.classList.remove('question-unanswered-blink'));
+
+            dataFasa.sections.forEach((sec, sIdx) => {
+                const semuaSoalanSlot = [...sec.domainKandungan, ...sec.domainPenceramah];
+                semuaSoalanSlot.forEach(q => {
+                    const dipilih = document.querySelector(`input[name="${q.id}"]:checked`);
+                    if (!dipilih) {
+                        senaraiTertinggal.push({ qId: q.id, slotIdx: sIdx });
+                        const kad = document.getElementById(`card_${q.id}`);
+                        if (kad) {
+                            kad.classList.add('question-unanswered-blink');
+                        }
+                        if (slotPertamaTertinggal === null) {
+                            slotPertamaTertinggal = sIdx;
+                        }
+                    }
+                });
+            });
+
+            const warningBox = document.getElementById('unanswered-warning-box');
+            const warningText = document.getElementById('unanswered-warning-text');
+
+            if (senaraiTertinggal.length > 0) {
+                // Tunjuk amaran kepada peserta
+                warningText.textContent = `Terdapat ${senaraiTertinggal.length} soalan yang belum dijawab. Sistem telah membawa anda ke slot berkenaan yang berkelip merah.`;
+                warningBox.classList.remove('hidden');
+
+                // Bawa peserta ke slot yang belum dijawab dan skrol ke soalan pertama yang tertinggal
+                tukarSubSlot(slotPertamaTertinggal);
+                const firstCard = document.getElementById(`card_${senaraiTertinggal[0].qId}`);
+                if (firstCard) {
+                    firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+
+            // Jika semua telah dijawab, sorok amaran
+            warningBox.classList.add('hidden');
+
+            // 3. Kumpul Skor dan Rekod
             const formData = new FormData(e.target);
             const ratings = {};
             for (let [key, value] of formData.entries()) {
