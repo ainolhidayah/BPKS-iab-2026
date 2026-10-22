@@ -847,6 +847,11 @@
         const SUPABASE_KEY = "sb_publishable_wPFi9afiTEYKdP7TO324pQ_TtegMQIt";
         let supabaseClient = null;
 
+        // NOTA PENTING SUPABASE:
+        // Untuk membenarkan butang tarik diri memadam rekod di Supabase,
+        // jalankan baris ini sekali dalam SQL Editor Supabase:
+        // CREATE POLICY "Benarkan Semua Padam Persembahan" ON persembahan_kebudayaan FOR DELETE USING (true);
+
         try {
             if (typeof supabase !== 'undefined' && supabase.createClient) {
                 supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
