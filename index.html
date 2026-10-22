@@ -1479,22 +1479,30 @@
                 const waktu = item.created_at ? new Date(item.created_at).toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' }) : 'Baru';
 
                 card.innerHTML = `
-                    <div class="flex items-start gap-3.5">
+                    <div class="flex items-start gap-3.5 w-full">
                         <div class="w-9 h-9 rounded-xl bg-purple-600 text-white font-extrabold flex items-center justify-center text-sm shrink-0 shadow-sm shadow-purple-600/30">
                             ${index + 1}
                         </div>
-                        <div class="space-y-1">
+                        <div class="space-y-1.5 flex-1">
                             <div class="flex items-center gap-2 flex-wrap">
-                                <h4 class="font-bold text-slate-800 text-sm sm:text-base">${item.tajuk_persembahan}</h4>
+                                <h4 class="font-bold text-slate-800 text-sm sm:text-base uppercase">${item.tajuk_persembahan}</h4>
                                 <span class="px-2 py-0.5 bg-purple-100 text-purple-800 text-[10px] font-bold rounded-md">
                                     ${item.bilangan_peserta || 1} orang
                                 </span>
                             </div>
-                            <p class="text-xs text-slate-600 font-medium flex items-center gap-1.5">
-                                <i class="fa-solid fa-building text-sky-600 text-[11px]"></i> ${item.organisasi}
+                            <p class="text-xs text-slate-600 font-medium flex items-center gap-1.5 flex-wrap">
+                                <span><i class="fa-solid fa-building text-sky-600 text-[11px]"></i> <strong class="text-slate-700">Pusat/Cawangan:</strong> ${item.organisasi}</span>
                                 <span class="text-slate-300">•</span>
-                                <i class="fa-solid fa-user text-purple-500 text-[11px]"></i> Wakil: ${item.nama_wakil}
+                                <span><i class="fa-solid fa-user text-purple-500 text-[11px]"></i> <strong class="text-slate-700">Wakil:</strong> ${item.nama_wakil}</span>
                             </p>
+                            ${item.senarai_ahli ? `
+                                <div class="bg-purple-50/50 p-2.5 rounded-xl border border-purple-100 text-[11px] text-slate-600 space-y-0.5">
+                                    <span class="font-bold text-purple-800 flex items-center gap-1">
+                                        <i class="fa-solid fa-users text-[10px]"></i> Ahli Kumpulan:
+                                    </span>
+                                    <p class="whitespace-pre-line text-slate-700 font-medium">${item.senarai_ahli}</p>
+                                </div>
+                            ` : ''}
                             ${item.keperluan_teknikal ? `
                                 <p class="text-[11px] text-slate-500 italic bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100">
                                     <i class="fa-solid fa-microphone text-amber-500 mr-1"></i> Keperluan: ${item.keperluan_teknikal}
@@ -1518,14 +1526,16 @@
             const btn = document.getElementById('btn-submit-persembahan');
             const msg = document.getElementById('persembahan-status-msg');
 
-            const namaWakil = document.getElementById('persembahan-wakil').value.trim();
-            const organisasi = document.getElementById('persembahan-organisasi').value.trim();
-            const tajuk = document.getElementById('persembahan-tajuk').value.trim();
+            const namaWakil = document.getElementById('persembahan-wakil').value.trim().toUpperCase();
+            const organisasi = document.getElementById('persembahan-organisasi').value.trim().toUpperCase();
+            const tajuk = document.getElementById('persembahan-tajuk').value.trim().toUpperCase();
+            const senaraiAhli = document.getElementById('persembahan-ahli').value.trim().toUpperCase();
             const bilangan = parseInt(document.getElementById('persembahan-bilangan').value, 10) || 1;
             const durasi = document.getElementById('persembahan-durasi').value;
-            const teknikal = document.getElementById('persembahan-teknikal').value.trim();
+            const teknikalRaw = document.getElementById('persembahan-teknikal').value.trim().toUpperCase();
+            const teknikal = durasi ? `[${durasi.toUpperCase()}] ${teknikalRaw}` : teknikalRaw;
 
-            if (!namaWakil || !organisasi || !tajuk) return;
+            if (!namaWakil || !organisasi || !tajuk || !senaraiAhli) return;
 
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Mendaftar...`;
@@ -1534,8 +1544,9 @@
                 nama_wakil: namaWakil,
                 organisasi: organisasi,
                 tajuk_persembahan: tajuk,
+                senarai_ahli: senaraiAhli,
                 bilangan_peserta: bilangan,
-                keperluan_teknikal: durasi ? `[${durasi}] ${teknikal}` : teknikal,
+                keperluan_teknikal: teknikal,
                 created_at: new Date().toISOString()
             };
 
@@ -1551,6 +1562,26 @@
                     if (!error && data && data.length > 0) {
                         berjayaAwan = true;
                         persembahanDB.push(data[0]);
+                    } else if (error) {
+                        console.warn("Mencuba simpanan alternatif (jika lajur senarai_ahli belum wujud di Supabase):", error);
+                        // Fallback sekiranya lajur 'senarai_ahli' belum ditambah di Supabase: simpan bersama keperluan teknikal
+                        const rekodFallback = {
+                            nama_wakil: namaWakil,
+                            organisasi: organisasi,
+                            tajuk_persembahan: tajuk,
+                            bilangan_peserta: bilangan,
+                            keperluan_teknikal: `[AHLI: ${senaraiAhli}] ${teknikal}`,
+                            created_at: new Date().toISOString()
+                        };
+                        const { data: dataFb, error: errFb } = await supabaseClient
+                            .from('persembahan_kebudayaan')
+                            .insert([rekodFallback])
+                            .select();
+                        if (!errFb && dataFb && dataFb.length > 0) {
+                            berjayaAwan = true;
+                            dataFb[0].senarai_ahli = senaraiAhli;
+                            persembahanDB.push(dataFb[0]);
+                        }
                     }
                 } catch (err) {
                     console.error("Ralat pendaftaran ke Supabase:", err);
