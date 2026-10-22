@@ -1258,17 +1258,48 @@
         let slotAktifIdx = 0;
         let slotAnalisisPilihan = "all";
 
-        function muatDataSimpanan() {
+        async function muatDataSimpanan() {
+            // Bersihkan data ujian lama jika masih wujud dalam localStorage
             try {
                 const dataTersimpan = localStorage.getItem('iab_maklumbalas_2026');
                 if (dataTersimpan) {
-                    submissionsDB = JSON.parse(dataTersimpan);
-                    return;
+                    const parsed = JSON.parse(dataTersimpan);
+                    // Jika data sedia ada mengandungi emel mock, padamkan
+                    if (parsed.some(d => d.email && d.email.includes('@iab.edu.my') && !d.id && !d.created_at)) {
+                        localStorage.removeItem('iab_maklumbalas_2026');
+                        submissionsDB = [];
+                    } else {
+                        submissionsDB = parsed;
+                    }
                 }
             } catch (e) {
                 console.error("Gagal membaca localStorage", e);
             }
-            initMockData();
+
+            // Muat turun data sebenar dari Supabase jika ada sambungan
+            if (supabaseClient) {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('maklumbalas')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+
+                    if (!error && data) {
+                        submissionsDB = data.map(item => ({
+                            id: item.id,
+                            email: item.email,
+                            fasa: item.fasa,
+                            ratings: item.ratings || {},
+                            maklumbalasPositif: item.maklumbalas_positif || '',
+                            cadanganPenambahbaikan: item.cadangan_penambahbaikan || '',
+                            timestamp: new Date(item.created_at).toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' })
+                        }));
+                        localStorage.setItem('iab_maklumbalas_2026', JSON.stringify(submissionsDB));
+                    }
+                } catch (err) {
+                    console.log("Menggunakan storan tempatan sementara:", err);
+                }
+            }
         }
 
         function simpanDataKeStorage() {
@@ -1277,59 +1308,6 @@
             } catch (e) {
                 console.error("Gagal menyimpan ke localStorage", e);
             }
-        }
-
-        function initMockData() {
-            submissionsDB = [];
-            const initialEmails = [
-                "ahmad.fauzi@iab.edu.my", "noraini.kadir@iab.edu.my", "razak.ali@iab.edu.my", 
-                "sitizaleha@iab.edu.my", "mohd.hafiz@iab.edu.my", "kavitha.m@iab.edu.my",
-                "chong.weiliang@iab.edu.my", "dayang.nur@iab.edu.my"
-            ];
-            
-            initialEmails.forEach((email, idx) => {
-                const ratingObj2 = {};
-                // Slot 1
-                for(let i=1; i<=7; i++) ratingObj2[`q_f2_k1_${i}`] = 4 + (idx % 2);
-                for(let i=1; i<=3; i++) ratingObj2[`q_f2_p1_${i}`] = 5;
-                // Slot 2
-                for(let i=1; i<=7; i++) ratingObj2[`q_f2_k2_${i}`] = 4 + ((idx + i) % 2);
-                for(let i=1; i<=3; i++) ratingObj2[`q_f2_p2_${i}`] = 5;
-                // Slot 3
-                for(let i=1; i<=7; i++) ratingObj2[`q_f2_k3_${i}`] = 4 + (idx % 2);
-                for(let i=1; i<=3; i++) ratingObj2[`q_f2_p3_${i}`] = 5;
-
-                submissionsDB.push({
-                    email: email,
-                    fasa: 2,
-                    ratings: ratingObj2,
-                    maklumbalasPositif: idx === 0 
-                        ? "Sesi ceramah kendiri sangat menyentuh hati, membakar semangat dan membuka minda kami." 
-                        : (idx === 1 ? "Aktiviti suai kenal amat berjaya merapatkan hubungan dan ukhuwah antara staf cawangan dan induk." : (idx === 2 ? "Pengisian Hadith 40 pada sesi subuh memberi ketenangan sebelum memulakan sesi harian." : "")),
-                    cadanganPenambahbaikan: idx === 0 
-                        ? "Masa bagi sesi perkongsian kendiri boleh dipanjangkan sedikit pada siri akan datang." 
-                        : (idx === 2 ? "Boleh sediakan salinan ringkas hadith secara digital untuk rujukan berterusan." : "")
-                });
-
-                if (idx < 5) {
-                    const ratingObj3 = {};
-                    for(let i=1; i<=7; i++) ratingObj3[`q_f3_k1_${i}`] = 5;
-                    for(let i=1; i<=3; i++) ratingObj3[`q_f3_p1_${i}`] = 5;
-                    for(let i=1; i<=7; i++) ratingObj3[`q_f3_k2_${i}`] = 4 + (i % 2);
-                    for(let i=1; i<=3; i++) ratingObj3[`q_f3_p2_${i}`] = 5;
-                    for(let i=1; i<=7; i++) ratingObj3[`q_f3_k3_${i}`] = 5;
-                    for(let i=1; i<=3; i++) ratingObj3[`q_f3_p3_${i}`] = 4 + (i % 2);
-
-                    submissionsDB.push({
-                        email: email,
-                        fasa: 3,
-                        ratings: ratingObj3,
-                        maklumbalasPositif: "Malam Budaya sangat meriah, menyatukan staf berbilang kaum dan menyerlahkan bakat terpendam warga IAB.",
-                        cadanganPenambahbaikan: "Aktiviti padang boleh dimulakan sedikit awal pagi sebelum cuaca panas."
-                    });
-                }
-            });
-            simpanDataKeStorage();
         }
 
         function switchSection(sectionName) {
