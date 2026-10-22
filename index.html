@@ -1996,11 +1996,25 @@
         }
 
         // Inisialisasi Apabila Laman Dimuatkan
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             filterDay(1);
             // Jangan pilih fasa secara automatik supaya borang kekal tersembunyi pada permulaan
-            muatDataSimpanan();
+            await muatDataSimpanan();
             kemaskiniPaparanAnalisis();
+
+            // Langgan kemaskini data masa nyata (Realtime Subscription) jika Supabase aktif
+            if (supabaseClient) {
+                try {
+                    supabaseClient
+                        .channel('maklumbalas-channel')
+                        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'maklumbalas' }, () => {
+                            muatDataSimpanan();
+                        })
+                        .subscribe();
+                } catch (e) {
+                    console.log("Realtime subscription optional:", e);
+                }
+            }
 
             const emailInput = document.getElementById('peserta-email');
             if (emailInput) {
