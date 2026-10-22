@@ -1187,28 +1187,75 @@
             semakStatusEmelSemasa();
         }
 
+        let slotAktifIdx = 0;
+
+        function tukarSubSlot(idx) {
+            slotAktifIdx = idx;
+            document.querySelectorAll('.sub-slot-block').forEach((el, i) => {
+                if (i === idx) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+            document.querySelectorAll('.sub-slot-pill').forEach((btn, i) => {
+                if (i === idx) {
+                    btn.className = "sub-slot-pill px-3 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-sm border border-sky-600 transition flex items-center gap-1.5";
+                } else {
+                    btn.className = "sub-slot-pill px-3 py-2 rounded-xl text-xs font-medium bg-white text-slate-700 hover:bg-sky-50 border border-slate-200 transition flex items-center gap-1.5";
+                }
+            });
+        }
+
         function janaSoalanBorang(fasaNum) {
             const dataFasa = feedbackQuestions[fasaNum];
             const container = document.getElementById('soalan-container');
             container.innerHTML = '';
+            slotAktifIdx = 0;
+
+            // Navigasi Pil Pilihan Slot
+            const slotNav = document.createElement('div');
+            slotNav.className = "bg-white p-3 rounded-2xl border border-sky-100 shadow-sm space-y-2";
+            slotNav.innerHTML = `
+                <div class="flex items-center justify-between px-1">
+                    <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Pilih Slot Untuk Dinilai:</span>
+                    <span class="text-[10px] text-sky-700 font-semibold bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100">
+                        ${dataFasa.sections.length} Slot Tersedia
+                    </span>
+                </div>
+                <div class="flex flex-wrap gap-2 pt-1" id="sub-slot-buttons">
+                    ${dataFasa.sections.map((sec, idx) => `
+                        <button type="button" onclick="tukarSubSlot(${idx})" class="sub-slot-pill ${idx === 0 ? 'px-3 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-sm border border-sky-600 transition flex items-center gap-1.5' : 'px-3 py-2 rounded-xl text-xs font-medium bg-white text-slate-700 hover:bg-sky-50 border border-slate-200 transition flex items-center gap-1.5'}">
+                            <span class="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">${idx + 1}</span>
+                            <span class="truncate max-w-[180px] sm:max-w-none">${sec.slotTitle.split('(')[0].trim()}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(slotNav);
 
             dataFasa.sections.forEach((sec, sIdx) => {
                 const block = document.createElement('div');
-                block.className = "bg-white p-5 rounded-2xl border border-sky-100 shadow-sm space-y-4";
+                block.className = `sub-slot-block bg-white p-5 md:p-6 rounded-2xl border border-sky-100 shadow-sm space-y-5 ${sIdx === 0 ? '' : 'hidden'}`;
                 
                 let html = `
-                    <div class="border-b border-slate-100 pb-2">
-                        <span class="text-[10px] font-bold text-sky-700 uppercase tracking-wider">Slot Penilaian ${sIdx + 1}</span>
-                        <h4 class="font-bold text-slate-800 text-sm sm:text-base">${sec.slotTitle}</h4>
+                    <div class="border-b border-slate-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-[10px] font-bold text-sky-700 uppercase tracking-wider block">Bahagian Penilaian ${sIdx + 1} daripada ${dataFasa.sections.length}</span>
+                            <h4 class="font-extrabold text-slate-800 text-sm sm:text-base mt-0.5">Penilaian Slot: ${sec.slotTitle}</h4>
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-sky-50 text-sky-700 rounded-lg border border-sky-100 self-start sm:self-auto">
+                            ${sec.domainKandungan.length + sec.domainPenceramah.length} Soalan
+                        </span>
                     </div>
                 `;
 
                 // Isi Kandungan Slot
-                html += `<div class="space-y-3"><span class="text-xs font-bold text-sky-900 block flex items-center gap-1"><i class="fa-solid fa-book-open text-sky-600"></i> Isi Kandungan Slot</span>`;
-                sec.domainKandungan.forEach(q => {
+                html += `<div class="space-y-3"><span class="text-xs font-bold text-sky-900 block flex items-center gap-1.5"><i class="fa-solid fa-book-open text-sky-600"></i> Isi Kandungan Slot (${sec.domainKandungan.length} Item)</span>`;
+                sec.domainKandungan.forEach((q, qIndex) => {
                     html += `
-                        <div class="bg-slate-50/60 p-3.5 rounded-xl border border-slate-100 space-y-2">
-                            <p class="text-xs text-slate-700 leading-relaxed font-medium">${q.text}</p>
+                        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 space-y-2">
+                            <p class="text-xs text-slate-700 leading-relaxed font-medium"><span class="font-bold text-sky-700 mr-1">${qIndex + 1}.</span>${q.text}</p>
                             <div class="flex items-center justify-between gap-1 max-w-sm pt-1">
                                 <span class="text-[10px] text-slate-400">Sangat Tidak Setuju</span>
                                 <div class="flex items-center gap-1.5">
@@ -1229,11 +1276,11 @@
                 html += `</div>`;
 
                 // Penceramah dan Fasilitator
-                html += `<div class="space-y-3 pt-2"><span class="text-xs font-bold text-amber-900 block flex items-center gap-1"><i class="fa-solid fa-chalkboard-user text-amber-600"></i> Penceramah dan Fasilitator</span>`;
-                sec.domainPenceramah.forEach(q => {
+                html += `<div class="space-y-3 pt-3"><span class="text-xs font-bold text-amber-900 block flex items-center gap-1.5"><i class="fa-solid fa-chalkboard-user text-amber-600"></i> Penceramah dan Fasilitator (${sec.domainPenceramah.length} Item)</span>`;
+                sec.domainPenceramah.forEach((q, pIndex) => {
                     html += `
-                        <div class="bg-slate-50/60 p-3.5 rounded-xl border border-slate-100 space-y-2">
-                            <p class="text-xs text-slate-700 leading-relaxed font-medium">${q.text}</p>
+                        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 space-y-2">
+                            <p class="text-xs text-slate-700 leading-relaxed font-medium"><span class="font-bold text-amber-700 mr-1">${sec.domainKandungan.length + pIndex + 1}.</span>${q.text}</p>
                             <div class="flex items-center justify-between gap-1 max-w-sm pt-1">
                                 <span class="text-[10px] text-slate-400">Sangat Tidak Setuju</span>
                                 <div class="flex items-center gap-1.5">
@@ -1252,6 +1299,26 @@
                     `;
                 });
                 html += `</div>`;
+
+                // Butang navigasi antara slot (Seterusnya / Sebelumnya)
+                html += `
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                        ${sIdx > 0 ? `
+                            <button type="button" onclick="tukarSubSlot(${sIdx - 1})" class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 font-semibold text-slate-700 flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-chevron-left text-[10px]"></i> Slot Sebelumnya
+                            </button>
+                        ` : `<div></div>`}
+                        ${sIdx < dataFasa.sections.length - 1 ? `
+                            <button type="button" onclick="tukarSubSlot(${sIdx + 1})" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 font-semibold text-white flex items-center gap-1.5 shadow-sm transition">
+                                Slot Seterusnya <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </button>
+                        ` : `
+                            <span class="text-emerald-700 font-semibold text-[11px] bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-100">
+                                <i class="fa-solid fa-check"></i> Slot Terakhir Fasa Ini
+                            </span>
+                        `}
+                    </div>
+                `;
 
                 block.innerHTML = html;
                 container.appendChild(block);
