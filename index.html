@@ -26,7 +26,7 @@
             box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.25), 0 2px 4px -1px rgba(2, 132, 199, 0.15);
         }
         .section-tab {
-            border: 1.5px solid #475569 !important; /* Bingkai keliling gelap jelas */
+            border: 1.5px solid #475569 !important;
         }
         .section-tab:hover {
             border-color: #1e293b !important;
@@ -1356,7 +1356,7 @@
         let fasaSemasa = null;
         let slotAktifIdx = 0;
         let slotAnalisisPilihan = "all";
-        let itemTarikDiriSasaran = null; // Menyimpan rekod yang ingin ditarik diri
+        let itemTarikDiriSasaran = null;
 
         async function muatDataSimpanan() {
             try {
@@ -1420,7 +1420,6 @@
 
                     if (!error && data) {
                         persembahanDB = data.map(item => {
-                            // Ekstrak nama ahli jika sebelum ini tersimpan dalam keperluan_teknikal
                             let ahli = item.senarai_ahli || '';
                             let teknikal = item.keperluan_teknikal || '';
                             if (!ahli && teknikal.includes('[AHLI:')) {
@@ -1488,7 +1487,6 @@
                     paparanTeknikal = paparanTeknikal.replace(/\[AHLI:\s*[^\]]+\]\s*/, '').trim();
                 }
 
-                // ID pengecam unik
                 const itemRefId = item.id || `idx_${index}`;
 
                 card.innerHTML = `
@@ -1557,6 +1555,7 @@
             document.getElementById('modal-tarik-diri').classList.add('hidden');
         }
 
+        // FUNGSI DIKEMAS KINI: Menangani RLS & mengesahkan status padam di Supabase
         async function sahkanTarikDiri() {
             if (!itemTarikDiriSasaran) return;
             const btn = document.getElementById('btn-sahkan-tarik-diri');
@@ -1564,29 +1563,41 @@
             btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Memproses...`;
 
             const itemMemadam = itemTarikDiriSasaran;
+            let padamBerjaya = true;
 
-            // Padam dari Supabase sekiranya ada sambungan & ID rekod
+            // 1. Padam rekod di Supabase jika bersambung & ada ID
             if (supabaseClient && itemMemadam.id) {
                 try {
-                    await supabaseClient
+                    const { error } = await supabaseClient
                         .from('persembahan_kebudayaan')
                         .delete()
                         .eq('id', itemMemadam.id);
+
+                    if (error) {
+                        console.error("Ralat memadam rekod di Supabase:", error);
+                        alert("Gagal menarik diri di pangkalan data Supabase: " + error.message + 
+                              "\n\nSila pastikan arahan SQL RLS DELETE telah dijalankan di Supabase Dashboard.");
+                        padamBerjaya = false;
+                    }
                 } catch (err) {
-                    console.error("Ralat memadam rekod di Supabase:", err);
+                    console.error("Ralat sambungan/sistem:", err);
+                    alert("Ralat sambungan semasa memadam rekod. Sila cuba lagi.");
+                    padamBerjaya = false;
                 }
             }
 
-            // Kemaskini tatasusunan memori
-            persembahanDB = persembahanDB.filter(p => {
-                if (p.id && itemMemadam.id) {
-                    return p.id !== itemMemadam.id;
-                }
-                return p.tajuk_persembahan !== itemMemadam.tajuk_persembahan || p.nama_wakil !== itemMemadam.nama_wakil;
-            });
+            // 2. Hanya padam dari paparan dan cache lokal sekiranya Supabase berjaya dipadam
+            if (padamBerjaya) {
+                persembahanDB = persembahanDB.filter(p => {
+                    if (p.id && itemMemadam.id) {
+                        return p.id !== itemMemadam.id;
+                    }
+                    return p.tajuk_persembahan !== itemMemadam.tajuk_persembahan || p.nama_wakil !== itemMemadam.nama_wakil;
+                });
 
-            localStorage.setItem('iab_persembahan_2026', JSON.stringify(persembahanDB));
-            paparkanSenaraiPersembahan();
+                localStorage.setItem('iab_persembahan_2026', JSON.stringify(persembahanDB));
+                paparkanSenaraiPersembahan();
+            }
 
             btn.disabled = false;
             btn.innerHTML = `Ya, Tarik Diri`;
