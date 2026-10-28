@@ -48,7 +48,6 @@
             box-shadow: 0 2px 4px rgba(2, 132, 199, 0.3);
         }
 
-        /* Animasi Berkelip Merah untuk Soalan yang Belum Dijawab */
         @keyframes pulseBlinkRed {
             0%, 100% {
                 background-color: #fff1f2;
@@ -67,7 +66,6 @@
             border-style: solid !important;
         }
 
-        /* Animasi Berkelip dan Bersinar untuk Pautan Google Meet */
         @keyframes pulseGlowGMeet {
             0%, 100% {
                 transform: scale(1);
@@ -150,12 +148,12 @@
             </button>
         </div>
 
-        <!-- GARISAN PEMISAH KREATIF -->
+        <!-- GARISAN PEMISAH KREATIF (DIKEMAS KINI MENGIKUT PERMINTAAN) -->
         <div class="relative flex items-center justify-center my-6">
             <div class="w-full border-t border-sky-200"></div>
             <div class="absolute px-4 bg-sky-50 text-[11px] font-bold text-sky-700 uppercase tracking-widest flex items-center gap-2 border border-sky-200 rounded-full py-0.5 shadow-2xs">
                 <span class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
-                <span>Program Bengkel CoE 2026</span>
+                <span>Bengkel Pembangunan Kapasiti Staf 2026</span>
             </div>
         </div>
 
@@ -377,7 +375,7 @@
                     </span>
                     <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Pendaftaran & Giliran Persembahan</h2>
                     <p class="text-purple-100 text-xs md:text-sm">
-                        Sila daftarkan persembahan kumpulan anda mengikut Pusat / Cawangan masing-masing. Susunan giliran persembahan akan dipaparkan secara langsung (*live*) di papan pemuka di bawah.
+                        Sila daftarkan persembahan kumpulan anda mengikut Pusat / Cawangan atau Kumpulan Hibrid. Susunan giliran persembahan akan dipaparkan secara langsung (*live*) di papan pemuka di bawah.
                     </p>
                 </div>
                 <div class="absolute -right-6 -bottom-8 opacity-15 text-9xl">
@@ -396,12 +394,29 @@
                     </div>
 
                     <form id="form-persembahan" onsubmit="hantarPendaftaranPersembahan(event)" class="space-y-4">
-                        <!-- Dropdown Pilihan Pusat / Cawangan -->
+                        <!-- Jenis Kumpulan: Cawangan Tunggal atau Hibrid -->
                         <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">
+                                Kategori Pusat / Cawangan <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="border border-slate-200 rounded-xl p-2.5 flex items-center gap-2 cursor-pointer hover:bg-purple-50 text-xs font-semibold">
+                                    <input type="radio" name="kategori-organisasi" value="tunggal" checked onchange="tukarModKategori(this.value)" class="text-purple-600">
+                                    <span>Pusat / Cawangan Tunggal</span>
+                                </label>
+                                <label class="border border-slate-200 rounded-xl p-2.5 flex items-center gap-2 cursor-pointer hover:bg-purple-50 text-xs font-semibold">
+                                    <input type="radio" name="kategori-organisasi" value="hybrid" onchange="tukarModKategori(this.value)" class="text-purple-600">
+                                    <span>Kumpulan Hibrid (Gabungan)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown Pilihan Pusat Tunggal -->
+                        <div id="wrapper-organisasi-tunggal">
                             <label for="persembahan-organisasi" class="block text-xs font-bold text-slate-700 mb-1">
                                 Pusat / Cawangan IAB <span class="text-rose-500">*</span>
                             </label>
-                            <select id="persembahan-organisasi" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none bg-white font-bold text-slate-800 uppercase">
+                            <select id="persembahan-organisasi" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none bg-white font-bold text-slate-800 uppercase">
                                 <option value="" disabled selected>-- Sila Pilih Pusat / Cawangan --</option>
                                 <option value="IAB INDUK BANDAR ENSTEK">IAB Induk Bandar Enstek</option>
                                 <option value="IAB CAWANGAN GENTING HIGHLANDS">IAB Cawangan Genting Highlands</option>
@@ -409,6 +424,24 @@
                                 <option value="IAB CAWANGAN SABAH">IAB Cawangan Sabah</option>
                                 <option value="IAB CAWANGAN SARAWAK">IAB Cawangan Sarawak</option>
                             </select>
+                        </div>
+
+                        <!-- Pilihan Hibrid Bersyarat Dinamik -->
+                        <div id="wrapper-organisasi-hybrid" class="hidden space-y-3 bg-purple-50/60 p-4 rounded-2xl border border-purple-100">
+                            <div>
+                                <label for="hybrid-bilangan-cawangan" class="block text-xs font-bold text-purple-900 mb-1">
+                                    Bilangan Pusat / Cawangan yang Terlibat:
+                                </label>
+                                <select id="hybrid-bilangan-cawangan" onchange="janaPilihanHybrid(this.value)" class="w-full px-3 py-2 rounded-xl border border-purple-200 text-xs bg-white font-bold text-purple-800 focus:outline-none">
+                                    <option value="2">2 Cawangan/Pusat Terlibat</option>
+                                    <option value="3">3 Cawangan/Pusat Terlibat</option>
+                                    <option value="4">4 Cawangan/Pusat Terlibat</option>
+                                    <option value="5">Semua (5 Cawangan/Pusat Terlibat)</option>
+                                </select>
+                            </div>
+                            <div id="hybrid-dropdown-container" class="space-y-2">
+                                <!-- Dijana secara automatik oleh JS -->
+                            </div>
                         </div>
 
                         <div>
@@ -425,20 +458,35 @@
                             <input type="text" id="persembahan-tajuk" required placeholder="Contoh: Sketsa Muzikal Tradisional / Tarian Inang" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase font-semibold">
                         </div>
 
-                        <!-- Ruangan Mendaftar Senarai Nama Ahli Kumpulan -->
-                        <div>
-                            <label for="persembahan-ahli" class="block text-xs font-bold text-slate-700 mb-1">
-                                Senarai Nama Ahli Kumpulan <span class="text-rose-500">*</span>
+                        <!-- ID / PIN Khas Keselamatan -->
+                        <div class="bg-amber-50/70 p-3.5 rounded-2xl border border-amber-200 space-y-1">
+                            <label for="persembahan-pin" class="block text-xs font-bold text-amber-900">
+                                <i class="fa-solid fa-key text-amber-600 mr-1"></i> ID / PIN Khas Tarik Diri (Wajib) <span class="text-rose-500">*</span>
                             </label>
-                            <textarea id="persembahan-ahli" required rows="3" oninput="autoKiraBilanganAhli(this.value)" placeholder="Masukkan nama semua ahli kumpulan (seorang satu baris atau koma)&#10;Contoh:&#10;1. Ahmad Razali&#10;2. Siti Aminah&#10;3. Mohd Faizal" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase font-semibold"></textarea>
+                            <p class="text-[11px] text-slate-600">Tetapkan 4-6 angka PIN keselamatan. PIN ini wajib dimasukkan sekiranya anda ingin menarik diri nanti.</p>
+                            <input type="password" id="persembahan-pin" required maxlength="8" placeholder="Contoh: 1234 atau 8899" class="w-full px-3.5 py-2 rounded-xl border border-amber-300 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none font-bold bg-white tracking-widest text-slate-800">
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label for="persembahan-bilangan" class="block text-xs font-bold text-slate-700 mb-1">
-                                    Bilangan Peserta
+                                    Bilangan Peserta <span class="text-rose-500">*</span>
                                 </label>
-                                <input type="number" id="persembahan-bilangan" min="1" value="1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none font-bold">
+                                <select id="persembahan-bilangan" onchange="janaKotakNamaAhli(this.value)" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none bg-white font-bold text-slate-800">
+                                    <option value="1">1 Orang (Solo)</option>
+                                    <option value="2">2 Orang (Duo)</option>
+                                    <option value="3">3 Orang</option>
+                                    <option value="4">4 Orang</option>
+                                    <option value="5">5 Orang</option>
+                                    <option value="6">6 Orang</option>
+                                    <option value="7">7 Orang</option>
+                                    <option value="8">8 Orang</option>
+                                    <option value="9">9 Orang</option>
+                                    <option value="10">10 Orang</option>
+                                    <option value="12">12 Orang</option>
+                                    <option value="15">15 Orang</option>
+                                    <option value="20">20 Orang</option>
+                                </select>
                             </div>
                             <div>
                                 <label for="persembahan-durasi" class="block text-xs font-bold text-slate-700 mb-1">
@@ -449,6 +497,17 @@
                                     <option value="5-7 Minit" selected>5 - 7 Minit</option>
                                     <option value="7-10 Minit">7 - 10 Minit</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <!-- Ruangan Mendaftar Senarai Nama Ahli Kumpulan Secara Automatik Berdasarkan Bilangan -->
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-700">
+                                Nama Lengkap Setiap Ahli Kumpulan <span class="text-rose-500">*</span>
+                            </label>
+                            <p class="text-[11px] text-slate-500">Kotak nama dijana secara automatik berdasarkan bilangan peserta dipilih.</p>
+                            <div id="container-ahli-dinamik" class="space-y-2 max-h-56 overflow-y-auto pr-1">
+                                <!-- Dijana secara dinamik oleh JS -->
                             </div>
                         </div>
 
@@ -829,27 +888,37 @@
         </div>
     </div>
 
-    <!-- MODAL PENGESAHAN TARIK DIRI PERSEMBAHAN -->
+    <!-- MODAL PENGESAHAN TARIK DIRI PERSEMBAHAN DENGAN VERIFIKASI PIN KHAS -->
     <div id="modal-tarik-diri" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden border border-rose-100 p-6 space-y-4 text-center">
             <div class="w-14 h-14 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl">
-                <i class="fa-solid fa-triangle-exclamation"></i>
+                <i class="fa-solid fa-lock"></i>
             </div>
             <div>
                 <h3 class="text-lg font-bold text-slate-800">Pengesahan Tarik Diri</h3>
-                <p class="text-xs text-slate-500 mt-1">Adakah anda pasti untuk menarik diri daripada senarai giliran persembahan Malam Budaya?</p>
+                <p class="text-xs text-slate-500 mt-1">Sila masukkan ID / PIN Keselamatan yang anda tetapkan semasa mendaftar persembahan ini.</p>
             </div>
             <div class="bg-rose-50/70 p-3.5 rounded-2xl border border-rose-100 text-xs text-left space-y-1">
                 <p><strong class="text-slate-700">Tajuk:</strong> <span id="tarik-diri-tajuk" class="text-rose-900 font-bold uppercase"></span></p>
                 <p><strong class="text-slate-700">Wakil:</strong> <span id="tarik-diri-wakil" class="text-slate-800 uppercase font-semibold"></span></p>
                 <p><strong class="text-slate-700">Pusat/Cawangan:</strong> <span id="tarik-diri-org" class="text-slate-800 uppercase font-semibold"></span></p>
             </div>
+
+            <!-- Input PIN untuk Tarik Diri -->
+            <div class="space-y-1 text-left">
+                <label for="input-tarik-diri-pin" class="block text-xs font-bold text-slate-700">
+                    Masukkan PIN Khas Anda:
+                </label>
+                <input type="password" id="input-tarik-diri-pin" maxlength="8" placeholder="Masukkan PIN 4-6 digit" class="w-full px-3.5 py-2.5 rounded-xl border border-rose-300 text-center tracking-widest text-sm font-bold focus:ring-2 focus:ring-rose-500 focus:outline-none">
+                <div id="tarik-diri-error-msg" class="text-xs text-rose-600 font-bold hidden pt-1"></div>
+            </div>
+
             <div class="flex items-center justify-center gap-3 pt-2">
                 <button onclick="tutupModalTarikDiri()" class="w-1/2 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition cursor-pointer">
                     Batal
                 </button>
                 <button id="btn-sahkan-tarik-diri" onclick="sahkanTarikDiri()" class="w-1/2 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs shadow-md shadow-rose-600/25 transition cursor-pointer">
-                    Ya, Tarik Diri
+                    Sahkan Tarik Diri
                 </button>
             </div>
         </div>
@@ -873,11 +942,6 @@
         const SUPABASE_KEY = "sb_publishable_wPFi9afiTEYKdP7TO324pQ_TtegMQIt";
         let supabaseClient = null;
 
-        // NOTA PENTING SUPABASE:
-        // Untuk membenarkan butang tarik diri memadam rekod di Supabase,
-        // jalankan baris ini sekali dalam SQL Editor Supabase:
-        // CREATE POLICY "Benarkan Semua Padam Persembahan" ON persembahan_kebudayaan FOR DELETE USING (true);
-
         try {
             if (typeof supabase !== 'undefined' && supabase.createClient) {
                 supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -886,469 +950,13 @@
             console.error("Ralat inisialisasi Supabase:", e);
         }
 
-        const scheduleData = {
-            1: {
-                title: "Hari 1: Isnin (2 November 2026)",
-                subtitle: "Fokus: Perjalanan Peserta, Daftar Masuk Asrama, dan Pengurusan Kendiri",
-                items: [
-                    { 
-                        time: "Pagi hingga 2:30 petang (6:30 pagi - 2:30 petang)", 
-                        title: "Perjalanan Peserta", 
-                        location: "Institut Aminuddin Baki, Bandar Enstek", 
-                        dress: "Pakaian Kasual / Bebas", 
-                        details: [
-                            "• Perjalanan peserta ke Institut Aminuddin Baki",
-                            "• Mengambil kira waktu perjalanan peserta dari pelbagai cawangan"
-                        ] 
-                    },
-                    { 
-                        time: "2:30 - 4:30 petang", 
-                        title: "DAFTAR MASUK Asrama (Peserta Cawangan)", 
-                        location: "Kaunter Pendaftaran Asrama Kediaman", 
-                        dress: "Pakaian Kemas / Pejabat", 
-                        details: [
-                            "• Pendaftaran asrama kediaman untuk peserta cawangan",
-                            "• Pendaftaran kehadiran program",
-                            "• Pengambilan kunci bilik kediaman peserta"
-                        ] 
-                    },
-                    { 
-                        time: "4:30 - 5:00 petang", 
-                        title: "Minum Petang", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Bebas Kemas", 
-                        details: ["• Sesi rehat dan jamuan minum petang"] 
-                    },
-                    { 
-                        time: "7:00 - 8:00 malam", 
-                        title: "Makan Malam", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Bebas Kemas", 
-                        details: ["• Jamuan makan malam peserta di Dewan Makan"] 
-                    },
-                    { 
-                        time: "8:30 - 10:30 malam", 
-                        title: "Pengurusan Kendiri", 
-                        location: "Bilik Kediaman Peserta", 
-                        dress: "Bebas", 
-                        details: ["• Sesi pengurusan kendiri dan persiapan peserta bagi aktiviti hari seterusnya"] 
-                    }
-                ]
-            },
-            2: {
-                title: "Hari 2: Selasa (3 November 2026)",
-                subtitle: "Fokus: Perasmian Pembukaan, Sesi Suai Kenal, dan Ceramah Kendiri",
-                items: [
-                    { 
-                        time: "6:15 - 6:25 pagi", 
-                        title: "Kuliah Subuh: \"Hadith 40\"", 
-                        location: "Dalam Talian (Google Meet)", 
-                        dress: "Pakaian Sopan", 
-                        details: [
-                            "• Sesi keagamaan dan perkongsian ilmu secara dalam talian",
-                            "• Penyampai Kuliah Subuh: al-Fadhil Ustaz alHuzaee bin Sulaiman"
-                        ],
-                        link: "https://meet.google.com/zqi-apdg-fcy"
-                    },
-                    { 
-                        time: "6:30 - 7:30 pagi", 
-                        title: "Sarapan", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Rasmi", 
-                        details: ["• Sesi sarapan pagi di Dewan Makan"] 
-                    },
-                    { 
-                        time: "8:00 - 8:30 pagi dan 8:30 - 10:30 pagi", 
-                        title: "Aktiviti 1: Taklimat Urus Setia dan Majlis Perasmian Pembukaan", 
-                        location: "Auditorium Perdana", 
-                        dress: "Pakaian Rasmi", 
-                        details: [
-                            "• Taklimat Urus setia",
-                            "• Nyanyian Lagu Negaraku",
-                            "• Nyanyian Lagu IAB",
-                            "• Bacaan Doa",
-                            "• Ucapan Alu-aluan",
-                            "• Ucapan Perasmian Pembukaan",
-                            "• Sesi Bergambar",
-                            "• Bersurai"
-                        ] 
-                    },
-                    { 
-                        time: "10:30 - 11:00 pagi", 
-                        title: "Minum Pagi", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Rasmi", 
-                        details: ["• Sesi rehat dan jamuan minum pagi"] 
-                    },
-                    { 
-                        time: "11:00 pagi - 1:00 petang", 
-                        title: "Aktiviti 2: Sesi Suai Kenal", 
-                        location: "Auditorium Perdana", 
-                        dress: "Pakaian Rasmi", 
-                        details: [
-                            "• Sesi Suai Kenal",
-                            "• Dikendalikan oleh: Encik Kadir bin Ali"
-                        ] 
-                    },
-                    { 
-                        time: "2:30 - 4:30 petang", 
-                        title: "Aktiviti 3: Ceramah \"I Love Myself\"", 
-                        location: "Auditorium Perdana", 
-                        dress: "Pakaian Rasmi", 
-                        details: [
-                            "• Ceramah motivasi dan pembangunan potensi kendiri",
-                            "• Penceramah: Encik Kadir bin Ali"
-                        ] 
-                    },
-                    { 
-                        time: "4:30 - 5:00 petang", 
-                        title: "Minum Petang", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Bebas Kemas", 
-                        details: ["• Jamuan minum petang peserta"] 
-                    },
-                    { 
-                        time: "7:00 - 8:00 malam", 
-                        title: "Makan Malam", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Bebas Kemas", 
-                        details: ["• Jamuan makan malam peserta"] 
-                    },
-                    { 
-                        time: "8:30 - 10:30 malam", 
-                        title: "Aktiviti 4: Persediaan Kendiri Persembahan Malam Budaya IAB", 
-                        location: "Auditorium Perdana", 
-                        dress: "Smart Casual", 
-                        details: ["• Latihan dan persediaan persembahan kumpulan bagi Malam Budaya IAB"] 
-                    }
-                ]
-            },
-            3: {
-                title: "Hari 3: Rabu (4 November 2026)",
-                subtitle: "Fokus: Senamrobik, Pembangunan Kerja Sepasukan, dan Malam Budaya",
-                items: [
-                    { 
-                        time: "6:15 - 6:25 pagi", 
-                        title: "Kuliah Subuh: \"Hadith 40\"", 
-                        location: "Dalam Talian (Google Meet)", 
-                        dress: "Pakaian Sopan", 
-                        details: [
-                            "• Sesi keagamaan dan perkongsian ilmu secara dalam talian",
-                            "• Penyampai Kuliah Subuh: al-Fadhil Ustaz alHuzaee bin Sulaiman"
-                        ],
-                        link: "https://meet.google.com/zqi-apdg-fcy"
-                    },
-                    { 
-                        time: "6:30 - 7:30 pagi", 
-                        title: "Senamrobik", 
-                        location: "Hadapan Rumah Puspanita", 
-                        dress: "Pakaian Sukan", 
-                        details: ["• Sesi senaman kecergasan fizikal pagi"] 
-                    },
-                    { 
-                        time: "8:00 - 8:30 pagi dan 8:30 - 10:30 pagi", 
-                        title: "Aktiviti 5: Pembangunan Kerja Sepasukan (Sesi Pagi)", 
-                        location: "Hadapan Rumah Puspanita", 
-                        dress: "Pakaian Sukan", 
-                        details: [
-                            "• Latihan dinamika kumpulan dan komunikasi sepasukan",
-                            "• Aktiviti integrasi dan kerjasama staf"
-                        ] 
-                    },
-                    { 
-                        time: "10:30 - 11:00 pagi", 
-                        title: "Minum Pagi", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Sukan", 
-                        details: ["• Sesi minum pagi"] 
-                    },
-                    { 
-                        time: "11:00 pagi - 1:00 petang dan 2:30 - 4:30 petang", 
-                        title: "Aktiviti 5: Pembangunan Kerja Sepasukan (Sambungan)", 
-                        location: "Hadapan Rumah Puspanita", 
-                        dress: "Pakaian Sukan", 
-                        details: ["• Sambungan latihan membina ketahanan dan sinergi pasukan"] 
-                    },
-                    { 
-                        time: "4:30 - 5:00 petang", 
-                        title: "Minum Petang", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Bebas Kemas", 
-                        details: ["• Jamuan minum petang"] 
-                    },
-                    { 
-                        time: "7:00 - 8:00 malam", 
-                        title: "Makan Malam", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Tradisi Budaya Masing-masing (Malaysia)", 
-                        details: ["• Makan malam sebelum bermulanya Majlis Malam Budaya"] 
-                    },
-                    { 
-                        time: "8:30 - 10:30 malam", 
-                        title: "Aktiviti 6: Malam Budaya dan Amanat Kepemimpinan oleh Pengarah", 
-                        location: "Dewan Makan", 
-                        dress: "Tradisi Budaya Masing-masing (Malaysia)", 
-                        details: [
-                            "• Nyanyian Lagu Negaraku",
-                            "• Nyanyian Lagu IAB",
-                            "• Bacaan Doa",
-                            "• Ucapan Alu-aluan",
-                            "• Ucapan Amanat Pengarah",
-                            "• Persembahan Kebudayaan Staf",
-                            "• Sesi Bergambar",
-                            "• Bersurai"
-                        ] 
-                    }
-                ]
-            },
-            4: {
-                title: "Hari 4: Khamis (5 November 2026)",
-                subtitle: "Fokus: Tingkah Laku Organisasi, Perasmian Penutupan, dan Perjalanan Pulang",
-                items: [
-                    { 
-                        time: "6:15 - 6:25 pagi", 
-                        title: "Kuliah Subuh: \"Hadith 40\"", 
-                        location: "Dalam Talian (Google Meet)", 
-                        dress: "Pakaian Sopan", 
-                        details: [
-                            "• Sesi keagamaan dan perkongsian ilmu secara dalam talian",
-                            "• Penyampai Kuliah Subuh: al-Fadhil Ustaz alHuzaee bin Sulaiman"
-                        ],
-                        link: "https://meet.google.com/zqi-apdg-fcy"
-                    },
-                    { 
-                        time: "6:30 - 7:30 pagi", 
-                        title: "Sarapan", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Rasmi", 
-                        details: ["• Sesi sarapan pagi di Dewan Makan"] 
-                    },
-                    { 
-                        time: "8:00 - 8:30 pagi dan 8:30 - 10:30 pagi", 
-                        title: "Aktiviti 7: Ceramah \"Organizational Behavior\" (Tingkah Laku Organisasi)", 
-                        location: "Auditorium Perdana", 
-                        dress: "Pakaian Rasmi", 
-                        details: [
-                            "• Ceramah budaya korporat dan tingkah laku organisasi berkualiti",
-                            "• Penceramah: Encik Ahmad Sabri bin Mohamad"
-                        ] 
-                    },
-                    { 
-                        time: "10:30 - 11:00 pagi", 
-                        title: "Minum Pagi", 
-                        location: "Dewan Makan", 
-                        dress: "Pakaian Rasmi", 
-                        details: ["• Sesi rehat minum pagi"] 
-                    },
-                    { 
-                        time: "11:00 pagi - 1:00 petang", 
-                        title: "Aktiviti 8: Majlis Perasmian Penutupan Pengarah", 
-                        location: "Auditorium Perdana", 
-                        dress: "Pakaian Rasmi", 
-                        details: [
-                            "• Nyanyian Lagu Negaraku",
-                            "• Nyanyian Lagu IAB",
-                            "• Bacaan Doa",
-                            "• Ucapan Alu-aluan",
-                            "• Ucapan Perasmian Penutupan",
-                            "• Sesi Bergambar",
-                            "• Bersurai"
-                        ] 
-                    },
-                    { 
-                        time: "1:00 - 2:00 petang dan Seterusnya", 
-                        title: "Makan Tengah Hari dan Perjalanan Pulang", 
-                        location: "Institut Aminuddin Baki, Bandar Enstek", 
-                        dress: "Pakaian Pejabat / Kemas", 
-                        details: [
-                            "• Jamuan makan tengah hari",
-                            "• Daftar keluar asrama kediaman",
-                            "• Perjalanan pulang peserta ke destinasi masing-masing"
-                        ] 
-                    }
-                ]
-            }
-        };
-
-        const feedbackQuestions = {
-            2: {
-                title: "Penilaian Fasa 1: Hari 2 (Selasa)",
-                sections: [
-                    {
-                        slotKey: "q_f2_k1",
-                        slotTitle: "Kuliah Subuh: \"Hadith 40\" (al-Fadhil Ustaz alHuzaee bin Sulaiman)",
-                        domainKandungan: [
-                            { id: "q_f2_k1_1", text: "Pengisian hadith memberi peringatan yang menyentuh hati dan menyuntik kesedaran rohani." },
-                            { id: "q_f2_k1_2", text: "Kupasan hadith dikaitkan secara tepat dengan nilai integriti serta amanah tugas pendidik." },
-                            { id: "q_f2_k1_3", text: "Topik hadith yang dipilih relevan dengan pembentukan sahsiah peribadi dan etika kerja seharian." },
-                            { id: "q_f2_k1_4", text: "Mesej hadith padat, jelas, dan memberi aura ketenangan sebelum memulakan tugasan harian." },
-                            { id: "q_f2_k1_5", text: "Pengisian kuliah membangkitkan keinsafan tentang akauntabiliti diri terhadap organisasi dan perkhidmatan." },
-                            { id: "q_f2_k1_6", text: "Intipati hadith menyemai nilai keikhlasan, kesabaran, dan adab sesama rakan sekerja." },
-                            { id: "q_f2_k1_7", text: "Kandungan kuliah memperkukuh jati diri kepimpinan berlandaskan prinsip moral yang luhur." }
-                        ],
-                        domainPenceramah: [
-                            { id: "q_f2_p1_1", text: "Penceramah menguasai intipati hadith dengan hujah, dalil, dan penjelasan yang meyakinkan." },
-                            { id: "q_f2_p1_2", text: "Gaya penyampaian penceramah jelas, berhikmah, bersahaja, dan mudah dihayati." },
-                            { id: "q_f2_p1_3", text: "Penceramah berjaya mengekalkan tumpuan dan penghayatan peserta sepanjang tempoh kuliah." }
-                        ]
-                    },
-                    {
-                        slotKey: "q_f2_k2",
-                        slotTitle: "Sesi Suai Kenal (Encik Kadir bin Ali)",
-                        domainKandungan: [
-                            { id: "q_f2_k2_1", text: "Aktiviti yang dirangka berkesan memecahkan rasa kekok (ice-breaking) antara staf cawangan dan induk." },
-                            { id: "q_f2_k2_2", text: "Modul aktiviti membina rasa keterangkuman (inclusivity) dan kebersamaan keluarga IAB." },
-                            { id: "q_f2_k2_3", text: "Aktiviti mendorong peserta berinteraksi secara terbuka, santai, dan tanpa rasa rendah diri." },
-                            { id: "q_f2_k2_4", text: "Kandungan slot merapatkan jurang komunikasi antara pelbagai gred jawatan dan latar belakang staf." },
-                            { id: "q_f2_k2_5", text: "Aktiviti menyemai semangat saling mengenali, menghormati, dan membina ukhuwah yang positif." },
-                            { id: "q_f2_k2_6", text: "Struktur aktiviti mewujudkan persekitaran dewan yang menyeronokkan dan penuh keharmonian." },
-                            { id: "q_f2_k2_7", text: "Slot ini berjaya menetapkan momentum kesepaduan dan semangat persaudaraan bagi seluruh bengkel." }
-                        ],
-                        domainPenceramah: [
-                            { id: "q_f2_p2_1", text: "Pengendali berjaya menghidupkan suasana dewan dengan ceria, bertenaga, dan interaktif." },
-                            { id: "q_f2_p2_2", text: "Arahan dan panduan setiap aktiviti disampaikan secara teratur, jelas, dan mudah diikuti." },
-                            { id: "q_f2_p2_3", text: "Pengendali menunjukkan sikap mesra, prihatin, dan melibatkan penyertaan semua peserta secara adil." }
-                        ]
-                    },
-                    {
-                        slotKey: "q_f2_k3",
-                        slotTitle: "Ceramah \"I Love Myself\" (Encik Kadir bin Ali)",
-                        domainKandungan: [
-                            { id: "q_f2_k3_1", text: "Kandungan ceramah membantu peserta mengenal potensi, kekuatan peribadi, dan penghargaan kendiri." },
-                            { id: "q_f2_k3_2", text: "Memberi kesedaran mendalam tentang penjagaan kesejahteraan emosi dan kesihatan mental di tempat kerja." },
-                            { id: "q_f2_k3_3", text: "Konsep menghargai diri dihuraikan secara matang dan berhubung kait dengan produktiviti kerja." },
-                            { id: "q_f2_k3_4", text: "Tips motivasi kendiri dan daya tindak (coping mechanism) yang dikongsikan praktikal untuk diamalkan." },
-                            { id: "q_f2_k3_5", text: "Pengisian ceramah membangkitkan rasa syukur dan keyakinan diri untuk terus menyumbang bakti." },
-                            { id: "q_f2_k3_6", text: "Membantu peserta menyedari batas kekuatan kendiri serta kepentingan membina sokongan psikologi positif." },
-                            { id: "q_f2_k3_7", text: "Kandungan ceramah memberi inspirasi untuk mengimbangi antara kecemerlangan kerjaya dan kebahagiaan peribadi." }
-                        ],
-                        domainPenceramah: [
-                            { id: "q_f2_p3_1", text: "Penceramah menyampaikan ceramah dengan penuh karisma, bertenaga, dan berimpak tinggi." },
-                            { id: "q_f2_p3_2", text: "Penceramah mahir mengolah emosi peserta melalui penceritaan (storytelling) yang menyentuh hati." },
-                            { id: "q_f2_p3_3", text: "Kaedah komunikasi penceramah sangat interaktif dan mengekalkan tumpuan peserta hingga ke akhir sesi." }
-                        ]
-                    }
-                ]
-            },
-            3: {
-                title: "Penilaian Fasa 2: Hari 3 (Rabu)",
-                sections: [
-                    {
-                        slotKey: "q_f3_k1",
-                        slotTitle: "Kuliah Subuh: \"Hadith 40\" (al-Fadhil Ustaz alHuzaee bin Sulaiman)",
-                        domainKandungan: [
-                            { id: "q_f3_k1_1", text: "Mesej hadith padat, jelas, dan memberi ketenangan sebelum memulakan aktiviti luar." },
-                            { id: "q_f3_k1_2", text: "Kupasan hadith menekankan nilai kesabaran dan tolak ansur sesama ahli pasukan." },
-                            { id: "q_f3_k1_3", text: "Pengisian kuliah mengukuhkan keikhlasan dalam menyempurnakan setiap tugasan yang diamanahkan." },
-                            { id: "q_f3_k1_4", text: "Membina disiplin rohani yang menyokong ketahanan fizikal dan mental peserta sepanjang hari." },
-                            { id: "q_f3_k1_5", text: "Topik hadith membimbing adab komunikasi yang baik dalam pergaulan harian." },
-                            { id: "q_f3_k1_6", text: "Peringatan yang disampaikan relevan dengan cabaran pengurusan emosi di tempat kerja." },
-                            { id: "q_f3_k1_7", text: "Kuliah subuh ini berterusan menyemarakkan aura positif bagi aktiviti kerja sepasukan." }
-                        ],
-                        domainPenceramah: [
-                            { id: "q_f3_p1_1", text: "Penceramah menguasai huraian hadith dengan susunan isi yang teratur dan padat." },
-                            { id: "q_f3_p1_2", text: "Penyampaian penceramah tenang, bersahaja, dan mudah dihayati oleh segenap lapisan staf." },
-                            { id: "q_f3_p1_3", text: "Penceramah berjaya memelihara interaksi dan penghayatan peserta sepanjang sesi." }
-                        ]
-                    },
-                    {
-                        slotKey: "q_f3_k2",
-                        slotTitle: "Pembangunan Kerja Sepasukan (Hadapan Rumah Puspanita)",
-                        domainKandungan: [
-                            { id: "q_f3_k2_1", text: "Modul aktiviti menuntut strategi perancangan, kepimpinan bersama, dan agihan tugas yang adil." },
-                            { id: "q_f3_k2_2", text: "Aktiviti yang dijalankan menguji tahap kesabaran, tolak ansur, dan komunikasi dua hala." },
-                            { id: "q_f3_k2_3", text: "Kandungan cabaran berupaya membina rasa saling mempercayai (mutual trust) antara ahli." },
-                            { id: "q_f3_k2_4", text: "Aktiviti berjaya merapatkan jurang perbezaan cawangan, jabatan, dan gred perkhidmatan." },
-                            { id: "q_f3_k2_5", text: "Membina semangat daya juang dan ketahanan fizikal serta mental dalam suasana ceria." },
-                            { id: "q_f3_k2_6", text: "Peserta dapat mengaitkan pengalaman permainan dengan realiti penyelesaian masalah di pejabat." },
-                            { id: "q_f3_k2_7", text: "Slot ini memperkukuh komitmen dan sinergi bersama ke arah pencapaian matlamat institusi." }
-                        ],
-                        domainPenceramah: [
-                            { id: "q_f3_p2_1", text: "Fasilitator menerangkan objektif dan panduan keselamatan setiap tugasan secara jelas." },
-                            { id: "q_f3_p2_2", text: "Fasilitator mengawal disiplin, keselamatan, dan kebajikan peserta dengan sangat baik." },
-                            { id: "q_f3_p2_3", text: "Fasilitator membimbing sesi refleksi (debriefing) sehingga peserta memahami pengajaran tersirat." }
-                        ]
-                    },
-                    {
-                        slotKey: "q_f3_k3",
-                        slotTitle: "Malam Budaya IAB (Persembahan dan Pengurusan Sahaja)",
-                        domainKandungan: [
-                            { id: "q_f3_k3_1", text: "Persembahan kebudayaan memperlihatkan bakat seni, kreativiti, dan keunikan identiti warga IAB." },
-                            { id: "q_f3_k3_2", text: "Tema pakaian tradisi menyemarakkan rasa bangga terhadap keharmonian kepelbagaian budaya Malaysia." },
-                            { id: "q_f3_k3_3", text: "Kerjasama antara ahli kumpulan dalam menjayakan persembahan mencerminkan kesepakatan yang tinggi." },
-                            { id: "q_f3_k3_4", text: "Pengisian malam budaya berupaya memupuk semangat kekeluargaan, kegembiraan, dan keakraban staf." },
-                            { id: "q_f3_k3_5", text: "Mewujudkan suasana santai dan pelepasan tekanan yang membina kesejahteraan minda warga kerja." },
-                            { id: "q_f3_k3_6", text: "Acara ini memberi ruang penghargaan kepada kepelbagaian latar belakang warga IAB." },
-                            { id: "q_f3_k3_7", text: "Malam Budaya berjaya mencapai objektif mempererat tali silaturahim dalam suasana yang harmoni." }
-                        ],
-                        domainPenceramah: [
-                            { id: "q_f3_p3_1", text: "Pengurusan majlis dan susunan atur cara persembahan berjalan lancar dan teratur." },
-                            { id: "q_f3_p3_2", text: "Pengacara majlis mengendalikan acara dengan ceria, menghiburkan, dan bersopan." },
-                            { id: "q_f3_p3_3", text: "Peralatan teknikal, audio, dan pencahayaan majlis berada dalam keadaan memuaskan." }
-                        ]
-                    }
-                ]
-            },
-            4: {
-                title: "Penilaian Fasa 3: Hari 4 (Khamis)",
-                sections: [
-                    {
-                        slotKey: "q_f4_k1",
-                        slotTitle: "Kuliah Subuh: \"Hadith 40\" (al-Fadhil Ustaz alHuzaee bin Sulaiman)",
-                        domainKandungan: [
-                            { id: "q_f4_k1_1", text: "Pengisian hadith membina keinsafan berterusan untuk istiqamah dalam integriti kerja." },
-                            { id: "q_f4_k1_2", text: "Kupasan hadith merumuskan adab perkhidmatan dan kemuliaan mencari rezeki yang berkat." },
-                            { id: "q_f4_k1_3", text: "Mesej hadith memberi peringatan tentang pentingnya menjaga ukhuwah selepas bengkel tamat." },
-                            { id: "q_f4_k1_4", text: "Kandungan kuliah memperkukuh azam untuk menjadi warga pendidik yang berakauntabiliti tinggi." },
-                            { id: "q_f4_k1_5", text: "Kuliah subuh sepanjang 3 hari ini berjaya menyemai ketenangan rohani dan disiplin kendiri." },
-                            { id: "q_f4_k1_6", text: "Pengisian kuliah mudah dihadam dan relevan dengan etika tatakelakuan penjawat awam." },
-                            { id: "q_f4_k1_7", text: "Memberi dorongan moral untuk terus berkhidmat dengan hati yang ikhlas dan berjiwa besar." }
-                        ],
-                        domainPenceramah: [
-                            { id: "q_f4_p1_1", text: "Penceramah mengekalkan kualiti penyampaian yang mantap, bernas, dan berhikmah sepanjang siri." },
-                            { id: "q_f4_p1_2", text: "Gaya bicara penceramah mesra, penuh keikhlasan, dan memberi inspirasi kepada peserta." },
-                            { id: "q_f4_p1_3", text: "Penceramah mengurus masa 10 minit secara berdisiplin, terancang, dan tepat pada waktunya." }
-                        ]
-                    },
-                    {
-                        slotKey: "q_f4_k2",
-                        slotTitle: "Ceramah \"Tingkah Laku Organisasi\" (Encik Ahmad Sabri bin Mohamad)",
-                        domainKandungan: [
-                            { id: "q_f4_k2_1", text: "Kandungan ceramah memperkukuh kefahaman mengenai dinamika tingkah laku individu dan kumpulan." },
-                            { id: "q_f4_k2_2", text: "Topik etika kerja korporat dan profesionalisme penjawat awam dihuraikan berteraskan realiti." },
-                            { id: "q_f4_k2_3", text: "Memberi panduan bernas mengenai kaedah membina persefahaman dan keharmonian pejabat." },
-                            { id: "q_f4_k2_4", text: "Membantu peserta mengenal pasti faktor yang mempengaruhi iklim dan budaya kerja positif." },
-                            { id: "q_f4_k2_5", text: "Strategi menangani konflik dan cabaran komunikasi interpersonal dihuraikan secara praktikal." },
-                            { id: "q_f4_k2_6", text: "Pengisian ceramah menyuntik iltizam untuk meningkatkan disiplin kerja dan kualiti penyampaian." },
-                            { id: "q_f4_k2_7", text: "Kandungan slot selari dengan aspirasi pembudayaan organisasi berprestasi tinggi di IAB." }
-                        ],
-                        domainPenceramah: [
-                            { id: "q_f4_p2_1", text: "Penceramah menguasai disiplin ilmu tingkah laku organisasi dengan hujah dan fakta yang meyakinkan." },
-                            { id: "q_f4_p2_2", text: "Gaya penyampaian penceramah ilmiah, menarik, teratur, dan berwibawa." },
-                            { id: "q_f4_p2_3", text: "Penceramah berjaya merangsang pemikiran reflektif peserta terhadap peranan diri dalam organisasi." }
-                        ]
-                    },
-                    {
-                        slotKey: "q_f4_k3",
-                        slotTitle: "Pengurusan Logistik dan Urus Setia",
-                        domainKandungan: [
-                            { id: "q_f4_k3_1", text: "Pengurusan pendaftaran asrama kediaman dan kemudahan bilik berjalan lancar dan teratur." },
-                            { id: "q_f4_k3_2", text: "Kebersihan dan kelengkapan bilik asrama kediaman berada dalam keadaan yang memuaskan." },
-                            { id: "q_f4_k3_3", text: "Kualiti hidangan, kesesuaian menu, dan ketepatan masa sajian makanan dijaga dengan sangat baik." },
-                            { id: "q_f4_k3_4", text: "Penyediaan bahan dokumentasi digital dan kod QR mudah diakses dan berfungsi sepenuhnya." },
-                            { id: "q_f4_k3_5", text: "Pengurusan dewan, auditorium, dan padang aktiviti selesa serta menyokong perjalanan modul." },
-                            { id: "q_f4_k3_6", text: "Aliran maklumat dan hebahan peringatan aktiviti harian disampaikan secara jelas dan tepat." },
-                            { id: "q_f4_k3_7", text: "Keseluruhan penganjuran bengkel dirancang dengan profesional dan teratur." }
-                        ],
-                        domainPenceramah: [
-                            { id: "q_f4_p3_1", text: "Barisan urus setia bertindak secara responsif, cekap, dan bersedia membantu pada setiap masa." },
-                            { id: "q_f4_p3_2", text: "Layanan urus setia sentiasa mesra, bersopan santun, dan prihatin terhadap kebajikan peserta." },
-                            { id: "q_f4_p3_3", text: "Urus setia berjaya mengawal pengurusan masa dan disiplin program dengan cemerlang." }
-                        ]
-                    }
-                ]
-            }
-        };
+        const senaraiPusatMaster = [
+            "IAB Induk Bandar Enstek",
+            "IAB Cawangan Genting Highlands",
+            "IAB Cawangan Utara",
+            "IAB Cawangan Sabah",
+            "IAB Cawangan Sarawak"
+        ];
 
         // Pembolehubah Global
         let submissionsDB = [];
@@ -1357,18 +965,64 @@
         let slotAktifIdx = 0;
         let slotAnalisisPilihan = "all";
         let itemTarikDiriSasaran = null;
+        let modKategoriSemasa = "tunggal";
+
+        function tukarModKategori(mod) {
+            modKategoriSemasa = mod;
+            const wrapTunggal = document.getElementById('wrapper-organisasi-tunggal');
+            const wrapHybrid = document.getElementById('wrapper-organisasi-hybrid');
+
+            if (mod === 'tunggal') {
+                wrapTunggal.classList.remove('hidden');
+                wrapHybrid.classList.add('hidden');
+            } else {
+                wrapTunggal.classList.add('hidden');
+                wrapHybrid.classList.remove('hidden');
+                const bilPilihan = document.getElementById('hybrid-bilangan-cawangan').value;
+                janaPilihanHybrid(bilPilihan);
+            }
+        }
+
+        function janaPilihanHybrid(bilangan) {
+            const container = document.getElementById('hybrid-dropdown-container');
+            container.innerHTML = '';
+            const jumlah = parseInt(bilangan, 10);
+
+            for (let i = 1; i <= jumlah; i++) {
+                const row = document.createElement('div');
+                row.className = "flex items-center gap-2";
+                row.innerHTML = `
+                    <span class="text-[11px] font-bold text-purple-900 w-24 shrink-0">Cawangan #${i}:</span>
+                    <select class="hybrid-select-item w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white font-semibold uppercase text-slate-800 focus:outline-none">
+                        <option value="" disabled selected>-- Pilih Cawangan --</option>
+                        ${senaraiPusatMaster.map(p => `<option value="${p.toUpperCase()}">${p}</option>`).join('')}
+                    </select>
+                `;
+                container.appendChild(row);
+            }
+        }
+
+        function janaKotakNamaAhli(jumlah) {
+            const container = document.getElementById('container-ahli-dinamik');
+            container.innerHTML = '';
+            const count = parseInt(jumlah, 10) || 1;
+
+            for (let i = 1; i <= count; i++) {
+                const row = document.createElement('div');
+                row.className = "flex items-center gap-2";
+                row.innerHTML = `
+                    <span class="text-xs font-bold text-slate-500 w-6 shrink-0">${i}.</span>
+                    <input type="text" class="input-nama-ahli w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase font-semibold" placeholder="Nama Lengkap Ahli ${i}" required>
+                `;
+                container.appendChild(row);
+            }
+        }
 
         async function muatDataSimpanan() {
             try {
                 const dataTersimpan = localStorage.getItem('iab_maklumbalas_2026');
                 if (dataTersimpan) {
-                    const parsed = JSON.parse(dataTersimpan);
-                    if (parsed.some(d => d.email && d.email.includes('@iab.edu.my') && !d.id && !d.created_at)) {
-                        localStorage.removeItem('iab_maklumbalas_2026');
-                        submissionsDB = [];
-                    } else {
-                        submissionsDB = parsed;
-                    }
+                    submissionsDB = JSON.parse(dataTersimpan);
                 }
             } catch (e) {
                 console.error("Gagal membaca localStorage", e);
@@ -1444,18 +1098,6 @@
             paparkanSenaraiPersembahan();
         }
 
-        function autoKiraBilanganAhli(teks) {
-            if (!teks) return;
-            const senarai = teks.split(/[\n,]+/)
-                .map(item => item.replace(/^\d+[\.\)]\s*/, '').trim())
-                .filter(item => item.length > 0);
-            
-            const inputBilangan = document.getElementById('persembahan-bilangan');
-            if (inputBilangan && senarai.length > 0) {
-                inputBilangan.value = senarai.length;
-            }
-        }
-
         function paparkanSenaraiPersembahan() {
             const container = document.getElementById('senarai-persembahan-container');
             const statTotal = document.getElementById('stat-total-persembahan');
@@ -1488,6 +1130,7 @@
                 }
 
                 const itemRefId = item.id || `idx_${index}`;
+                const isHybrid = (item.organisasi || '').includes('HYBRID:') || (item.organisasi || '').includes('+');
 
                 card.innerHTML = `
                     <div class="flex items-start gap-3.5 w-full">
@@ -1500,6 +1143,7 @@
                                 <span class="px-2 py-0.5 bg-purple-100 text-purple-800 text-[10px] font-bold rounded-md">
                                     ${item.bilangan_peserta || 1} orang
                                 </span>
+                                ${isHybrid ? '<span class="px-2 py-0.5 bg-amber-100 text-amber-900 text-[10px] font-extrabold rounded-md border border-amber-200">GABUNGAN HIBRID</span>' : ''}
                             </div>
                             <p class="text-xs text-slate-600 font-medium flex items-center gap-1.5 flex-wrap">
                                 <span><i class="fa-solid fa-building text-sky-600 text-[11px]"></i> <strong class="text-slate-700">Pusat/Cawangan:</strong> ${item.organisasi}</span>
@@ -1509,7 +1153,7 @@
                             ${item.senarai_ahli ? `
                                 <div class="bg-purple-50/50 p-2.5 rounded-xl border border-purple-100 text-[11px] text-slate-600 space-y-0.5">
                                     <span class="font-bold text-purple-800 flex items-center gap-1">
-                                        <i class="fa-solid fa-users text-[10px]"></i> Ahli Kumpulan:
+                                        <i class="fa-solid fa-users text-[10px]"></i> Senarai Lengkap Ahli:
                                     </span>
                                     <p class="whitespace-pre-line text-slate-700 font-semibold">${item.senarai_ahli}</p>
                                 </div>
@@ -1526,9 +1170,9 @@
                             <i class="fa-solid fa-circle-check text-[9px] mr-1"></i> Giliran #${index + 1}
                         </span>
                         
-                        <!-- BUTANG TARIK DIRI -->
+                        <!-- BUTANG TARIK DIRI DENGAN KESELAMATAN PIN -->
                         <button type="button" onclick="bukaModalTarikDiri('${itemRefId}')" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold rounded-lg text-[10px] transition flex items-center gap-1 cursor-pointer shadow-2xs">
-                            <i class="fa-solid fa-user-xmark text-[10px]"></i> Tarik Diri
+                            <i class="fa-solid fa-lock text-[9px]"></i> Tarik Diri
                         </button>
                         
                         <span class="text-[10px] text-slate-400 block">${waktu}</span>
@@ -1547,6 +1191,10 @@
             document.getElementById('tarik-diri-wakil').textContent = item.nama_wakil;
             document.getElementById('tarik-diri-org').textContent = item.organisasi;
 
+            const inputPin = document.getElementById('input-tarik-diri-pin');
+            inputPin.value = '';
+            document.getElementById('tarik-diri-error-msg').classList.add('hidden');
+
             document.getElementById('modal-tarik-diri').classList.remove('hidden');
         }
 
@@ -1555,9 +1203,25 @@
             document.getElementById('modal-tarik-diri').classList.add('hidden');
         }
 
-        // FUNGSI DIKEMAS KINI: Menangani RLS & mengesahkan status padam di Supabase
         async function sahkanTarikDiri() {
             if (!itemTarikDiriSasaran) return;
+            const inputPin = document.getElementById('input-tarik-diri-pin');
+            const errorMsg = document.getElementById('tarik-diri-error-msg');
+            const pinDimasukkan = inputPin.value.trim();
+
+            if (!pinDimasukkan) {
+                errorMsg.textContent = "Sila masukkan PIN keselamatan anda.";
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            // Semakan PIN Khas Keselamatan
+            if (itemTarikDiriSasaran.pin_keselamatan && itemTarikDiriSasaran.pin_keselamatan !== pinDimasukkan) {
+                errorMsg.textContent = "PIN tidak sah! Anda tidak dibenarkan menarik diri bagi rekod ini.";
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
             const btn = document.getElementById('btn-sahkan-tarik-diri');
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Memproses...`;
@@ -1565,7 +1229,6 @@
             const itemMemadam = itemTarikDiriSasaran;
             let padamBerjaya = true;
 
-            // 1. Padam rekod di Supabase jika bersambung & ada ID
             if (supabaseClient && itemMemadam.id) {
                 try {
                     const { error } = await supabaseClient
@@ -1575,8 +1238,7 @@
 
                     if (error) {
                         console.error("Ralat memadam rekod di Supabase:", error);
-                        alert("Gagal menarik diri di pangkalan data Supabase: " + error.message + 
-                              "\n\nSila pastikan arahan SQL RLS DELETE telah dijalankan di Supabase Dashboard.");
+                        alert("Gagal menarik diri di pangkalan data Supabase: " + error.message);
                         padamBerjaya = false;
                     }
                 } catch (err) {
@@ -1586,7 +1248,6 @@
                 }
             }
 
-            // 2. Hanya padam dari paparan dan cache lokal sekiranya Supabase berjaya dipadam
             if (padamBerjaya) {
                 persembahanDB = persembahanDB.filter(p => {
                     if (p.id && itemMemadam.id) {
@@ -1600,7 +1261,7 @@
             }
 
             btn.disabled = false;
-            btn.innerHTML = `Ya, Tarik Diri`;
+            btn.innerHTML = `Sahkan Tarik Diri`;
             tutupModalTarikDiri();
         }
 
@@ -1609,39 +1270,54 @@
             const btn = document.getElementById('btn-submit-persembahan');
             const msg = document.getElementById('persembahan-status-msg');
 
-            const orgElement = document.getElementById('persembahan-organisasi');
+            let organisasi = "";
+            if (modKategoriSemasa === 'tunggal') {
+                const orgElem = document.getElementById('persembahan-organisasi');
+                organisasi = orgElem ? orgElem.value.trim().toUpperCase() : '';
+            } else {
+                const selectedPusat = Array.from(document.querySelectorAll('.hybrid-select-item'))
+                    .map(s => s.value.trim().toUpperCase())
+                    .filter(val => val.length > 0);
+                
+                // Buang duplikasi jika peserta memilih cawangan yang sama
+                const uniquePusat = [...new Set(selectedPusat)];
+                if (uniquePusat.length < 2) {
+                    msg.className = "text-xs font-semibold p-3 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 block";
+                    msg.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> Sila pilih sekurang-kurangnya 2 Pusat / Cawangan yang berbeza bagi kategori Hibrid.`;
+                    return;
+                }
+                organisasi = "HYBRID: " + uniquePusat.join(" + ");
+            }
+
             const wakilElement = document.getElementById('persembahan-wakil');
             const tajukElement = document.getElementById('persembahan-tajuk');
-            const ahliElement = document.getElementById('persembahan-ahli');
             const bilElement = document.getElementById('persembahan-bilangan');
             const durasiElement = document.getElementById('persembahan-durasi');
             const tekElement = document.getElementById('persembahan-teknikal');
+            const pinElement = document.getElementById('persembahan-pin');
 
-            const organisasi = orgElement ? orgElement.value.trim().toUpperCase() : '';
             const namaWakil = wakilElement ? wakilElement.value.trim().toUpperCase() : '';
             const tajuk = tajukElement ? tajukElement.value.trim().toUpperCase() : '';
-            const senaraiAhli = ahliElement ? ahliElement.value.trim().toUpperCase() : '';
             const durasi = durasiElement ? durasiElement.value : '';
+            const pin = pinElement ? pinElement.value.trim() : '';
             const teknikalRaw = tekElement ? tekElement.value.trim().toUpperCase() : '';
             const teknikal = durasi ? `[${durasi.toUpperCase()}] ${teknikalRaw}` : teknikalRaw;
+            const bilangan = bilElement ? parseInt(bilElement.value, 10) : 1;
 
-            const senaraiPecah = senaraiAhli.split(/[\n,]+/)
-                .map(item => item.replace(/^\d+[\.\)]\s*/, '').trim())
-                .filter(item => item.length > 0);
-            
-            let bilangan = bilElement ? parseInt(bilElement.value, 10) : 1;
-            if (senaraiPecah.length > 0 && (isNaN(bilangan) || bilangan <= 1 || bilangan !== senaraiPecah.length)) {
-                bilangan = senaraiPecah.length;
-                if (bilElement) bilElement.value = bilangan;
-            }
+            // Kumpul semua nama daripada kotak baris automatik
+            const senaraiInputAhli = Array.from(document.querySelectorAll('.input-nama-ahli'))
+                .map(input => input.value.trim().toUpperCase())
+                .filter(name => name.length > 0);
 
-            if (!organisasi || !namaWakil || !tajuk || !senaraiAhli) {
+            if (!organisasi || !namaWakil || !tajuk || !pin || senaraiInputAhli.length === 0) {
                 if (msg) {
                     msg.className = "text-xs font-semibold p-3 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 block";
-                    msg.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> Sila lengkapkan semua medan bertanda * termasuk Pusat/Cawangan dan Senarai Ahli.`;
+                    msg.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> Sila lengkapkan semua medan wajib, PIN khas dan semua nama ahli kumpulan.`;
                 }
                 return;
             }
+
+            const formatSenaraiAhli = senaraiInputAhli.map((nm, idx) => `${idx + 1}. ${nm}`).join("\n");
 
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Mendaftar...`;
@@ -1650,9 +1326,10 @@
                 nama_wakil: namaWakil,
                 organisasi: organisasi,
                 tajuk_persembahan: tajuk,
-                senarai_ahli: senaraiAhli,
+                senarai_ahli: formatSenaraiAhli,
                 bilangan_peserta: bilangan,
                 keperluan_teknikal: teknikal,
+                pin_keselamatan: pin,
                 created_at: new Date().toISOString()
             };
 
@@ -1668,24 +1345,6 @@
                     if (!error && data && data.length > 0) {
                         berjayaAwan = true;
                         persembahanDB.push(data[0]);
-                    } else if (error) {
-                        const rekodFallback = {
-                            nama_wakil: namaWakil,
-                            organisasi: organisasi,
-                            tajuk_persembahan: tajuk,
-                            bilangan_peserta: bilangan,
-                            keperluan_teknikal: `[AHLI: ${senaraiAhli}] ${teknikal}`,
-                            created_at: new Date().toISOString()
-                        };
-                        const { data: dataFb, error: errFb } = await supabaseClient
-                            .from('persembahan_kebudayaan')
-                            .insert([rekodFallback])
-                            .select();
-                        if (!errFb && dataFb && dataFb.length > 0) {
-                            berjayaAwan = true;
-                            dataFb[0].senarai_ahli = senaraiAhli;
-                            persembahanDB.push(dataFb[0]);
-                        }
                     }
                 } catch (err) {
                     console.error("Ralat pendaftaran ke Supabase:", err);
@@ -1701,15 +1360,15 @@
             paparkanSenaraiPersembahan();
 
             document.getElementById('form-persembahan').reset();
-            const inputBilanganReset = document.getElementById('persembahan-bilangan');
-            if (inputBilanganReset) inputBilanganReset.value = 1;
+            tukarModKategori('tunggal');
+            janaKotakNamaAhli(1);
 
             btn.disabled = false;
             btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Hantar Pendaftaran Persembahan`;
 
             if (msg) {
                 msg.className = "text-xs font-semibold p-3 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 block";
-                msg.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Persembahan dari ${organisasi} berjaya didaftarkan (${bilangan} orang ahli) dan kini berada dalam giliran live!`;
+                msg.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Persembahan dari ${organisasi} berjaya didaftarkan (${bilangan} orang ahli). Sila simpan PIN keselamatan anda!`;
                 setTimeout(() => {
                     msg.classList.add('hidden');
                 }, 6000);
@@ -1732,681 +1391,10 @@
             }
         }
 
-        function filterDay(dayNumber) {
-            for (let i = 1; i <= 4; i++) {
-                const btn = document.getElementById(`day-btn-${i}`);
-                if (!btn) continue;
-                if (i === dayNumber) {
-                    btn.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-sky-200 shadow-sm";
-                } else {
-                    btn.className = "tab-btn bg-slate-50 text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-slate-200";
-                }
-            }
-
-            const currentData = scheduleData[dayNumber];
-            if (!currentData) return;
-
-            document.getElementById('day-title').textContent = currentData.title;
-            document.getElementById('day-subtitle').textContent = currentData.subtitle;
-
-            const container = document.getElementById('schedule-container');
-            container.innerHTML = '';
-
-            currentData.items.forEach((item) => {
-                const card = document.createElement('div');
-                card.className = "bg-white p-5 rounded-2xl border border-sky-100 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col justify-between space-y-3 group";
-                card.onclick = () => openModal(item);
-
-                let bulletHTML = '<ul class="text-xs text-slate-600 space-y-1 my-2">';
-                item.details.forEach(d => {
-                    bulletHTML += `<li>${d}</li>`;
-                });
-                bulletHTML += '</ul>';
-
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-1.5">
-                            <span class="inline-block px-2.5 py-1 bg-sky-50 text-sky-800 text-xs font-bold rounded-md border border-sky-100">
-                                <i class="fa-regular fa-clock"></i> ${item.time}
-                            </span>
-                            <span class="text-xs text-slate-400 group-hover:text-sky-600 transition">
-                                Butiran <i class="fa-solid fa-chevron-right text-xs"></i>
-                            </span>
-                        </div>
-                        <h3 class="font-bold text-slate-800 group-hover:text-sky-700 transition text-sm sm:text-base">${item.title}</h3>
-                        ${bulletHTML}
-                    </div>
-                    <div class="pt-2 border-t border-sky-50 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-2">
-                        <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-amber-500"></i> ${item.location}</span>
-                        <span class="flex items-center gap-1"><i class="fa-solid fa-shirt text-sky-600"></i> ${item.dress}</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function pilihFasa(fasaNum) {
-            fasaSemasa = fasaNum;
-            for (let i = 2; i <= 4; i++) {
-                const btn = document.getElementById(`fasa-btn-${i}`);
-                if (!btn) continue;
-                if (i === fasaNum) {
-                    btn.className = "fasa-btn p-4 rounded-2xl border-2 border-sky-600 bg-sky-50 text-left transition flex flex-col justify-between shadow-md ring-2 ring-sky-300";
-                    const fasaLabel = btn.querySelector('span');
-                    if (fasaLabel) fasaLabel.className = "text-[10px] font-bold text-sky-700 uppercase tracking-wider block mb-1";
-                } else {
-                    btn.className = "fasa-btn p-4 rounded-2xl border-2 border-slate-300 bg-white hover:bg-slate-50 text-left transition flex flex-col justify-between opacity-80 hover:opacity-100";
-                    const fasaLabel = btn.querySelector('span');
-                    if (fasaLabel) fasaLabel.className = "text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1";
-                }
-            }
-
-            const placeholder = document.getElementById('pilih-fasa-placeholder');
-            const borang = document.getElementById('borang-maklumbalas');
-            if (placeholder) placeholder.classList.add('hidden');
-            if (borang) {
-                borang.classList.remove('hidden');
-                borang.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-
-            janaSoalanBorang(fasaNum);
-            semakStatusEmelSemasa();
-        }
-
-        function tukarSubSlot(idx) {
-            slotAktifIdx = idx;
-            document.querySelectorAll('.sub-slot-block').forEach((el, i) => {
-                if (i === idx) {
-                    el.classList.remove('hidden');
-                } else {
-                    el.classList.add('hidden');
-                }
-            });
-            document.querySelectorAll('.sub-slot-pill').forEach((btn, i) => {
-                if (i === idx) {
-                    btn.className = "sub-slot-pill px-3 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-sm border border-sky-600 transition flex items-center gap-1.5 cursor-pointer";
-                } else {
-                    btn.className = "sub-slot-pill px-3 py-2 rounded-xl text-xs font-medium bg-white text-slate-700 hover:bg-sky-50 border border-slate-200 transition flex items-center gap-1.5 cursor-pointer";
-                }
-            });
-        }
-
-        function buangKelipanSoalan(qId) {
-            const card = document.getElementById(`card_${qId}`);
-            if (card) {
-                card.classList.remove('question-unanswered-blink');
-            }
-            const warningBox = document.getElementById('unanswered-warning-box');
-            if (warningBox && !document.querySelector('.question-unanswered-blink')) {
-                warningBox.classList.add('hidden');
-            }
-        }
-
-        function janaSoalanBorang(fasaNum) {
-            const dataFasa = feedbackQuestions[fasaNum];
-            const container = document.getElementById('soalan-container');
-            if (!container || !dataFasa) return;
-            container.innerHTML = '';
-            slotAktifIdx = 0;
-
-            const slotNav = document.createElement('div');
-            slotNav.className = "bg-white p-3 rounded-2xl border border-sky-100 shadow-sm space-y-2";
-            slotNav.innerHTML = `
-                <div class="flex items-center justify-between px-1">
-                    <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Pilih Slot Untuk Dinilai:</span>
-                    <span class="text-[10px] text-sky-700 font-semibold bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100">
-                        ${dataFasa.sections.length} Slot Tersedia
-                    </span>
-                </div>
-                <div class="flex flex-wrap gap-2 pt-1" id="sub-slot-buttons">
-                    ${dataFasa.sections.map((sec, idx) => `
-                        <button type="button" onclick="tukarSubSlot(${idx})" class="sub-slot-pill ${idx === 0 ? 'px-3 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-sm border border-sky-600 transition flex items-center gap-1.5 cursor-pointer' : 'px-3 py-2 rounded-xl text-xs font-medium bg-white text-slate-700 hover:bg-sky-50 border border-slate-200 transition flex items-center gap-1.5 cursor-pointer'}">
-                            <span class="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">${idx + 1}</span>
-                            <span class="truncate max-w-[180px] sm:max-w-none">${sec.slotTitle.split('(')[0].trim()}</span>
-                        </button>
-                    `).join('')}
-                </div>
-            `;
-            container.appendChild(slotNav);
-
-            dataFasa.sections.forEach((sec, sIdx) => {
-                const block = document.createElement('div');
-                block.className = `sub-slot-block bg-white p-5 md:p-6 rounded-2xl border border-sky-100 shadow-sm space-y-5 ${sIdx === 0 ? '' : 'hidden'}`;
-                
-                let html = `
-                    <div class="border-b border-slate-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div>
-                            <span class="text-[10px] font-bold text-sky-700 uppercase tracking-wider block">Bahagian Penilaian ${sIdx + 1} daripada ${dataFasa.sections.length}</span>
-                            <h4 class="font-extrabold text-slate-800 text-sm sm:text-base mt-0.5">Penilaian Slot: ${sec.slotTitle}</h4>
-                        </div>
-                        <span class="text-xs font-semibold px-2.5 py-1 bg-sky-50 text-sky-700 rounded-lg border border-sky-100 self-start sm:self-auto">
-                            ${sec.domainKandungan.length + sec.domainPenceramah.length} Soalan
-                        </span>
-                    </div>
-                `;
-
-                html += `<div class="space-y-3"><span class="text-xs font-bold text-sky-900 block flex items-center gap-1.5"><i class="fa-solid fa-book-open text-sky-600"></i> Isi Kandungan Slot (${sec.domainKandungan.length} Item)</span>`;
-                sec.domainKandungan.forEach((q, qIndex) => {
-                    html += `
-                        <div id="card_${q.id}" class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 space-y-2 transition-all">
-                            <p class="text-xs text-slate-700 leading-relaxed font-medium"><span class="font-bold text-sky-700 mr-1">${qIndex + 1}.</span>${q.text}</p>
-                            <div class="flex items-center justify-between gap-1 max-w-sm pt-1">
-                                <span class="text-[10px] text-slate-400">Sangat Tidak Setuju</span>
-                                <div class="flex items-center gap-1.5">
-                                    ${[1, 2, 3, 4, 5].map(val => `
-                                        <div class="relative">
-                                            <input type="radio" id="${q.id}_${val}" name="${q.id}" value="${val}" onchange="buangKelipanSoalan('${q.id}')" class="sr-only likert-radio">
-                                            <label for="${q.id}_${val}" class="w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-sky-50 flex items-center justify-center text-xs font-bold text-slate-700 cursor-pointer transition">
-                                                ${val}
-                                            </label>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                                <span class="text-[10px] text-slate-400">Sangat Setuju</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                html += `</div>`;
-
-                html += `<div class="space-y-3 pt-3"><span class="text-xs font-bold text-amber-900 block flex items-center gap-1.5"><i class="fa-solid fa-chalkboard-user text-amber-600"></i> Penceramah dan Fasilitator (${sec.domainPenceramah.length} Item)</span>`;
-                sec.domainPenceramah.forEach((q, pIndex) => {
-                    html += `
-                        <div id="card_${q.id}" class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 space-y-2 transition-all">
-                            <p class="text-xs text-slate-700 leading-relaxed font-medium"><span class="font-bold text-amber-700 mr-1">${sec.domainKandungan.length + pIndex + 1}.</span>${q.text}</p>
-                            <div class="flex items-center justify-between gap-1 max-w-sm pt-1">
-                                <span class="text-[10px] text-slate-400">Sangat Tidak Setuju</span>
-                                <div class="flex items-center gap-1.5">
-                                    ${[1, 2, 3, 4, 5].map(val => `
-                                        <div class="relative">
-                                            <input type="radio" id="${q.id}_${val}" name="${q.id}" value="${val}" onchange="buangKelipanSoalan('${q.id}')" class="sr-only likert-radio">
-                                            <label for="${q.id}_${val}" class="w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-sky-50 flex items-center justify-center text-xs font-bold text-slate-700 cursor-pointer transition">
-                                                ${val}
-                                            </label>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                                <span class="text-[10px] text-slate-400">Sangat Setuju</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                html += `</div>`;
-
-                html += `
-                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                        ${sIdx > 0 ? `
-                            <button type="button" onclick="tukarSubSlot(${sIdx - 1})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition flex items-center gap-1 cursor-pointer">
-                                <i class="fa-solid fa-chevron-left"></i> Slot Sebelumnya
-                            </button>
-                        ` : `<div></div>`}
-                        ${sIdx < dataFasa.sections.length - 1 ? `
-                            <button type="button" onclick="tukarSubSlot(${sIdx + 1})" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl text-xs transition flex items-center gap-1 cursor-pointer">
-                                Slot Seterusnya <i class="fa-solid fa-chevron-right"></i>
-                            </button>
-                        ` : `
-                            <span class="text-[11px] font-semibold text-emerald-600 flex items-center gap-1">
-                                <i class="fa-solid fa-check-circle"></i> Slot Terakhir Fasa Ini
-                            </span>
-                        `}
-                    </div>
-                `;
-
-                block.innerHTML = html;
-                container.appendChild(block);
-            });
-        }
-
-        function semakStatusEmelSemasa() {
-            const emailInput = document.getElementById('peserta-email');
-            if (!emailInput) return;
-            const email = emailInput.value.trim().toLowerCase();
-            const msgBox = document.getElementById('email-status-message');
-            const submitBtn = document.getElementById('btn-submit-maklumbalas');
-
-            if (!email || !email.includes('@')) {
-                msgBox.classList.add('hidden');
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                return;
-            }
-
-            const dahJawab = submissionsDB.some(sub => sub.email.toLowerCase() === email && sub.fasa === fasaSemasa);
-            if (dahJawab) {
-                msgBox.textContent = `Peringatan: Emel ${email} telah merekodkan penilaian bagi ${fasaSemasa === 2 ? 'Hari 2' : (fasaSemasa === 3 ? 'Hari 3' : 'Hari 4')}. Setiap peserta hanya boleh membuat penilaian sekali sahaja.`;
-                msgBox.className = "text-xs text-rose-600 font-semibold pt-1 block";
-                submitBtn.disabled = true;
-                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                msgBox.textContent = `Emel sah. Anda belum menghantar penilaian bagi fasa ini.`;
-                msgBox.className = "text-xs text-emerald-600 font-semibold pt-1 block";
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
-        }
-
-        async function hantarMaklumBalas(e) {
-            e.preventDefault();
-            const emailInput = document.getElementById('peserta-email');
-            const email = emailInput.value.trim().toLowerCase();
-
-            if (!email || !email.includes('@')) {
-                emailInput.focus();
-                return;
-            }
-
-            const dahJawab = submissionsDB.some(sub => sub.email.toLowerCase() === email && sub.fasa === fasaSemasa);
-            if (dahJawab) {
-                semakStatusEmelSemasa();
-                return;
-            }
-
-            const dataFasa = feedbackQuestions[fasaSemasa];
-            const senaraiTertinggal = [];
-            let slotPertamaTertinggal = null;
-
-            document.querySelectorAll('.question-unanswered-blink').forEach(el => el.classList.remove('question-unanswered-blink'));
-
-            dataFasa.sections.forEach((sec, sIdx) => {
-                const semuaSoalanSlot = [...sec.domainKandungan, ...sec.domainPenceramah];
-                semuaSoalanSlot.forEach(q => {
-                    const dipilih = document.querySelector(`input[name="${q.id}"]:checked`);
-                    if (!dipilih) {
-                        senaraiTertinggal.push({ qId: q.id, slotIdx: sIdx });
-                        const kad = document.getElementById(`card_${q.id}`);
-                        if (kad) {
-                            kad.classList.add('question-unanswered-blink');
-                        }
-                        if (slotPertamaTertinggal === null) {
-                            slotPertamaTertinggal = sIdx;
-                        }
-                    }
-                });
-            });
-
-            const warningBox = document.getElementById('unanswered-warning-box');
-            const warningText = document.getElementById('unanswered-warning-text');
-
-            if (senaraiTertinggal.length > 0) {
-                warningText.textContent = `Terdapat ${senaraiTertinggal.length} soalan yang belum dijawab. Sistem telah membawa anda ke slot berkenaan yang berkelip merah.`;
-                warningBox.classList.remove('hidden');
-
-                tukarSubSlot(slotPertamaTertinggal);
-                const firstCard = document.getElementById(`card_${senaraiTertinggal[0].qId}`);
-                if (firstCard) {
-                    firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-                return;
-            }
-
-            warningBox.classList.add('hidden');
-
-            const submitBtn = document.getElementById('btn-submit-maklumbalas');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Menyimpan ke Awan...`;
-
-            const formData = new FormData(e.target);
-            const ratings = {};
-            for (let [key, value] of formData.entries()) {
-                if (key !== 'peserta-positif' && key !== 'peserta-cadangan') {
-                    ratings[key] = parseInt(value, 10);
-                }
-            }
-
-            const maklumbalasPositif = document.getElementById('peserta-positif').value.trim();
-            const cadanganPenambahbaikan = document.getElementById('peserta-cadangan').value.trim();
-
-            const rekodAwan = {
-                email: email,
-                fasa: fasaSemasa,
-                ratings: ratings,
-                maklumbalas_positif: maklumbalasPositif,
-                cadangan_penambahbaikan: cadanganPenambahbaikan
-            };
-
-            let berjayaAwan = false;
-
-            if (supabaseClient) {
-                try {
-                    const { data, error } = await supabaseClient
-                        .from('maklumbalas')
-                        .insert([rekodAwan])
-                        .select();
-
-                    if (!error && data && data.length > 0) {
-                        berjayaAwan = true;
-                        submissionsDB.push({
-                            id: data[0].id,
-                            email: email,
-                            fasa: fasaSemasa,
-                            ratings: ratings,
-                            maklumbalasPositif: maklumbalasPositif,
-                            cadanganPenambahbaikan: cadanganPenambahbaikan,
-                            timestamp: new Date().toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' })
-                        });
-                    }
-                } catch (err) {
-                    console.error("Ralat simpan ke Supabase:", err);
-                }
-            }
-
-            if (!berjayaAwan) {
-                submissionsDB.push({
-                    email: email,
-                    fasa: fasaSemasa,
-                    ratings: ratings,
-                    maklumbalasPositif: maklumbalasPositif,
-                    cadanganPenambahbaikan: cadanganPenambahbaikan,
-                    timestamp: new Date().toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' })
-                });
-            }
-
-            localStorage.setItem('iab_maklumbalas_2026', JSON.stringify(submissionsDB));
-
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Hantar Penilaian Fasa Ini`;
-
-            document.getElementById('borang-maklumbalas').classList.add('hidden');
-            const successBox = document.getElementById('form-success-box');
-            document.getElementById('form-success-detail').textContent = `Terima kasih atas kerjasama anda. Penilaian untuk ${fasaSemasa === 2 ? 'Hari 2 (Selasa)' : (fasaSemasa === 3 ? 'Hari 3 (Rabu)' : 'Hari 4 (Khamis)')} telah disimpan dengan selamat.`;
-            successBox.classList.remove('hidden');
-
-            kemaskiniPaparanAnalisis();
-        }
-
-        function resetBorang() {
-            document.getElementById('borang-maklumbalas').reset();
-            document.getElementById('borang-maklumbalas').classList.add('hidden');
-            document.getElementById('pilih-fasa-placeholder').classList.remove('hidden');
-            document.getElementById('form-success-box').classList.add('hidden');
-            document.getElementById('email-status-message').classList.add('hidden');
-            document.getElementById('unanswered-warning-box').classList.add('hidden');
-            document.getElementById('btn-submit-maklumbalas').disabled = false;
-            document.getElementById('btn-submit-maklumbalas').classList.remove('opacity-50', 'cursor-not-allowed');
-            
-            for (let i = 2; i <= 4; i++) {
-                const btn = document.getElementById(`fasa-btn-${i}`);
-                if (btn) {
-                    btn.className = "fasa-btn p-4 rounded-2xl border-2 border-slate-300 bg-white hover:bg-sky-50/50 text-left transition flex flex-col justify-between";
-                }
-            }
-            fasaSemasa = null;
-        }
-
-        function tukarAnalisisSlot(slotKey) {
-            slotAnalisisPilihan = slotKey;
-            kemaskiniPaparanAnalisis();
-        }
-
-        function dapatkanSemuaDefinisiSoalan() {
-            const map = {};
-            [2, 3, 4].forEach(fNum => {
-                feedbackQuestions[fNum].sections.forEach(sec => {
-                    sec.domainKandungan.forEach(q => {
-                        map[q.id] = { text: q.text, type: 'kandungan', slotKey: sec.slotKey, slotTitle: sec.slotTitle };
-                    });
-                    sec.domainPenceramah.forEach(q => {
-                        map[q.id] = { text: q.text, type: 'penceramah', slotKey: sec.slotKey, slotTitle: sec.slotTitle };
-                    });
-                });
-            });
-            return map;
-        }
-
-        function kemaskiniPaparanAnalisis() {
-            const uniqueEmails = new Set(submissionsDB.map(s => s.email.toLowerCase()));
-            document.getElementById('stat-total-peserta-unik').textContent = `Bilangan Responden: ${uniqueEmails.size} orang`;
-
-            const slotList = [
-                { nama: "Kuliah Subuh (Selasa)", fasa: 2, keyPrefix: "q_f2_k1", primaryKey: "q_f2_k1_1" },
-                { nama: "Sesi Suai Kenal", fasa: 2, keyPrefix: "q_f2_k2", primaryKey: "q_f2_k2_1" },
-                { nama: "Ceramah \"I Love Myself\"", fasa: 2, keyPrefix: "q_f2_k3", primaryKey: "q_f2_k3_1" },
-                { nama: "Kuliah Subuh (Rabu)", fasa: 3, keyPrefix: "q_f3_k1", primaryKey: "q_f3_k1_1" },
-                { nama: "Pembangunan Kerja Sepasukan", fasa: 3, keyPrefix: "q_f3_k2", primaryKey: "q_f3_k2_1" },
-                { nama: "Malam Budaya IAB", fasa: 3, keyPrefix: "q_f3_k3", primaryKey: "q_f3_k3_1" },
-                { nama: "Kuliah Subuh (Khamis)", fasa: 4, keyPrefix: "q_f4_k1", primaryKey: "q_f4_k1_1" },
-                { nama: "Ceramah \"Tingkah Laku Organisasi\"", fasa: 4, keyPrefix: "q_f4_k2", primaryKey: "q_f4_k2_1" },
-                { nama: "Pengurusan Logistik dan Urus Setia", fasa: 4, keyPrefix: "q_f4_k3", primaryKey: "q_f4_k3_1" }
-            ];
-
-            const slotCountsContainer = document.getElementById('slot-counts-container');
-            slotCountsContainer.innerHTML = '';
-
-            slotList.forEach(slot => {
-                const count = submissionsDB.filter(s => s.fasa === slot.fasa && s.ratings && s.ratings[slot.primaryKey] !== undefined).length;
-                const slotCard = document.createElement('div');
-                slotCard.className = "bg-white px-3 py-2 rounded-xl border border-sky-100 flex items-center justify-between text-xs";
-                slotCard.innerHTML = `
-                    <span class="text-slate-700 font-medium truncate pr-2" title="${slot.nama}">${slot.nama}</span>
-                    <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded-md shrink-0">${count} respons</span>
-                `;
-                slotCountsContainer.appendChild(slotCard);
-            });
-
-            const qDefMap = dapatkanSemuaDefinisiSoalan();
-            let senaraiSoalanSasaran = [];
-            let bilanganResponsSlot = 0;
-
-            if (slotAnalisisPilihan === "all") {
-                document.getElementById('chart-section-title').innerHTML = `<i class="fa-solid fa-chart-simple text-sky-600"></i> Analisis Skor Keseluruhan Bengkel (Purata Setiap Slot)`;
-                senaraiSoalanSasaran = slotList.map(s => ({
-                    id: s.keyPrefix,
-                    label: s.nama,
-                    type: 'kandungan',
-                    isAggregatedSlot: true,
-                    keyPrefix: s.keyPrefix
-                }));
-                bilanganResponsSlot = uniqueEmails.size;
-            } else {
-                const slotItemInfo = slotList.find(s => s.keyPrefix === slotAnalisisPilihan);
-                const tajukPilihan = slotItemInfo ? slotItemInfo.nama : "Slot Dipilih";
-                document.getElementById('chart-section-title').innerHTML = `<i class="fa-solid fa-chart-simple text-sky-600"></i> Analisis Skor 10 Item Soalan: ${tajukPilihan}`;
-                
-                Object.keys(qDefMap).forEach(qKey => {
-                    const info = qDefMap[qKey];
-                    if (info.slotKey === slotAnalisisPilihan) {
-                        senaraiSoalanSasaran.push({
-                            id: qKey,
-                            label: info.text,
-                            type: info.type,
-                            isAggregatedSlot: false
-                        });
-                    }
-                });
-
-                if (slotItemInfo) {
-                    bilanganResponsSlot = submissionsDB.filter(s => s.fasa === slotItemInfo.fasa && s.ratings && s.ratings[slotItemInfo.primaryKey] !== undefined).length;
-                }
-            }
-
-            let sumK = 0, countK = 0;
-            let sumP = 0, countP = 0;
-
-            submissionsDB.forEach(sub => {
-                for (let [qId, val] of Object.entries(sub.ratings)) {
-                    const info = qDefMap[qId];
-                    if (!info) continue;
-                    if (slotAnalisisPilihan === "all" || info.slotKey === slotAnalisisPilihan) {
-                        if (info.type === 'kandungan') {
-                            sumK += val;
-                            countK++;
-                        } else if (info.type === 'penceramah') {
-                            sumP += val;
-                            countP++;
-                        }
-                    }
-                }
-            });
-
-            const avgK = countK > 0 ? (sumK / countK).toFixed(2) : "0.00";
-            const avgP = countP > 0 ? (sumP / countP).toFixed(2) : "0.00";
-
-            document.getElementById('stat-slot-respons').textContent = `${bilanganResponsSlot} responden`;
-            document.getElementById('stat-slot-kandungan').textContent = `${avgK} / 5.00`;
-            document.getElementById('stat-slot-penceramah').textContent = `${avgP} / 5.00`;
-
-            const barsContainer = document.getElementById('item-bars-container');
-            barsContainer.innerHTML = '';
-
-            if (senaraiSoalanSasaran.length === 0) {
-                barsContainer.innerHTML = '<p class="text-xs text-slate-400 italic text-center py-4">Tiada data bagi paparan ini.</p>';
-            } else {
-                senaraiSoalanSasaran.forEach((item, idx) => {
-                    let skorItem = 0;
-                    if (item.isAggregatedSlot) {
-                        let sumSlot = 0, countSlot = 0;
-                        submissionsDB.forEach(sub => {
-                            for (let [qKey, val] of Object.entries(sub.ratings)) {
-                                if (qKey.startsWith(item.keyPrefix)) {
-                                    sumSlot += val;
-                                    countSlot++;
-                                }
-                            }
-                        });
-                        skorItem = countSlot > 0 ? (sumSlot / countSlot).toFixed(2) : "0.00";
-                    } else {
-                        let sumQ = 0, countQ = 0;
-                        submissionsDB.forEach(sub => {
-                            if (sub.ratings && sub.ratings[item.id] !== undefined) {
-                                sumQ += sub.ratings[item.id];
-                                countQ++;
-                            }
-                        });
-                        skorItem = countQ > 0 ? (sumQ / countQ).toFixed(2) : "0.00";
-                    }
-
-                    const percent = (parseFloat(skorItem) / 5 * 100).toFixed(0);
-                    const isPenceramah = item.type === 'penceramah';
-                    const barColor = isPenceramah ? 'bg-amber-500' : 'bg-sky-600';
-                    const badgeBg = isPenceramah ? 'bg-amber-100 text-amber-800' : 'bg-sky-100 text-sky-800';
-
-                    const barRow = document.createElement('div');
-                    barRow.className = "space-y-1";
-                    barRow.innerHTML = `
-                        <div class="flex items-center justify-between text-xs gap-3">
-                            <span class="text-slate-700 font-medium truncate max-w-xs sm:max-w-xl" title="${item.label}">
-                                <strong class="text-slate-900">${idx + 1}.</strong> ${item.label}
-                            </span>
-                            <span class="${badgeBg} font-extrabold px-2 py-0.5 rounded text-[11px] shrink-0">
-                                ${skorItem} / 5.00
-                            </span>
-                        </div>
-                        <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
-                            <div class="${barColor} h-3 rounded-full transition-all duration-700" style="width: ${percent}%"></div>
-                        </div>
-                    `;
-                    barsContainer.appendChild(barRow);
-                });
-            }
-
-            const positifContainer = document.getElementById('live-positif-container');
-            positifContainer.innerHTML = '';
-            const senaraiPositif = submissionsDB.filter(s => s.maklumbalasPositif && s.maklumbalasPositif.trim().length > 0);
-            document.getElementById('count-maklumbalas-positif').textContent = `${senaraiPositif.length} ulasan`;
-
-            if (senaraiPositif.length === 0) {
-                positifContainer.innerHTML = '<p class="text-xs text-slate-400 italic text-center py-4">Belum ada maklum balas positif yang direkodkan.</p>';
-            } else {
-                senaraiPositif.slice().reverse().forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "bg-white p-3.5 rounded-xl border border-emerald-100 text-xs text-slate-700 space-y-1.5 shadow-2xs";
-                    card.innerHTML = `
-                        <div class="flex items-center justify-between text-[11px] text-slate-400">
-                            <span class="font-semibold text-emerald-700"><i class="fa-solid fa-calendar-day text-[10px] mr-1"></i>${item.fasa === 2 ? 'Hari 2 (Selasa)' : (item.fasa === 3 ? 'Hari 3 (Rabu)' : 'Hari 4 (Khamis)')}</span>
-                            <span>${item.timestamp || 'Baru sahaja'}</span>
-                        </div>
-                        <p class="text-slate-800 leading-relaxed font-normal">"${item.maklumbalasPositif}"</p>
-                    `;
-                    positifContainer.appendChild(card);
-                });
-            }
-
-            const cadanganContainer = document.getElementById('live-cadangan-container');
-            cadanganContainer.innerHTML = '';
-            const senaraiCadangan = submissionsDB.filter(s => s.cadanganPenambahbaikan && s.cadanganPenambahbaikan.trim().length > 0);
-            document.getElementById('count-cadangan-penambahbaikan').textContent = `${senaraiCadangan.length} cadangan`;
-
-            if (senaraiCadangan.length === 0) {
-                cadanganContainer.innerHTML = '<p class="text-xs text-slate-400 italic text-center py-4">Belum ada cadangan penambahbaikan yang direkodkan.</p>';
-            } else {
-                senaraiCadangan.slice().reverse().forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "bg-white p-3.5 rounded-xl border border-amber-100 text-xs text-slate-700 space-y-1.5 shadow-2xs";
-                    card.innerHTML = `
-                        <div class="flex items-center justify-between text-[11px] text-slate-400">
-                            <span class="font-semibold text-amber-700"><i class="fa-solid fa-calendar-day text-[10px] mr-1"></i>${item.fasa === 2 ? 'Hari 2 (Selasa)' : (item.fasa === 3 ? 'Hari 3 (Rabu)' : 'Hari 4 (Khamis)')}</span>
-                            <span>${item.timestamp || 'Baru sahaja'}</span>
-                        </div>
-                        <p class="text-slate-800 leading-relaxed font-normal">"${item.cadanganPenambahbaikan}"</p>
-                    `;
-                    cadanganContainer.appendChild(card);
-                });
-            }
-        }
-
-        function eksportDataCSV() {
-            if (submissionsDB.length === 0) return;
-
-            let csvContent = "data:text/csv;charset=utf-8,Emel,Fasa,Soalan,Skor,Maklum Balas Positif,Cadangan Penambahbaikan\n";
-            submissionsDB.forEach(row => {
-                for (let [qKey, score] of Object.entries(row.ratings)) {
-                    const cleanPositif = (row.maklumbalasPositif || '').replace(/"/g, '""');
-                    const cleanCadangan = (row.cadanganPenambahbaikan || '').replace(/"/g, '""');
-                    csvContent += `"${row.email}","Fasa ${row.fasa}","${qKey}",${score},"${cleanPositif}","${cleanCadangan}"\n`;
-                }
-            });
-
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "Maklum_Balas_IAB_CoE_2026.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        function openModal(item) {
-            document.getElementById('modal-time').textContent = item.time;
-            document.getElementById('modal-title').textContent = item.title;
-            
-            const headerElement = document.getElementById('modal-section-header');
-            const tajukKecil = item.title.toLowerCase();
-            if (tajukKecil.includes('perasmian pembukaan') || tajukKecil.includes('perasmian penutupan') || tajukKecil.includes('malam budaya')) {
-                headerElement.textContent = "Atur cara Majlis";
-            } else {
-                headerElement.textContent = "Perincian Aktiviti";
-            }
-
-            let bulletDetails = '<ul class="space-y-1 list-none">';
-            item.details.forEach(d => {
-                bulletDetails += `<li>${d}</li>`;
-            });
-            bulletDetails += '</ul>';
-            
-            document.getElementById('modal-details').innerHTML = bulletDetails;
-            document.getElementById('modal-location').textContent = item.location;
-            document.getElementById('modal-dress').textContent = item.dress;
-
-            const modalExtra = document.getElementById('modal-extra');
-            if (item.link) {
-                modalExtra.innerHTML = `
-                    <a href="${item.link}" target="_blank" class="gmeet-blink-btn flex items-center justify-center gap-2 text-white font-bold p-3 rounded-xl transition text-xs shadow-md">
-                        <i class="fa-solid fa-video animate-bounce"></i> Sertai Google Meet Sekarang
-                    </a>
-                `;
-            } else {
-                modalExtra.innerHTML = '';
-            }
-
-            document.getElementById('activity-modal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('activity-modal').classList.add('hidden');
-        }
-
+        // Inisialisasi awal sistem
         window.addEventListener('DOMContentLoaded', async () => {
             filterDay(1);
+            janaKotakNamaAhli(1);
             await muatDataSimpanan();
             kemaskiniPaparanAnalisis();
 
