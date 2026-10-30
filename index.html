@@ -26,7 +26,7 @@
             box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.25), 0 2px 4px -1px rgba(2, 132, 199, 0.15);
         }
         .section-tab {
-            border: 1.5px solid #475569 !important; /* Bingkai keliling gelap jelas */
+            border: 1.5px solid #475569 !important;
         }
         .section-tab:hover {
             border-color: #1e293b !important;
@@ -83,6 +83,21 @@
         .gmeet-blink-btn {
             animation: pulseGlowGMeet 2s infinite ease-in-out;
         }
+
+        /* Animasi Teks Bergerak / Crawling Ticker */
+        @keyframes marqueeScroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee-track {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: marqueeScroll 32s linear infinite;
+        }
+        .animate-marquee-track:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col">
@@ -118,6 +133,19 @@
             </div>
         </div>
     </header>
+
+    <!-- BAR PENGUMUMAN BERJALAN (CRAWLING TICKER NOTICE) -->
+    <div class="sticky top-[88px] md:top-[88px] z-30 bg-amber-500 border-b border-amber-600 shadow-md flex items-center overflow-hidden">
+        <div class="bg-amber-700 text-white px-3 sm:px-4 py-2 flex items-center gap-2 font-bold text-xs uppercase tracking-wider shrink-0 z-10 shadow-sm">
+            <i class="fa-solid fa-bell text-amber-300 text-xs animate-bounce"></i>
+            <span class="hidden sm:inline">Makluman</span>
+        </div>
+        <div class="overflow-hidden w-full py-2">
+            <div id="crawling-notice-text" class="animate-marquee-track text-xs sm:text-sm font-bold text-slate-950 cursor-pointer">
+                <!-- Dijana secara dinamik mengikut hari / konteks semasa -->
+            </div>
+        </div>
+    </div>
 
     <!-- KANDUNGAN UTAMA -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-8">
@@ -200,8 +228,8 @@
                         <i class="fa-solid fa-qrcode"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-slate-800">Pendaftaran Kehadiran Peserta</h2>
-                        <p class="text-slate-600 text-sm mt-1">Sila imbas Kod QR di bawah atau tekan butang pautan untuk mengesahkan kehadiran anda dalam Sistem Insyst IAB.</p>
+                        <h2 class="text-2xl font-bold text-slate-800">Pendaftaran Kehadiran Rasmi Insyst</h2>
+                        <p class="text-slate-600 text-sm mt-1">Sila imbas Kod QR di bawah atau tekan butang pautan untuk mengesahkan pendaftaran kursus anda dalam Sistem Insyst IAB.</p>
                     </div>
 
                     <div class="bg-sky-50/50 p-6 rounded-2xl border border-sky-100 inline-block shadow-inner">
@@ -213,10 +241,21 @@
 
                     <div class="space-y-3 pt-2">
                         <a href="https://sistem.iab.edu.my/insyst/modul-qrcode/daftar_peserta.php?id=51281" target="_blank" class="inline-flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg shadow-sky-600/20 transition w-full sm:w-auto">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Pautan Pendaftaran Kehadiran
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Pautan Pendaftaran Kehadiran Insyst
                         </a>
                         <p class="text-xs text-slate-400 break-all">
                             Pautan rasmi: https://sistem.iab.edu.my/insyst/modul-qrcode/daftar_peserta.php?id=51281
+                        </p>
+                    </div>
+
+                    <!-- NOTA PENJELASAN KEHADIRAN (INSYST VS FIZIKAL) -->
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-900 text-left space-y-1.5 max-w-xl mx-auto shadow-2xs">
+                        <p class="font-bold flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-info text-amber-600"></i> Peringatan Tatacara Rekod Kehadiran:
+                        </p>
+                        <p class="text-slate-700 leading-relaxed">
+                            • <strong>Hari Pertama (2 Nov):</strong> Pendaftaran Insyst di atas hanya perlu dibuat <strong>sekali sahaja</strong> pada permulaan bengkel.<br>
+                            • <strong>Hari Seterusnya (3, 4, dan 5 Nov):</strong> Kehadiran harian diambil melalui <strong>borang kehadiran fizikal</strong> yang diedarkan oleh urus setia di dalam dewan/auditorium. Sila pastikan anda menandatangani helaian tersebut setiap hari.
                         </p>
                     </div>
                 </div>
@@ -350,7 +389,7 @@
                             <i class="fa-solid fa-utensils text-amber-500"></i> Dewan Makan
                         </h4>
                         <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
-                            <li>Sesi Makan Pagi, Minum Pagi/Petang, dan Makan Malam</li>
+                            <li>Sesi Sarapan Pagi, Makan Tengah Hari, dan Makan Malam</li>
                             <li>Malam Budaya dan Amanat Kepemimpinan oleh Pengarah</li>
                         </ul>
                     </div>
@@ -397,7 +436,6 @@
 
                     <form id="form-persembahan" novalidate onsubmit="hantarPendaftaranPersembahan(event)" class="space-y-4">
                         
-                        <!-- Pilihan Kategori Organisasi (Tunggal vs Hibrid) -->
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">
                                 Kategori Pusat / Cawangan <span class="text-rose-500">*</span>
@@ -414,7 +452,6 @@
                             </div>
                         </div>
 
-                        <!-- Dropdown Pilihan Pusat / Cawangan Tunggal -->
                         <div id="wrapper-organisasi-tunggal">
                             <label for="persembahan-organisasi" class="block text-xs font-bold text-slate-700 mb-1">
                                 Pusat / Cawangan IAB <span class="text-rose-500">*</span>
@@ -429,7 +466,6 @@
                             </select>
                         </div>
 
-                        <!-- Pilihan Bersyarat Kumpulan Hibrid -->
                         <div id="wrapper-organisasi-hybrid" class="hidden space-y-3 bg-purple-50/60 p-4 rounded-2xl border border-purple-100">
                             <div>
                                 <label for="hybrid-bilangan-cawangan" class="block text-xs font-bold text-purple-900 mb-1">
@@ -461,7 +497,6 @@
                             <input type="text" id="persembahan-tajuk" placeholder="Contoh: Sketsa Muzikal Tradisional / Tarian Inang" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none uppercase font-semibold">
                         </div>
 
-                        <!-- ID / PIN Khas Keselamatan Tarik Diri -->
                         <div class="bg-amber-50/70 p-3.5 rounded-2xl border border-amber-200 space-y-1">
                             <label for="persembahan-pin" class="block text-xs font-bold text-amber-900">
                                 <i class="fa-solid fa-key text-amber-600 mr-1"></i> ID / PIN Khas Tarik Diri (Wajib) <span class="text-rose-500">*</span>
@@ -503,7 +538,6 @@
                             </div>
                         </div>
 
-                        <!-- Ruangan Menulis Nama Ahli Dijana Automatik Berdasarkan Bilangan Peserta -->
                         <div class="space-y-2">
                             <label class="block text-xs font-bold text-slate-700">
                                 Nama Lengkap Setiap Ahli Kumpulan <span class="text-rose-500">*</span>
@@ -543,7 +577,6 @@
                         </span>
                     </div>
 
-                    <!-- Bekas Kad Persembahan Masa Nyata (Termasuk butang Tarik Diri) -->
                     <div id="senarai-persembahan-container" class="space-y-3 max-h-[600px] overflow-y-auto pr-1">
                         <!-- Dijana secara dinamik melalui JavaScript -->
                     </div>
@@ -596,7 +629,6 @@
                         </p>
                     </div>
 
-                    <!-- Pemilihan Fasa Penilaian -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <button onclick="pilihFasa(2)" id="fasa-btn-2" class="fasa-btn p-4 rounded-2xl border-2 border-slate-300 bg-white hover:bg-sky-50/50 text-left transition flex flex-col justify-between">
                             <div>
@@ -630,7 +662,6 @@
                         </button>
                     </div>
 
-                    <!-- Mesej Panduan Sebelum Memilih Hari -->
                     <div id="pilih-fasa-placeholder" class="bg-sky-50/60 border-2 border-dashed border-sky-300 rounded-2xl p-8 text-center space-y-3">
                         <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center mx-auto text-xl">
                             <i class="fa-solid fa-hand-pointer animate-bounce"></i>
@@ -641,7 +672,6 @@
                         </p>
                     </div>
 
-                    <!-- Borang Interaktif -->
                     <form id="borang-maklumbalas" onsubmit="hantarMaklumBalas(event)" class="hidden bg-sky-50/40 p-6 rounded-2xl border border-sky-100 space-y-6">
                         
                         <div class="bg-white p-5 rounded-2xl border border-sky-100 shadow-sm space-y-2">
@@ -658,12 +688,10 @@
                             <div id="email-status-message" class="text-xs hidden pt-1"></div>
                         </div>
 
-                        <!-- Bekas Soalan Dinamik Mengikut Fasa -->
                         <div id="soalan-container" class="space-y-6">
                             <!-- Dijana melalui Javascript -->
                         </div>
 
-                        <!-- Ruangan Komen Terbuka: 2 Bahagian Berasingan -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm space-y-2">
                                 <label for="peserta-positif" class="block text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
@@ -682,7 +710,6 @@
                             </div>
                         </div>
 
-                        <!-- Mesej Amaran Soalan Tertinggal -->
                         <div id="unanswered-warning-box" class="hidden bg-rose-50 border border-rose-300 text-rose-800 p-4 rounded-xl text-xs flex items-center gap-2">
                             <i class="fa-solid fa-triangle-exclamation text-rose-500 text-base shrink-0"></i>
                             <span id="unanswered-warning-text">Terdapat soalan yang belum dijawab. Sila lengkapkan soalan yang bertanda kelipan merah sebelum menghantar.</span>
@@ -732,7 +759,6 @@
                     </div>
                 </div>
 
-                <!-- Paparan Pecahan Respons Mengikut Slot -->
                 <div class="bg-sky-50/40 p-5 rounded-2xl border border-sky-100 space-y-3">
                     <div class="flex items-center justify-between">
                         <h4 class="font-bold text-slate-800 text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2">
@@ -770,7 +796,6 @@
                     </select>
                 </div>
 
-                <!-- KAD METRIK SLOT DIPILIH -->
                 <div id="slot-metrics-overview" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="bg-sky-50/60 p-4 rounded-2xl border border-sky-100 flex items-center justify-between">
                         <div>
@@ -801,7 +826,6 @@
                     </div>
                 </div>
 
-                <!-- CARTA BAR MENDATAR ITEM SOALAN EKSKLUSIF -->
                 <div class="bg-white p-6 rounded-2xl border border-sky-100 shadow-sm space-y-4">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                         <div>
@@ -816,13 +840,11 @@
                         </div>
                     </div>
 
-                    <!-- Bekas Bar Item Soalan Dinamik -->
                     <div id="item-bars-container" class="space-y-3.5 pt-1">
                         <!-- Dijana secara dinamik melalui JavaScript -->
                     </div>
                 </div>
 
-                <!-- Paparan Kualitatif Berasingan Tanpa Nama/Emel -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-emerald-50/40 p-6 rounded-2xl border border-emerald-100 space-y-4">
                         <div class="flex items-center justify-between border-b border-emerald-100 pb-3">
@@ -832,7 +854,7 @@
                             <span id="count-maklumbalas-positif" class="text-[11px] font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">0 ulasan</span>
                         </div>
                         <div id="live-positif-container" class="space-y-3 max-h-72 overflow-y-auto pr-1">
-                            <!-- Komen Positif Dinamik (Tanpa Emel/Nama) -->
+                            <!-- Komen Positif Dinamik -->
                         </div>
                     </div>
 
@@ -844,7 +866,7 @@
                             <span id="count-cadangan-penambahbaikan" class="text-[11px] font-semibold text-amber-700 bg-amber-100 px-2.5 py-0.5 rounded-full">0 cadangan</span>
                         </div>
                         <div id="live-cadangan-container" class="space-y-3 max-h-72 overflow-y-auto pr-1">
-                            <!-- Cadangan Dinamik (Tanpa Emel/Nama) -->
+                            <!-- Cadangan Dinamik -->
                         </div>
                     </div>
                 </div>
@@ -891,7 +913,7 @@
         </div>
     </div>
 
-    <!-- MODAL PENGESAHAN TARIK DIRI PERSEMBAHAN DENGAN VERIFIKASI PIN KHAS -->
+    <!-- MODAL PENGESAHAN TARIK DIRI -->
     <div id="modal-tarik-diri" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden border border-rose-100 p-6 space-y-4 text-center">
             <div class="w-14 h-14 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl">
@@ -907,7 +929,6 @@
                 <p><strong class="text-slate-700">Pusat/Cawangan:</strong> <span id="tarik-diri-org" class="text-slate-800 uppercase font-semibold"></span></p>
             </div>
 
-            <!-- Input PIN untuk Tarik Diri -->
             <div class="space-y-1 text-left">
                 <label for="input-tarik-diri-pin" class="block text-xs font-bold text-slate-700">
                     Masukkan PIN Khas Anda:
@@ -939,7 +960,7 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC & SUPABASE -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         const SUPABASE_URL = "https://ftygvhlqejaksjrjdrqw.supabase.co";
         const SUPABASE_KEY = "sb_publishable_wPFi9afiTEYKdP7TO324pQ_TtegMQIt";
@@ -961,6 +982,20 @@
             "IAB Cawangan Sarawak"
         ];
 
+        /* TEKS HEBAHAN CRAWLING BERSIFAT DINAMIK MENGIKUT HARI / SEKSYEN */
+        const tickerNotisHarian = {
+            1: "📢 HARI 1 (2 NOV): Sila lengkapkan Pendaftaran Kehadiran Insyst pada hari ini di tab 'Kehadiran Insyst'. Jamuan makan malam disediakan jam 7:00 malam di Dewan Makan.",
+            2: "📢 HARI 2 (3 NOV): Sila tandatangani borang kehadiran fizikal edaran urus setia di dewan | Tiada sajian minum pagi (rehat 10:30 pagi di foyer) | Penilaian Fasa 1 dibuka di menu 'Penilaian Slot'.",
+            3: "📢 HARI 3 (4 NOV): Sila tandatangani borang kehadiran fizikal | Jam 7:00 - 8:00 malam adalah waktu rehat & persiapan diri | Semua peserta MESTI BERADA di Dewan Makan tepat jam 8:00 malam untuk mengambil tempat bagi Majlis Malam Budaya & Amanat Pengarah.",
+            4: "📢 HARI 4 (5 NOV): Sila tandatangani borang kehadiran hari terakhir | Tiada sajian minum pagi (rehat 10:30 pagi) | Sila lengkapkan Penilaian Fasa 3 sebelum jam 12:00 tengah hari | Majlis Penutupan jam 11:00 pagi di Auditorium Perdana."
+        };
+
+        function setCrawlingNotice(teks) {
+            const el = document.getElementById('crawling-notice-text');
+            if (el) el.textContent = teks;
+        }
+
+        /* JADUAL AKTIVITI DIKEMASKINI SECARA TEPAT */
         const scheduleData = {
             1: {
                 title: "Hari 1: Isnin (2 November 2026)",
@@ -983,7 +1018,7 @@
                         dress: "Pakaian Kemas / Pejabat", 
                         details: [
                             "• Pendaftaran asrama kediaman untuk peserta cawangan",
-                            "• Pendaftaran kehadiran program",
+                            "• Pendaftaran kehadiran program (Sistem Insyst)",
                             "• Pengambilan kunci bilik kediaman peserta"
                         ] 
                     },
@@ -1026,27 +1061,25 @@
                         details: ["• Sesi sarapan pagi di Dewan Makan"] 
                     },
                     { 
-                        time: "8:00 - 8:30 pagi dan 8:30 - 10:30 pagi", 
+                        time: "8:00 - 10:30 pagi", 
                         title: "Aktiviti 1: Taklimat Urus Setia dan Majlis Perasmian Pembukaan", 
                         location: "Auditorium Perdana", 
                         dress: "Pakaian Rasmi", 
                         details: [
-                            "• Taklimat Urus setia",
-                            "• Nyanyian Lagu Negaraku",
-                            "• Nyanyian Lagu IAB",
+                            "• 8:00 - 8:30 pagi: Taklimat Urus Setia & Pengesahan Kehadiran Bertandatangan",
+                            "• 8:30 - 10:30 pagi: Majlis Perasmian Pembukaan",
+                            "• Nyanyian Lagu Negaraku & Lagu IAB",
                             "• Bacaan Doa",
-                            "• Ucapan Alu-aluan",
-                            "• Ucapan Perasmian Pembukaan",
-                            "• Sesi Bergambar",
-                            "• Bersurai"
+                            "• Ucapan Alu-aluan & Ucapan Perasmian Pembukaan",
+                            "• Sesi Bergambar & Bersurai"
                         ] 
                     },
                     { 
                         time: "10:30 - 11:00 pagi", 
-                        title: "Minum Pagi", 
-                        location: "Dewan Makan", 
+                        title: "Rehat", 
+                        location: "Foyer Auditorium Perdana", 
                         dress: "Pakaian Rasmi", 
-                        details: ["• Sesi rehat dan jamuan minum pagi"] 
+                        details: ["• Waktu rehat peserta sebelum slot seterusnya (Tiada sajian minum pagi)"] 
                     },
                     { 
                         time: "11:00 pagi - 1:00 petang", 
@@ -1057,6 +1090,13 @@
                             "• Sesi Suai Kenal",
                             "• Dikendalikan oleh: Encik Kadir bin Ali"
                         ] 
+                    },
+                    { 
+                        time: "1:00 - 2:30 petang", 
+                        title: "Makan Tengah Hari", 
+                        location: "Dewan Makan", 
+                        dress: "Pakaian Rasmi", 
+                        details: ["• Jamuan makan tengah hari di Dewan Makan"] 
                     },
                     { 
                         time: "2:30 - 4:30 petang", 
@@ -1114,12 +1154,13 @@
                         details: ["• Sesi senaman kecergasan fizikal pagi"] 
                     },
                     { 
-                        time: "8:00 - 8:30 pagi dan 8:30 - 10:30 pagi", 
+                        time: "8:00 - 10:30 pagi", 
                         title: "Aktiviti 5: Pembangunan Kerja Sepasukan (Sesi Pagi)", 
                         location: "Hadapan Rumah Puspanita", 
                         dress: "Pakaian Sukan", 
                         details: [
                             "• Latihan dinamika kumpulan dan komunikasi sepasukan",
+                            "• Pengesahan kehadiran harian bertandatangan",
                             "• Aktiviti integrasi dan kerjasama staf"
                         ] 
                     },
@@ -1128,7 +1169,7 @@
                         title: "Minum Pagi", 
                         location: "Dewan Makan", 
                         dress: "Pakaian Sukan", 
-                        details: ["• Sesi minum pagi"] 
+                        details: ["• Sesi minum pagi di Dewan Makan"] 
                     },
                     { 
                         time: "11:00 pagi - 1:00 petang dan 2:30 - 4:30 petang", 
@@ -1146,25 +1187,29 @@
                     },
                     { 
                         time: "7:00 - 8:00 malam", 
-                        title: "Makan Malam", 
-                        location: "Dewan Makan", 
+                        title: "Rehat dan Pengurusan Kendiri", 
+                        location: "Bilik Kediaman Peserta", 
                         dress: "Pakaian Tradisi Budaya Masing-masing (Malaysia)", 
-                        details: ["• Makan malam sebelum bermulanya Majlis Malam Budaya"] 
+                        details: [
+                            "• Waktu rehat dan pengurusan kendiri",
+                            "• Persediaan peserta mengenakan busana tradisional",
+                            "• Peserta bergerak ke Dewan Makan sebelum jam 8:00 malam"
+                        ] 
                     },
                     { 
-                        time: "8:30 - 10:30 malam", 
+                        time: "8:00 - 10:30 malam", 
                         title: "Aktiviti 6: Malam Budaya dan Amanat Kepemimpinan oleh Pengarah", 
                         location: "Dewan Makan", 
                         dress: "Tradisi Budaya Masing-masing (Malaysia)", 
                         details: [
-                            "• Nyanyian Lagu Negaraku",
-                            "• Nyanyian Lagu IAB",
+                            "• 8:00 malam: Semua peserta MESTI BERADA di Dewan Makan untuk mengambil tempat duduk",
+                            "• Ketibaan Tetamu Kehormat dan Pengarah IAB",
+                            "• Nyanyian Lagu Negaraku & Lagu IAB",
                             "• Bacaan Doa",
-                            "• Ucapan Alu-aluan",
-                            "• Ucapan Amanat Pengarah",
-                            "• Persembahan Kebudayaan Staf",
-                            "• Sesi Bergambar",
-                            "• Bersurai"
+                            "• Ucapan Alu-aluan Pengerusi",
+                            "• Amanat Kepemimpinan oleh Pengarah IAB",
+                            "• Persembahan Kebudayaan Staf & Jamuan Santapan",
+                            "• Sesi Bergambar & Bersurai"
                         ] 
                     }
                 ]
@@ -1192,21 +1237,25 @@
                         details: ["• Sesi sarapan pagi di Dewan Makan"] 
                     },
                     { 
-                        time: "8:00 - 8:30 pagi dan 8:30 - 10:30 pagi", 
+                        time: "8:00 - 10:30 pagi", 
                         title: "Aktiviti 7: Ceramah \"Organizational Behavior\" (Tingkah Laku Organisasi)", 
                         location: "Auditorium Perdana", 
                         dress: "Pakaian Rasmi", 
                         details: [
                             "• Ceramah budaya korporat dan tingkah laku organisasi berkualiti",
+                            "• Pengesahan borang kehadiran harian bertandatangan",
                             "• Penceramah: Encik Ahmad Sabri bin Mohamad"
                         ] 
                     },
                     { 
                         time: "10:30 - 11:00 pagi", 
-                        title: "Minum Pagi", 
-                        location: "Dewan Makan", 
+                        title: "Rehat", 
+                        location: "Foyer Auditorium Perdana", 
                         dress: "Pakaian Rasmi", 
-                        details: ["• Sesi rehat minum pagi"] 
+                        details: [
+                            "• Waktu rehat peserta sebelum majlis penutupan bermula (Tiada sajian minum pagi)",
+                            "• Sila lengkapkan instrumen Penilaian Fasa 3 sebelum jam 12:00 tengah hari"
+                        ] 
                     },
                     { 
                         time: "11:00 pagi - 1:00 petang", 
@@ -1229,7 +1278,7 @@
                         location: "Institut Aminuddin Baki, Bandar Enstek", 
                         dress: "Pakaian Pejabat / Kemas", 
                         details: [
-                            "• Jamuan makan tengah hari",
+                            "• Jamuan makan tengah hari di Dewan Makan",
                             "• Daftar keluar asrama kediaman",
                             "• Perjalanan pulang peserta ke destinasi masing-masing"
                         ] 
@@ -1418,7 +1467,6 @@
             }
         };
 
-        // Pembolehubah Global
         let submissionsDB = [];
         let persembahanDB = [];
         let fasaSemasa = null;
@@ -1637,7 +1685,6 @@
                             <i class="fa-solid fa-circle-check text-[9px] mr-1"></i> Giliran #${index + 1}
                         </span>
                         
-                        <!-- BUTANG TARIK DIRI DENGAN KESELAMATAN PIN -->
                         <button type="button" onclick="bukaModalTarikDiri('${itemRefId}')" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold rounded-lg text-[10px] transition flex items-center gap-1 cursor-pointer shadow-2xs">
                             <i class="fa-solid fa-lock text-[9px]"></i> Tarik Diri
                         </button>
@@ -1685,7 +1732,6 @@
                 return;
             }
 
-            // Semakan PIN Khas Keselamatan
             if (itemTarikDiriSasaran.pin_keselamatan && itemTarikDiriSasaran.pin_keselamatan !== pinDimasukkan) {
                 if (errorMsg) {
                     errorMsg.textContent = "PIN tidak sah! Anda tidak dibenarkan menarik diri bagi rekod ini.";
@@ -1701,7 +1747,6 @@
             const itemMemadam = itemTarikDiriSasaran;
             let padamBerjaya = true;
 
-            // Padam dari Supabase sekiranya ada sambungan & ID rekod
             if (supabaseClient && itemMemadam.id) {
                 try {
                     const { error } = await supabaseClient
@@ -1722,7 +1767,6 @@
             }
 
             if (padamBerjaya) {
-                // Kemaskini tatasusunan memori
                 persembahanDB = persembahanDB.filter(p => {
                     if (p.id && itemMemadam.id) {
                         return p.id !== itemMemadam.id;
@@ -1744,7 +1788,6 @@
             const btn = document.getElementById('btn-submit-persembahan');
             const msg = document.getElementById('persembahan-status-msg');
 
-            // 1. Dapatkan Organisasi
             let organisasi = "";
             if (modKategoriSemasa === 'tunggal') {
                 const orgElem = document.getElementById('persembahan-organisasi');
@@ -1767,7 +1810,6 @@
                 organisasi = "HYBRID: " + uniquePusat.join(" + ");
             }
 
-            // 2. Maklumat Borang
             const wakilElement = document.getElementById('persembahan-wakil');
             const tajukElement = document.getElementById('persembahan-tajuk');
             const bilElement = document.getElementById('persembahan-bilangan');
@@ -1783,7 +1825,6 @@
             const teknikal = durasi ? `[${durasi.toUpperCase()}] ${teknikalRaw}` : teknikalRaw;
             const bilangan = bilElement ? parseInt(bilElement.value, 10) : 1;
 
-            // 3. Semak Senarai Nama Ahli daripada kotak automatik
             const inputsAhli = Array.from(document.querySelectorAll('.input-nama-ahli'));
             const senaraiInputAhli = inputsAhli
                 .map(input => input.value.trim().toUpperCase())
@@ -1839,7 +1880,6 @@
                         persembahanDB.push(data[0]);
                     } else if (error) {
                         console.error("Ralat pendaftaran ke Supabase:", error);
-                        // Fallback sekiranya lajur pin_keselamatan belum ditambah di SQL
                         const rekodFallback = {
                             nama_wakil: namaWakil,
                             organisasi: organisasi,
@@ -1900,10 +1940,17 @@
             if (targetSec) targetSec.classList.remove('hidden');
             if (targetTab) targetTab.classList.add('active');
 
-            if (sectionName === 'analisis') {
-                kemaskiniPaparanAnalisis();
+            if (sectionName === 'jadual') {
+                filterDay(1);
+            } else if (sectionName === 'kehadiran') {
+                setCrawlingNotice("📢 KEHADIRAN INSYST: Pendaftaran Insyst ini hanya untuk HARI PERTAMA sahaja. Hari seterusnya sila tandatangan helaian fizikal edaran urus setia.");
+            } else if (sectionName === 'maklumbalas') {
+                setCrawlingNotice("📢 PENILAIAN SLOT: Sila lengkapkan instrumen penilaian mengikut fasa harian. Penilaian Fasa 3 wajib dihantar sebelum jam 12:00 tengah hari 5 Nov.");
             } else if (sectionName === 'malam-budaya') {
+                setCrawlingNotice("📢 MALAM BUDAYA: 4 November jam 8:00 malam di Dewan Makan. Semua peserta wajib berpakaian tradisional & mengambil tempat duduk seawal 8:00 malam.");
                 muatDataPersembahan();
+            } else if (sectionName === 'analisis') {
+                kemaskiniPaparanAnalisis();
             }
         }
 
@@ -1916,6 +1963,11 @@
                 } else {
                     btn.className = "tab-btn bg-slate-50 text-slate-700 hover:bg-sky-50 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-slate-200";
                 }
+            }
+
+            // Kemaskini teks notis bergerak mengikut hari yang ditekan
+            if (tickerNotisHarian[dayNumber]) {
+                setCrawlingNotice(tickerNotisHarian[dayNumber]);
             }
 
             const currentData = scheduleData[dayNumber];
