@@ -981,8 +981,8 @@
         /* TEKS HEBAHAN CRAWLING BERSIFAT DINAMIK MENGIKUT HARI / SEKSYEN */
         const tickerNotisHarian = {
             1: "📢 HARI 1 (2 NOV): Sila lengkapkan Pendaftaran Kehadiran Insyst pada hari ini di tab 'Kehadiran Insyst'. Jamuan makan malam disediakan jam 7:00 malam di Dewan Makan.",
-            2: "📢 HARI 2 (3 NOV): Sila tandatangani borang kehadiran fizikal edaran urus setia di dewan | Tiada sajian minum pagi (rehat 10:30 pagi di foyer) | Penilaian Fasa 1 dibuka di menu 'Penilaian Slot'.",
-            3: "📢 HARI 3 (4 NOV): Sila tandatangani borang kehadiran fizikal | Jam 7:00 - 8:00 malam adalah waktu rehat & persiapan diri | Semua peserta MESTI BERADA di Dewan Makan tepat jam 8:00 malam untuk mengambil tempat bagi Majlis Malam Budaya & Amanat Pengarah.",
+            2: "📢 HARI 2 (3 NOV): Sila tandatangani borang kehadiran fizikal edaran urus setia di dewan | Tiada sajian minum pagi (rehat 10:30 pagi di foyer) | Aktiviti 4 (Malam): Latihan persembahan bertempat di Persekitaran Inapan dan Dewan Makan sahaja | Penilaian Fasa 1 dibuka di menu 'Penilaian Slot'.",
+            3: "📢 HARI 3 (4 NOV): Senamrobik bermula jam 8:00 pagi di Hadapan Puspanita | Sila tandatangani borang kehadiran fizikal | Jam 7:00 - 8:00 malam adalah waktu rehat & persiapan diri | Semua peserta MESTI BERADA di Dewan Makan tepat jam 8:00 malam untuk mengambil tempat bagi Majlis Malam Budaya & Amanat Pengarah.",
             4: "📢 HARI 4 (5 NOV): Sila tandatangani borang kehadiran hari terakhir | Tiada sajian minum pagi (rehat 10:30 pagi) | Sila lengkapkan Penilaian Fasa 3 sebelum jam 12:00 tengah hari | Majlis Penutupan jam 11:00 pagi di Auditorium Perdana."
         };
 
@@ -992,7 +992,8 @@
         }
 
         /* JADUAL AKTIVITI DIKEMASKINI:
-           - Hari 2 Aktiviti 4: Lokasi dan butiran diperluas ke sekitar inapan / dewan makan / auditorium
+           - Hari 2 Aktiviti 4: Lokasi ialah 'Persekitaran Inapan dan Dewan Makan' sahaja
+           - Hari 3 Senamrobik: Waktu bermula jam 8:00 - 8:30 pagi, lokasi kekal 'Hadapan Rumah Puspanita'
         */
         const scheduleData = {
             1: {
@@ -1123,11 +1124,11 @@
                     { 
                         time: "8:30 - 10:30 malam", 
                         title: "Aktiviti 4: Persediaan Kendiri Persembahan Malam Budaya IAB", 
-                        location: "Auditorium Perdana / Dewan Makan / Sekitar Inapan", 
+                        location: "Persekitaran Inapan dan Dewan Makan", 
                         dress: "Smart Casual", 
                         details: [
                             "• Sesi perbincangan dan latihan mengikut cawangan / kumpulan masing-masing",
-                            "• Lokasi latihan terbuka di sekitar Auditorium Perdana, Dewan Makan, atau foyer inapan",
+                            "• Lokasi latihan tertumpu di Persekitaran Inapan dan Dewan Makan sahaja",
                             "• Sila lengkapkan pendaftaran persembahan kumpulan di menu 'Malam Budaya'"
                         ] 
                     }
@@ -1150,13 +1151,20 @@
                     },
                     { 
                         time: "6:30 - 7:30 pagi", 
+                        title: "Sarapan", 
+                        location: "Dewan Makan", 
+                        dress: "Pakaian Sukan", 
+                        details: ["• Sesi sarapan pagi peserta di Dewan Makan"] 
+                    },
+                    { 
+                        time: "8:00 - 8:30 pagi", 
                         title: "Senamrobik", 
                         location: "Hadapan Rumah Puspanita", 
                         dress: "Pakaian Sukan", 
-                        details: ["• Sesi senaman kecergasan fizikal pagi"] 
+                        details: ["• Sesi senaman kecergasan fizikal pagi bermula jam 8:00 pagi"] 
                     },
                     { 
-                        time: "8:00 - 10:30 pagi", 
+                        time: "8:30 - 10:30 pagi", 
                         title: "Aktiviti 5: Pembangunan Kerja Sepasukan (Sesi Pagi)", 
                         location: "Hadapan Rumah Puspanita", 
                         dress: "Pakaian Sukan", 
