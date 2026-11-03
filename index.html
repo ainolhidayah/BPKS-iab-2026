@@ -142,7 +142,7 @@
         </div>
         <div class="overflow-hidden w-full py-2">
             <div id="crawling-notice-text" class="animate-marquee-track text-xs sm:text-sm font-bold text-slate-950 cursor-pointer">
-                <!-- Dijana secara dinamik mengikut hari / konteks semasa -->
+                <!-- Dijana secara dinamik mengikut hari / seksyen -->
             </div>
         </div>
     </div>
@@ -248,7 +248,6 @@
                         </p>
                     </div>
 
-                    <!-- NOTA PENJELASAN KEHADIRAN (INSYST VS FIZIKAL) -->
                     <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-900 text-left space-y-1.5 max-w-xl mx-auto shadow-2xs">
                         <p class="font-bold flex items-center gap-1.5">
                             <i class="fa-solid fa-circle-info text-amber-600"></i> Peringatan Tatacara Rekod Kehadiran:
@@ -425,7 +424,6 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                <!-- Borang Pendaftaran Kumpulan Persembahan (5 Kolum) -->
                 <div class="lg:col-span-5 bg-white p-6 rounded-3xl border border-purple-100 shadow-sm space-y-4">
                     <div class="border-b border-purple-50 pb-3">
                         <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
@@ -563,7 +561,6 @@
                     </form>
                 </div>
 
-                <!-- Papan Pemuka Live Susunan Giliran Persembahan (7 Kolum) -->
                 <div class="lg:col-span-7 bg-purple-50/50 p-6 rounded-3xl border border-purple-100 shadow-sm space-y-4">
                     <div class="flex items-center justify-between border-b border-purple-200/60 pb-3">
                         <div>
@@ -774,7 +771,6 @@
                     </div>
                 </div>
 
-                <!-- PENAPIS SLOT EKSKLUSIF (INTERACTIVE SLOT SELECTOR) -->
                 <div class="bg-white p-5 rounded-2xl border border-sky-200 shadow-sm space-y-3">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <label for="analisis-slot-select" class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
@@ -995,7 +991,9 @@
             if (el) el.textContent = teks;
         }
 
-        /* JADUAL AKTIVITI DIKEMASKINI SECARA TEPAT */
+        /* JADUAL AKTIVITI DIKEMASKINI:
+           - Hari 2 Aktiviti 4: Lokasi dan butiran diperluas ke sekitar inapan / dewan makan / auditorium
+        */
         const scheduleData = {
             1: {
                 title: "Hari 1: Isnin (2 November 2026)",
@@ -1125,9 +1123,13 @@
                     { 
                         time: "8:30 - 10:30 malam", 
                         title: "Aktiviti 4: Persediaan Kendiri Persembahan Malam Budaya IAB", 
-                        location: "Sekitar Inapan / Dewan Makan", 
+                        location: "Auditorium Perdana / Dewan Makan / Sekitar Inapan", 
                         dress: "Smart Casual", 
-                        details: ["• Latihan dan persediaan persembahan kumpulan bagi Malam Budaya IAB"] 
+                        details: [
+                            "• Sesi perbincangan dan latihan mengikut cawangan / kumpulan masing-masing",
+                            "• Lokasi latihan terbuka di sekitar Auditorium Perdana, Dewan Makan, atau foyer inapan",
+                            "• Sila lengkapkan pendaftaran persembahan kumpulan di menu 'Malam Budaya'"
+                        ] 
                     }
                 ]
             },
@@ -1965,7 +1967,6 @@
                 }
             }
 
-            // Kemaskini teks notis bergerak mengikut hari yang ditekan
             if (tickerNotisHarian[dayNumber]) {
                 setCrawlingNotice(tickerNotisHarian[dayNumber]);
             }
